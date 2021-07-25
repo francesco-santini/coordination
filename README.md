@@ -1,1 +1,1 @@
-journal extension (festschrift Catuscia Palamidessi)
+Sopostato qui il branch che era in polyadic_journal
