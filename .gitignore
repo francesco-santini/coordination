@@ -287,3 +287,5 @@ catuscia-0.pdf catuscia-4.pdf catuscia-camera-ready.pdf catuscia-0.log catuscia-
 polyadic.log
 polyadic.pdf
 polyadic.synctex.gz
+*.log
+*.pdf
