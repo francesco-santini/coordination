@@ -1528,11 +1528,6 @@ DA FINIRE. MA E' UN BORDELLO.
 E FORSE $\rho_0$ E' LA SCELTA GIUSTA
 \end{remark}
 
-Let $\gamma = \langle A, \sigma \rangle$ be a configuration.
-%
-We denote by $fv(\gamma)$ the set $fv(A) \cup sv(\sigma)$ and by
-$\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
-
 \section{Saturated Bisimulation}\label{sec:saturated}
 As proposed in \cite{pippo} for crisp languages, we define a barbed equivalence between two agents~\cite{barbed}.  
 %
@@ -1544,7 +1539,9 @@ Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$
 and we say that $\langle A, \sigma \rangle$ verifies $c$, or that $\langle A, \sigma \rangle \downarrow_c$ holds, if  $\sigma \leq c$.
 \end{definition}
 
-However, since \emph{barbed bisimilarity} is an equivalence already for CCP, along~\cite{pippo}
+In other terms, $\hbox{\ask}(c)$ must be enabled in $\langle A, \sigma \rangle$.
+%
+Since \emph{barbed bisimilarity} is an equivalence already for CCP, along~\cite{pippo}
 we propose the use of \emph{saturated bisimilarity}
 %~\cite{barbedMontanari} has been proposed 
 in order to obtain a congruence:
@@ -1560,19 +1557,19 @@ Definition~\ref{def:strongsb} and Definition~\ref{def:weaksb} respectively provi
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
-\item if $\langle A, \sigma \rangle \longrightarrow \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \longrightarrow \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
+\item if $\langle A, \sigma \rangle \mapsto \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \mapsto \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
 \item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d \in \mathcal{C}$.
 \end{enumerate}
-We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \bot\rangle \sim_{\mathit{s}} \langle B, \bot \rangle$.
+We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
 \end{definition}
 
-We now let $\longrightarrow^*$ denote the reflexive and transitive closure of $\longrightarrow$, restricted to increasing computations.
+We now let $\mapsto^*$ denote the reflexive and transitive closure of $\mapsto$, restricted to increasing computations.
 
 \begin{definition} [Weak barbs]
 Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$.
 We say that $\langle A, \sigma \rangle$ weakly verifies $c$, or that $\langle A, \sigma \rangle \Downarrow_c$ holds, 
 if  there exists $\gamma' = \langle B, \rho \rangle$ such that 
-$\gamma \longrightarrow^* \gamma'$ and $c \leq \exists_{X} \rho$ for $X = fv(\gamma') \setminus fv(\gamma)$.
+$\gamma \mapsto^* \gamma'$ and $\rho \leq c$.
 \end{definition}
 
 \begin{definition}[Weak saturated bisimilarity]\label{def:weaksb} A weak saturated bisimulation is a symmetric relation $R$ on configurations such that whenever
@@ -1581,22 +1578,23 @@ $\gamma \longrightarrow^* \gamma'$ and $c \leq \exists_{X} \rho$ for $X = fv(\ga
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \Downarrow_c$;
-\item if $\langle A, \sigma \rangle \longrightarrow \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \longrightarrow^* \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
-\item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d \in \mathcal{C}$.
+\item if $\langle A, \sigma \rangle \mapsto \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \mapsto^* \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
+\item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for all $d \in \mathcal{C}$.
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  weakly saturated bisimilar ($\gamma_1  \approx_{\mathit{s}} \gamma_2$) if there exists a  
 weak saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. 
-We write $A \approx_{\mathit{s}} B$ if $\langle A, \bot\rangle \approx_{\mathit{s}} \langle B, \bot \rangle$.
+We write $A \approx_{\mathit{s}} B$ if $\langle A, \monid \rangle \approx_{\mathit{s}} \langle B, \monid \rangle$.
 \end{definition}
 
 The asymmetry is functional to later sections. However, it is clearly equivalent to the standard symmetric version.
 
 \begin{definition}[Weak saturated bisimilarity, 2]\label{def:weaksb2}
 Weak saturated bisimilarity coincides with the relation 
-obtained from Definition~\ref{def:strongsb} by replacing $\longrightarrow$ with $\longrightarrow^*$ and $\downarrow_c$ with $\Downarrow_c$.
+obtained from Definition~\ref{def:strongsb} by replacing $\mapsto$ with $\mapsto^*$ and $\downarrow_c$ with $\Downarrow_c$.
 \end{definition}
 
-Since $\sim_{\mathit{s}}$ (and $\approx_{\mathit{s}}$) is a saturated bisimulation, it is clearly upward closed and it is also a congruence: indeed, a context can modify the behaviour of a configuration only by adding constraints to its store.
+Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
+and they are also congruences. Indeed, a context can modify the behaviour of a configuration only by adding constraints to its store. CHECK!!!
 %\marginpar{to be proved for $\exists_x-$ (not needed for Prop.3)}
 
 
