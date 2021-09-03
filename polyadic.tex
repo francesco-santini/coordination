@@ -1480,7 +1480,7 @@ Let us discuss in some details axiom {\bf A4}.
 The intuition is that if we reach an agent $\langle \exists^{\rho}_x A,\sigma\rangle$, then during the computation
 $\exists_x \rho$ has been added to the store. In order to evaluate $A$, the chosen store is 
 $\rho \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv \exists_x \rho$, thus removing $\exists_x \rho$ 
-and adding $\rho$, which may carry some information about $x$. Now, $\sigma_1 \odiv (\rho \otimes \sigma _0)$ 
+and adding $\rho$, which may carry information about $x$. Now, $\sigma_1 \odiv (\rho \otimes \sigma _0)$ 
 is precisely the information added by the step originating from $A$, which is then restricted and added to $\sigma$. 
 The effect on the local store is instead cumulative, and it is obtained by $\sigma_1 \odiv \sigma_0$. 
 
@@ -1499,6 +1499,15 @@ Then
 \end{itemize}
 \end{lemma}
  
+\begin{remark}
+Note that the choice for the resulting global store could have been 
+$\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, which has 
+a definitively nicer appearance. Indeed, thanks to Lemma~\ref{mono},
+
+
+
+\end{remark}
+
 \begin{remark}
 Note that another choice for the resulting local store could have been 
 $\rho_0 = \rho \otimes (\sigma_1 \odiv (\rho \otimes \sigma _0))$. 
