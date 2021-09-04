@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.8.26)  19 AUG 2021 16:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.8.26)  4 SEP 2021 17:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1041,13 +1041,8 @@ LaTeX Warning: Reference `propo' on page 5 undefined on input line 1007.
 
 LaTeX Warning: Reference `pomo' on page 7 undefined on input line 1219.
 
-[7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 1519--1526
-
- []
-
-[10]
-Overfull \hbox (2.09518pt too wide) in paragraph at lines 1606--1617
+[7] [8] [9] [10]
+Overfull \hbox (2.09518pt too wide) in paragraph at lines 1654--1665
 \OMS/ztmcm/m/n/10 h\OML/ztmcm/m/it/10 ^^@; \OMS/ztmcm/m/n/10 7!i$ \OT1/ptm/m/it
 /10 such that $\OMS/ztmcm/m/n/10 7!  ^^R   \OML/ztmcm/m/it/10 ^^@ \OMS/ztmcm/m/
 n/10 ^^B \OML/ztmcm/m/it/10 ^^@$ \OT1/ptm/m/it/10 is in-dexed over the cou-ple 
@@ -1055,27 +1050,27 @@ $\OMS/ztmcm/m/n/10 hC\OML/ztmcm/m/it/10 ; \OT1/ztmcm/m/n/10 2[]\OMS/ztmcm/m/n/1
 0 i$\OT1/ptm/m/it/10 , i.e., $\OMS/ztmcm/m/n/10 7!\OT1/ztmcm/m/n/10 = [][] []$
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1722--1723
-
- []
-
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 1729--1731
+[11] [12]
+Underfull \hbox (badness 10000) in paragraph at lines 1770--1771
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1735--1741
+Underfull \hbox (badness 10000) in paragraph at lines 1777--1779
 
  []
 
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 1758--1759
+
+Underfull \hbox (badness 10000) in paragraph at lines 1783--1789
 
  []
 
-(./polyadic.bbl) [13] (./polyadic.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 1806--1807
+
+ []
+
+(./polyadic.bbl [13]) [14] (./polyadic.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -1086,7 +1081,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  18044 strings out of 492616
  357364 string characters out of 6129481
- 408658 words of memory out of 5000000
+ 405658 words of memory out of 5000000
  21544 multiletter control sequences out of 15000+600000
  69700 words of font info for 159 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1103,10 +1098,10 @@ ive/2019/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb></usr/local/texlive/2019
 /fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/tim
 es/utmri8a.pfb>
-Output written on polyadic.pdf (13 pages, 158152 bytes).
+Output written on polyadic.pdf (14 pages, 159833 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 76 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 78 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  109 words of extra memory for PDF output out of 10000 (max. 10000000)
 

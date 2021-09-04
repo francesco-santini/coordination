@@ -1018,7 +1018,7 @@ Let $x \in V$.
 Then it holds
 	\begin{itemize}
          \item $\forall a, b \in A.\ \exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b \leq
-                                               \exists_x(\exists_a \odiv b)$.
+                                               \exists_x(\exists_x a \odiv b)$.
 	\end{itemize}
 \end{lemma}
 
@@ -1424,8 +1424,8 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
     \mbox{\bf A4}& $\frac {\displaystyle \langle A, \rho \otimes \sigma_0 \rangle
     \mapsto \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv \exists_x \rho }
     {\displaystyle\langle \exists^{\rho}_x A,\sigma\rangle \mapsto \langle 
-    \exists^{\sigma_1 \odiv \sigma_0}_x B, \sigma \otimes \exists_x(\sigma_1 \odiv (\rho \otimes \sigma _0)) 
-    \rangle} \text{ for } x \not \in sv(\sigma)$
+    \exists^{\rho \otimes \rho_0}_x B, \sigma \otimes \exists_x \rho_0
+    \rangle \text{ with } \rho_0 = \sigma_1 \odiv (\rho \otimes \sigma _0)} \text{ for } x \not \in sv(\sigma)$
     &\bf{Hide}&
   \end{tabular}
   \end{center}
@@ -1476,13 +1476,14 @@ Axiom {\bf A3} replaces a procedure identifier with the associated body, renamin
 %$fv(B) \cup sv(\rho) \subseteq \Delta$.\footnote{Our rule is  reminiscent of 
 %$(8)$ in~\cite[p.~342]{popl91}.}
 
-Let us discuss in some details axiom {\bf A4}.
+Let us discuss instead in some details the more complex axiom {\bf A4}.
 The intuition is that if we reach an agent $\langle \exists^{\rho}_x A,\sigma\rangle$, then during the computation
-$\exists_x \rho$ has been added to the store. In order to evaluate $A$, the chosen store is 
+at least $\exists_x \rho$ has been added to the global store by the local agent. In order to evaluate $A$, the chosen 
+store is 
 $\rho \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv \exists_x \rho$, thus removing $\exists_x \rho$ 
-and adding $\rho$, which may carry information about $x$. Now, $\sigma_1 \odiv (\rho \otimes \sigma _0)$ 
+and adding $\rho$, which may carry information about $x$. Now, $\rho_0 = \sigma_1 \odiv (\rho \otimes \sigma _0)$ 
 is precisely the information added by the step originating from $A$, which is then restricted and added to $\sigma$. 
-The effect on the local store is instead cumulative, and it is obtained by $\sigma_1 \odiv \sigma_0$. 
+The same effect on the local store is instead cumulative, and it is obtained by $\rho \otimes \rho_0$. 
 
 Let $\gamma = \langle A, \sigma \rangle$ be a configuration.
 %
@@ -1499,42 +1500,80 @@ Then
 \end{itemize}
 \end{lemma}
  
-\begin{remark}
-Note that the choice for the resulting global store could have been 
-$\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, which has 
-a definitively nicer appearance. Indeed, thanks to Lemma~\ref{mono},
-
-
-
-\end{remark}
+Note that item $1$ implies that $\sigma' = (\sigma' \odiv \sigma) \otimes \sigma$.
 
 \begin{remark}
-Note that another choice for the resulting local store could have been 
-$\rho_0 = \rho \otimes (\sigma_1 \odiv (\rho \otimes \sigma _0))$. 
-However, note that $\rho_0 \leq \sigma_1 \odiv \sigma_0$, and it is a more faithful 
-description of the effect of the steps of the computation on the local store. 
-
-Indeed, let us consider the agent $A = \hbox{\tell}(c) \parallel \hbox{\tell}(d)$ and the 
-configuration $\langle \exists^\monid A, \sigma \rangle$.
-Assuming that $c$ is added to the store, with both choices we end up with the reduction
-$\langle \exists^\monid A, \sigma \rangle \mapsto \langle \exists^{\rho'} A, \sigma' \rangle$
-such that $\sigma' = \sigma \otimes \exists_x ((c \otimes \sigma) \odiv \sigma)) = \sigma \otimes \exists_x c$, 
-since $x \not \in sv(\sigma)$ and $a \otimes ((a \otimes b) \odiv a) = a \otimes b$, and
-$\rho' = (c \otimes \sigma) \odiv \sigma$, since the initial local store is $\monid$.
+The choice for the resulting local and global store could have been 
+$\sigma_1 \odiv \sigma _0$ and $\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
+respectively. 
+Indeed, these expressions have a nicer appearance,
+%Indeed, thanks to Lemma~\ref{mono},
+%we know that $\sigma_1 = \sigma_0 \otimes (\sigma_1 \odiv \sigma_0)$. Now,
+%since it holds that $c \otimes ((c \otimes d) \odiv c) = c \otimes d$,
+%we have 
+%$$\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0) = 
+%\exists (\sigma_0 \otimes (\sigma_1 \odiv \sigma _0)) = 
+%\sigma_0 \otimes \exists_x (\sigma_1 \odiv \sigma_0)$$.
 %
-Note that in general $c \leq \rho'$, yet let us assume that for simplicity the equality hold, e.g. because we are in 
-an invertible semiring and $c \leq 1$.
+and $\sigma_1 \odiv \sigma_0$ seems to better represent the cumulative effect of the
+changes of the local store.
+However, this is a misleading impression, since the composition of the single updates
+has to take into account the existential quantifications.
+%In fact, the last local update corresponds in our choice to
+%$\sigma_1 \odiv (\rho \otimes \sigma _0)$.
 
-Now, we need to evaluate $\hbox{\tell}(d)$ in $c \otimes \sigma_0$, with 
-$\sigma_0 = ((\sigma \otimes \exists_x c) \odiv \exists_x c)$, resulting in $d \otimes c \otimes \sigma_0$.
+Let us consider constraints $c$ and $d$ such that $\exists_x c = \exists_x d = \monid$ and $c \otimes d = \bot$.
+As far as our running example is concerned, it might be that $c = x \leq 1$ and $d = x \geq 5$. 
+Now, let $A$ be the agent $\hbox{\tell}(c) \parallel \hbox{\tell}(d)$ and $\gamma$ the configuration 
+$\langle \exists_x^\monid A, \monid \rangle$.
+Assuming that $c$ is added to the store, with both choices we end up with the reduction$\gamma \rightarrow \langle \exists_x^c \hbox{\tell}(d), \monid \rangle$.
+Now note that $(d \otimes c) \odiv \monid = c \otimes ((d \otimes c) \odiv (c \otimes \monid)) = d \otimes c = \bot$, hence
+the choice of the definition for the local store is immaterial. 
+With the alternative definition for the global store, we would then reach 
+ $\langle \exists_x^c \hbox{\tell}(d), \monid \rangle \rightarrow \langle \exists_x^{\bot} \hbox{\ostop}, \bot \rangle$,
+ %since $\sigma_1 \odiv \sigma_0 = \bot \odiv \monid = \bot$,  
+ thus lifting to the global store the unsatisfiability of the local one.
+ Instead, with our choice we obtain 
+ $\langle \exists_x^c \hbox{\tell}(d), \monid \rangle \rightarrow \langle \exists_x^{\bot} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
+% since $\sigma \otimes \exists_x(\sigma_1 \odiv (\rho \otimes \sigma _0)) 
+%= \monid \otimes \exists_x ( \bot \odiv (c \otimes \monid))$.
+Now, obviously $\bot \leq \bot \odiv c$: the equality may hold if e.g. the semiring does not have zero divisors, 
+but going back to our running example, with $c = x \leq 1$ we have $\bot \odiv c = \emptyset \odiv x \leq 1 = x > 1$
+and thus $\exists_x (\bot \odiv c) = \monid$.
+
+Let us now consider the alternative choice for the local store. First of all, note that under Lemma~\ref{mono}
+we have that $\rho \otimes (\sigma_1 \odiv (\rho \otimes \sigma _0)) \leq \sigma_1 \odiv \sigma_0$:
+the smaller term represents a better approximation of the intuitive local store.
 %
-Going back to the configuration 
-$\langle \exists_x^c \hbox{\tell}(d), \sigma \otimes \exists_x c\rangle$, it evolves to a global store
-$\sigma \otimes \exists_x c \otimes \exists_x ((d \otimes c \otimes \sigma_0) \odiv (c \otimes \sigma_0))$
-\\
-
-DA FINIRE. MA E' UN BORDELLO.
-E FORSE $\rho_0$ E' LA SCELTA GIUSTA
+Indeed, let us consider again the agent $A = \hbox{\tell}(c) \parallel \hbox{\tell}(d)$ 
+with no hypothesis %$\exists_x c = \exists_x d = \monid$ 
+and the 
+configuration $\langle \exists^\monid A, \sigma \rangle$. After both commands are fired, the
+local store should intuitively be (the best approximation of)  $c \otimes d$.
+Assuming that $c$ is added to the store, with both choices of the definition for the local store we end up with the reduction
+$\langle \exists^\monid A, \sigma \rangle \mapsto \langle \exists^{\rho'} \hbox{\tell}(d), \sigma' \rangle$
+such that $\rho' = (c \otimes \sigma) \odiv \sigma$, since the initial local store is $\monid$,
+and $\sigma' = \sigma \otimes \exists_x ((c \otimes \sigma) \odiv \sigma)) = \sigma \otimes \exists_x c$, 
+since $x \not \in sv(\sigma)$. %and $a \otimes ((a \otimes b) \odiv a) = a \otimes b$, 
+%
+%Note that in general $c \leq \rho'$, yet let us assume that for simplicity the equality hold, e.g. because we are in 
+%an invertible semiring and $c \leq 1$.
+%
+Now, we need to evaluate 
+%$\hbox{\tell}(d)$ in $\rho' \otimes (\sigma' \odiv \rho')$, obtaining 
+%$d \otimes \rho' \otimes (\sigma' \odiv \rho')$.
+%
+% with 
+%$\sigma'' = ((\sigma \otimes \exists_x c) \odiv \exists_x c)$, resulting in $d \otimes \rho' \otimes \sigma''$.
+%
+%Going back to 
+the configuration 
+$\langle \exists_x^{\rho'} \hbox{\tell}(d), \sigma'\rangle$, which we already argued must evolve to a global store
+$\sigma \otimes \exists_x c \otimes \exists_x ((d \otimes \rho' \otimes \sigma'') \odiv (\rho' \otimes \sigma''))$
+for $\sigma'' =  \sigma' \odiv \exists_x \rho'$. Now we have that
+$c \otimes d \leq \rho' \otimes ((d \otimes \rho' \otimes \sigma'') \odiv (\rho' \otimes \sigma''))
+\leq (d \otimes \rho' \otimes \sigma'') \odiv \sigma''$, 
+hence confirming our choice of the definition for the local store.
 \end{remark}
 
 \section{Saturated Bisimulation}\label{sec:saturated}
