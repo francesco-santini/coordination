@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.8.26)  4 SEP 2021 17:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.8.26)  6 SEP 2021 22:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1042,7 +1042,7 @@ LaTeX Warning: Reference `propo' on page 5 undefined on input line 1007.
 LaTeX Warning: Reference `pomo' on page 7 undefined on input line 1219.
 
 [7] [8] [9] [10]
-Overfull \hbox (2.09518pt too wide) in paragraph at lines 1654--1665
+Overfull \hbox (2.09518pt too wide) in paragraph at lines 1655--1666
 \OMS/ztmcm/m/n/10 h\OML/ztmcm/m/it/10 ^^@; \OMS/ztmcm/m/n/10 7!i$ \OT1/ptm/m/it
 /10 such that $\OMS/ztmcm/m/n/10 7!  ^^R   \OML/ztmcm/m/it/10 ^^@ \OMS/ztmcm/m/
 n/10 ^^B \OML/ztmcm/m/it/10 ^^@$ \OT1/ptm/m/it/10 is in-dexed over the cou-ple 
@@ -1051,22 +1051,22 @@ $\OMS/ztmcm/m/n/10 hC\OML/ztmcm/m/it/10 ; \OT1/ztmcm/m/n/10 2[]\OMS/ztmcm/m/n/1
  []
 
 [11] [12]
-Underfull \hbox (badness 10000) in paragraph at lines 1770--1771
+Underfull \hbox (badness 10000) in paragraph at lines 1771--1772
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1777--1779
+Underfull \hbox (badness 10000) in paragraph at lines 1778--1780
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1783--1789
+Underfull \hbox (badness 10000) in paragraph at lines 1784--1790
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1806--1807
+Underfull \hbox (badness 10000) in paragraph at lines 1807--1808
 
  []
 
@@ -1079,10 +1079,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 18044 strings out of 492616
- 357364 string characters out of 6129481
- 405658 words of memory out of 5000000
- 21544 multiletter control sequences out of 15000+600000
+ 18045 strings out of 492616
+ 357371 string characters out of 6129481
+ 405668 words of memory out of 5000000
+ 21545 multiletter control sequences out of 15000+600000
  69700 words of font info for 159 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,27n,84p,482b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1098,7 +1098,7 @@ ive/2019/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb></usr/local/texlive/2019
 /fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/typ
 e1/urw/times/utmr8a.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/urw/tim
 es/utmri8a.pfb>
-Output written on polyadic.pdf (14 pages, 160327 bytes).
+Output written on polyadic.pdf (14 pages, 160402 bytes).
 PDF statistics:
  122 PDF objects out of 1000 (max. 8388607)
  78 compressed objects within 1 object stream

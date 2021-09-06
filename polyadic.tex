@@ -1495,12 +1495,13 @@ $\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
 Let $\langle A, \sigma \rangle \rightarrow \langle B, \sigma' \rangle$ be a reduction. 
 Then 
 \begin{itemize}
-\item $\exists \sigma''.\ \sigma' = \sigma \otimes \sigma''$
+\item $\sigma' = (\sigma' \odiv \sigma) \otimes \sigma$
 \item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle$
 \end{itemize}
 \end{lemma}
  
-Note that item $1$ implies that $\sigma' = (\sigma' \odiv \sigma) \otimes \sigma$.
+Note that item $1$ is derived by the weaker statement $\exists \sigma''.\ \sigma' = \sigma \otimes \sigma''$,
+whose proof is immediate, and the properties of the residuation operator.
 
 \begin{remark}
 The choice for the resulting local and global store could have been 
