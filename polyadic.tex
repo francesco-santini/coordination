@@ -7,11 +7,8 @@
 \usepackage{tikz-cd}
 \usetikzlibrary{trees, arrows}
 \usepackage{xspace}
-%\usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{tikz}
-%\usepackage{algorithm}
-%\usepackage{algpseudocode}
 \usepackage{textcomp}
 \usepackage{soul}
 \usepackage{listings}
@@ -21,8 +18,6 @@
 % To disable notes without deleting them
 %\usepackage[disable]{todonotes}
 
-%\floatstyle{plain}
-%\newfloat{myalgo}{tbhp}{mya}
 
 \newenvironment{Algorithm}[2][tbh]%
 {\begin{myalgo}[#1]
@@ -32,13 +27,7 @@
 			{\end{algorithm}
 		\end{minipage}
 	\end{myalgo}}
-% to cut ------------------------------------------------------
-%\usepackage{paralist}
-%\usepackage[small]{caption}
-%\usepackage{textcomp}
-%\usepackage{times}
-%\addtolength{\floatsep}{-5mm} \addtolength{\textfloatsep}{-5mm}
-% -------------------------------------------------------------
+
 
 \newtheorem{define}[theorem]{Definition}
 
@@ -76,7 +65,7 @@
 \def\K{{\mathcal K}}
 \long\def\comment#1{}
 \def\monop{\otimes}
-\def\odiv{\, {\ominus\hspace{-7.7pt} \div} \,}
+\def\odiv{\, {\ominus\hspace{-7.8pt} \div} \,}
 \def\monid{\mathbf{1}}
 
 \newcommand{\SCCP}{\texttt{SCCP}\xspace}
@@ -441,9 +430,9 @@ Note that if a RePO is localised then $\forall a \in A. a \odiv a = \monid$.
 %\end{remark}
 
 \begin{remark}\label{rmk:soft}
-	Some well-known structures used for soft constraints are the 
+	Some well-known and often used instances of soft constraints are the 
 	%\emph{Boolean} ($\langle \{\mathit{false},\mathit{true}\}, \mathit{false} \leq \mathit{true}, \wedge, \mathit{false}, \mathit{true}\rangle$), 
-	\emph{Fuzzy} ($\langle [0,1], \leq,$ $\min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], \leq,\allowbreak\times, 1 \rangle$), 
+	\emph{Fuzzy} ($\langle [0,1], \leq, \min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], \leq, \times, 1 \rangle$), 
 	and \emph{Tropical}   ($\langle \mathbb{R}^+, \geq, +, 0 \rangle$) semirings, for $\geq$ the inverse of the standard order 
 	(thus $0$ the top of the SL). In all these cases the underlying monoids 
 	are both invertible and localised, thus
@@ -867,8 +856,7 @@ partial orders: see e.g.~\cite[Definition 11]{jlamp17}.}
 Our first step is the introduction of a technical notion that allows for 
 factorising the common properties in the definition of the two families of operators.
 
-\begin{definition}[pomonoid action]
-\label{pomo}
+\begin{definition}[pomonoid action]\label{def:pomo}
 Let $\mathbb{M} = \langle A, \leq, \monop, \monid \rangle$ be a partially ordered monoid and $\mathbb{P} = \langle S, \leq \rangle$ a partial order.
 A pomonoid action of $\mathbb{M}$ on $\mathbb{P}$ is a function $\phi: A \times S \rightarrow S$ such that
 	\begin{itemize}
@@ -1001,11 +989,8 @@ Since by definition we have $\exists (Y \setminus sv(a), a)) = a$, the result fo
 
 \subsection{Cylindric and Polyadic Operators for Residuated Monoids}
 \label{cyre}
-Both algebraic structures introduced in the previous section are quite standard,
-even if polyadic operators are less-known in the soft-constraints literature:
-we tailored their presentation to our needs, and indeed the properties
-presented in Section~\ref{propo} appear to be original. It is now time to consider 
-the interaction of such structures with residuation. 
+In this section we define 
+the interaction of polyadic structures  with residuation. 
 %
 To this end, in the following we assume that 
 $\mathbb{S}$ is a RePO (see Definition~\ref{def:repo}).
@@ -1216,7 +1201,7 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 %
 %Thus $(\exists_X c) \eta$ just boils down to consider the LUB of $\# supp(c) \setminus X$ 
 %sets of $k$-tuples, and t
-The properties of the pomonoid action (see Definition~\ref{pomo})
+The properties of the pomonoid action (see Definition~\ref{def:pomo})
 are easily shown to hold for both operators. 
 %
 As for the cylindric laws (see Definition~\ref{cyli}), first note that the set of functions 
@@ -1238,8 +1223,8 @@ Thus, we have that
 %(\exists_X c) \eta \otimes (\exists_X d) \eta \]
 %%\[ (\exists_X d) \rho = \bigvee \{d \xi \mid \rho\mid_{V \setminus X} = \xi\mid_{V \setminus X}\}\]
 
-[da rivedere]
-Let us now move to the polyadic laws (see Definition~\ref{def:poly}).We just consider the third item, 
+
+Let\todo{da rivedere} us now move to the polyadic laws (see Definition~\ref{def:poly}).We just consider the third item, 
 and we assume that $\sigma \mid_{\sigma^c(X)}$ is injective, thus
 \begin{eqnarray*}
 (\exists_X s_\sigma c) \eta & = &\bigvee_\rho \{(s_\sigma c) \rho \mid \eta\mid_{V \setminus X} = \rho\mid_{V \setminus X}\} = \bigvee_\rho \{c (\rho \circ \sigma) \mid \eta\mid_{V \setminus X} =   \rho\mid_{V \setminus X}\} \\ 
@@ -1643,7 +1628,7 @@ obtained from Definition~\ref{def:strongsb} by replacing $\mapsto$ with $\mapsto
 \end{definition}
 
 Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
-and they are also congruences. Indeed, a context can modify the behaviour of a configuration only by adding constraints to its store. CHECK!!!
+and they are also congruences. Indeed, a context can modify the behaviour of a configuration only by adding constraints to its store. \todo{CHECK!!!}
 %\marginpar{to be proved for $\exists_x-$ (not needed for Prop.3)}
 
 
