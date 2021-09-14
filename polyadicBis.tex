@@ -7,8 +7,11 @@
 \usepackage{tikz-cd}
 \usetikzlibrary{trees, arrows}
 \usepackage{xspace}
+%\usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{tikz}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
 \usepackage{textcomp}
 \usepackage{soul}
 \usepackage{listings}
@@ -18,6 +21,8 @@
 % To disable notes without deleting them
 %\usepackage[disable]{todonotes}
 
+%\floatstyle{plain}
+%\newfloat{myalgo}{tbhp}{mya}
 
 \newenvironment{Algorithm}[2][tbh]%
 {\begin{myalgo}[#1]
@@ -27,7 +32,13 @@
 			{\end{algorithm}
 		\end{minipage}
 	\end{myalgo}}
-
+% to cut ------------------------------------------------------
+%\usepackage{paralist}
+%\usepackage[small]{caption}
+%\usepackage{textcomp}
+%\usepackage{times}
+%\addtolength{\floatsep}{-5mm} \addtolength{\textfloatsep}{-5mm}
+% -------------------------------------------------------------
 
 \newtheorem{define}[theorem]{Definition}
 
@@ -65,7 +76,7 @@
 \def\K{{\mathcal K}}
 \long\def\comment#1{}
 \def\monop{\otimes}
-\def\odiv{\, {\ominus\hspace{-7.8pt} \div} \,}
+\def\odiv{\, {\ominus\hspace{-7.7pt} \div} \,}
 \def\monid{\mathbf{1}}
 
 \newcommand{\SCCP}{\texttt{SCCP}\xspace}
@@ -430,9 +441,9 @@ Note that if a RePO is localised then $\forall a \in A. a \odiv a = \monid$.
 %\end{remark}
 
 \begin{remark}\label{rmk:soft}
-	Some well-known and often used instances of soft constraints are the 
+	Some well-known structures used for soft constraints are the 
 	%\emph{Boolean} ($\langle \{\mathit{false},\mathit{true}\}, \mathit{false} \leq \mathit{true}, \wedge, \mathit{false}, \mathit{true}\rangle$), 
-	\emph{Fuzzy} ($\langle [0,1], \leq, \min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], \leq, \times, 1 \rangle$), 
+	\emph{Fuzzy} ($\langle [0,1], \leq,$ $\min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], \leq,\allowbreak\times, 1 \rangle$), 
 	and \emph{Tropical}   ($\langle \mathbb{R}^+, \geq, +, 0 \rangle$) semirings, for $\geq$ the inverse of the standard order 
 	(thus $0$ the top of the SL). In all these cases the underlying monoids 
 	are both invertible and localised, thus
@@ -856,7 +867,8 @@ partial orders: see e.g.~\cite[Definition 11]{jlamp17}.}
 Our first step is the introduction of a technical notion that allows for 
 factorising the common properties in the definition of the two families of operators.
 
-\begin{definition}[pomonoid action]\label{def:pomo}
+\begin{definition}[pomonoid action]
+\label{pomo}
 Let $\mathbb{M} = \langle A, \leq, \monop, \monid \rangle$ be a partially ordered monoid and $\mathbb{P} = \langle S, \leq \rangle$ a partial order.
 A pomonoid action of $\mathbb{M}$ on $\mathbb{P}$ is a function $\phi: A \times S \rightarrow S$ such that
 	\begin{itemize}
@@ -989,8 +1001,11 @@ Since by definition we have $\exists (Y \setminus sv(a), a)) = a$, the result fo
 
 \subsection{Cylindric and Polyadic Operators for Residuated Monoids}
 \label{cyre}
-In this section we define 
-the interaction of polyadic structures  with residuation. 
+Both algebraic structures introduced in the previous section are quite standard,
+even if polyadic operators are less-known in the soft-constraints literature:
+we tailored their presentation to our needs, and indeed the properties
+presented in Section~\ref{propo} appear to be original. It is now time to consider 
+the interaction of such structures with residuation. 
 %
 To this end, in the following we assume that 
 $\mathbb{S}$ is a RePO (see Definition~\ref{def:repo}).
@@ -1201,7 +1216,7 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 %
 %Thus $(\exists_X c) \eta$ just boils down to consider the LUB of $\# supp(c) \setminus X$ 
 %sets of $k$-tuples, and t
-The properties of the pomonoid action (see Definition~\ref{def:pomo})
+The properties of the pomonoid action (see Definition~\ref{pomo})
 are easily shown to hold for both operators. 
 %
 As for the cylindric laws (see Definition~\ref{cyli}), first note that the set of functions 
@@ -1223,8 +1238,8 @@ Thus, we have that
 %(\exists_X c) \eta \otimes (\exists_X d) \eta \]
 %%\[ (\exists_X d) \rho = \bigvee \{d \xi \mid \rho\mid_{V \setminus X} = \xi\mid_{V \setminus X}\}\]
 
-
-Let\todo{da rivedere} us now move to the polyadic laws (see Definition~\ref{def:poly}).We just consider the third item, 
+[da rivedere]
+Let us now move to the polyadic laws (see Definition~\ref{def:poly}).We just consider the third item, 
 and we assume that $\sigma \mid_{\sigma^c(X)}$ is injective, thus
 \begin{eqnarray*}
 (\exists_X s_\sigma c) \eta & = &\bigvee_\rho \{(s_\sigma c) \rho \mid \eta\mid_{V \setminus X} = \rho\mid_{V \setminus X}\} = \bigvee_\rho \{c (\rho \circ \sigma) \mid \eta\mid_{V \setminus X} =   \rho\mid_{V \setminus X}\} \\ 
@@ -1261,8 +1276,8 @@ To this end, we close the section by adding the simple result below to the soft 
 
 \section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detSCCP}
 This section introduces our (meta-)language.
-We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$ , and 
-an invertible CLIM $\mathbb S = \langle {\mathcal C}, \leq, \otimes\rangle$, which is
+We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
+a CLIM $\mathbb S = \langle {\mathcal C}, \leq, \otimes\rangle$, which is
 polyadic over $V$ and whose elements
 are ranged over by $c$, $d$, $\ldots$.
 
@@ -1271,16 +1286,19 @@ The set $\mathcal{A}$ of agents, %which is
 parametric with respect to a set $\mathcal{P}$ of (unary) procedure declarations $p(x) = A$,
 is given by the following grammar
 \[ A \Coloneqq \: \: \mathit{\ostop} \mid \textit{\tell}(c)  \mid \textit{\ask}(c) \rightarrow A \mid A \parallel A \mid %\exists_x A \mid %Z \mid \mu_Z A 
-p(x) \mid \exists^{\rho}_x A.\]  
+p(x) \mid \exists^{\pi}_x A.\]  
+for $\pi \in {\mathcal C}^\ast$ a sequence of elements.
 \end{definition}
 
-We consider here the extended agent $\exists^{\rho}_x A$, where $\rho$ is meant to represent a local store. More precisely, the extended agent carries some information about the hidden variable $x$ in an incremental way. In the following, we often write $\exists_x A$ for $\exists^{\monid}_x A$.
+We consider here the extended agent $\exists^{\pi}_x A$, where $\pi$ is meant to represent the sequence of updates performed on the local store. More precisely, the extended agent may carry some information about the hidden variable 
+$x$ in an incremental way. In the following, we often write $\exists_x A$ for $\exists^{[ ]}_x A$ and $\pi_i$ for 
+the $i$-th element of $\pi = [ \pi_0, \ldots, \pi_n]$.
 
 We denote by $fv(A)$ the set of free variables of an agent, defined in the expected way 
 by structural induction, assuming that $fv(\tell(c)) = sv(c)$,
 $fv(\ask(c) \rightarrow A) = sv(c) \cup fv(A)$,
 % and We also remark that $fv(\exists_x A) = fv(A) \setminus \{x\}$ 
-and $fv(\exists^{\rho}_x A) = (fv(A) \cup sv(\rho)) \setminus \{x\}$.
+and $fv(\exists^{\pi}_x A) = (fv(A) \cup \bigcup_i sv(\pi_i)) \setminus \{x\}$.
 %
 In the following, we restrict our attention to 
 procedure declarations $p(x) = A$ such that $fv(A) = \{x\}$.
@@ -1303,11 +1321,12 @@ It induces a substitution operator $[^y/_x]: \mathcal{A} \rarrow \mathcal{A}$ on
 	%\item $[^y/_x] (\exists_w A)  = \exists_w ([^y/_x] A) \ \ \text{for $w \not \in \{x, y\}$}$
 	\item $p(w)[^y/_x] =  p([^y/_x](w))$
 	\item $(A_1 \parallel A_2)[^y/_x]  = (A_1[^y/_x] \parallel A_2[^y/_x])$
-        \item $(\exists^{\rho}_w A)[^y/_x] = \begin{cases} 
-			\exists^{(s_{[^y/_x]} \rho)}_w A[^y/_x]  & \text{if } w \not \in \{x, y\} \\
-             (\exists^{(s_{[^z/_w]} \rho)}_z A[^z/_w])[^y/_x] & \text{for } z \not \in fv(\exists^{\rho}_w A) \text{ otherwise}
+        \item $(\exists^{\pi}_w A)[^y/_x] = \begin{cases} 
+			\exists^{(s_{[^y/_x]} \pi)}_w A[^y/_x]  & \text{if } w \not \in \{x, y\} \\
+             (\exists^{(s_{[^z/_w]} \pi)}_z A[^z/_w])[^y/_x] & \text{for } z \not \in fv(\exists^{\pi}_w A) \text{ otherwise}
         \end{cases}$
 \end{itemize}
+with $s_{[^y/_x]} \langle \pi_1, \ldots, \pi_n \rangle = \langle s_{[^y/_x]} \pi_1, \ldots, s_{[^y/_x]} \pi_n \rangle$.
 \end{definition}
 
 Note that the choice of $z$ in the rule above is immaterial, since for the polyadic operator it holds
@@ -1315,7 +1334,7 @@ $\exists_x c = \exists_y s_{[^y/_x]}(c)$ if $y \not \in sv(c)$.
 %
 In the following we consider terms to be equivalent up-to $\alpha$-conversion, meaning that terms 
 differing only for hidden variables are considered equivalent, i.e.,
-$\exists_w^\rho A = \exists_z^{(s_{[^z/_w]}\rho)} A[^z/_w]$ for $z \not \in fv(\exists^{\rho}_w A)$.
+$\exists_w^\pi A = \exists_z^{(s_{[^z/_w]}\pi)} A[^z/_w]$ for $z \not \in fv(\exists^{\pi}_w A)$.
 
 \begin{lemma}
 Let $A \in \mathcal{A}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
@@ -1353,6 +1372,11 @@ Let $A \in \mathcal{A}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
 %\end{proof}
 
 We now move to consider the reduction semantics of our calculus. 
+%
+Given a sequence $\pi = [\pi_1, \ldots, \pi_n]$, we will use 
+$\bigotimes \pi$ and $\exists_x \pi$
+as shorthands for $\pi_1 \otimes \ldots \otimes \pi_n$ and
+$(\exists_x \pi_1) \otimes \ldots \otimes (\exists_x \pi_n)$, respectively.
 
 \begin{definition}[Reductions]\label{def:reductions}
 Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
@@ -1422,11 +1446,11 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
   \\
   & \mbox{   }&\mbox{   }&
   \\
-    \mbox{\bf R2}& $\frac {\displaystyle \langle A, \rho \otimes \sigma_0 \rangle
-    \mapsto \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv \exists_x \rho }
-    {\displaystyle\langle \exists^{\rho}_x A,\sigma\rangle \mapsto \langle 
-    \exists^{\rho \otimes \rho_0}_x B, \sigma \otimes \exists_x \rho_0
-    \rangle \text{ with } \rho_0 = \sigma_1 \odiv (\rho \otimes \sigma _0)} \text{ for } x \not \in sv(\sigma)$
+    \mbox{\bf R2}& $\frac {\displaystyle \langle A, \bigotimes \pi \otimes \sigma_0 \rangle
+    \mapsto \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv \exists_x \pi}
+    {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \mapsto \langle 
+    \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho
+    \rangle \text{ with } \rho = \sigma_1 \odiv (\bigotimes \pi \otimes \sigma _0)} \text{ for } x \not \in sv(\sigma)$
     &\bf{Hide}&
   \end{tabular}
   \end{center}
@@ -1455,14 +1479,18 @@ Axiom {\bf A3} replaces a procedure identifier with the associated body, renamin
 %$fv(B) \cup sv(\rho) \subseteq \Delta$.\footnote{Our rule is  reminiscent of 
 %$(8)$ in~\cite[p.~342]{popl91}.}
 
-Let us discuss instead in some details the more complex axiom {\bf R2}.
-The intuition is that if we reach an agent $\langle \exists^{\rho}_x A,\sigma\rangle$, then during the computation
-at least $\exists_x \rho$ has been added to the global store by the local agent. In order to evaluate $A$, the chosen 
+Let us instead discuss in some details the rule {\bf R2}.
+The intuition is that if we reach an agent $\langle \exists^{\pi}_x A,\sigma\rangle$, then during the computation
+a sequence $\pi$ of updates has been performed by the local agent and $\exists_x \pi$ 
+has been added to the global store. In order to evaluate $A$, the chosen 
 store is 
-$\rho \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv \exists_x \rho$, thus removing $\exists_x \rho$ 
-and adding $\rho$, which may carry information about $x$. Now, $\rho_0 = \sigma_1 \odiv (\rho \otimes \sigma _0)$ 
+$\bigotimes \pi \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv \exists_x \pi$, thus removing 
+the effect $\exists_x \pi$ of the sequence of updates from the global store
+and adding the cumulative effect $\bigotimes \pi$ of the local store, which may carry information about $x$. 
+Now, $\rho = \sigma_1 \odiv (\bigotimes \pi \otimes \sigma _0)$ 
 is precisely the information added by the step originating from $A$, which is then restricted and added to $\sigma$. 
-The same effect on the local store is instead cumulative, and it is obtained by $\rho \otimes \rho_0$. 
+On the local store we simply add that effect $\rho$ to the sequence of updates, with
+$\pi \rho = [\pi_0, \ldots, \pi_n, \rho]$.
 
 Let $\gamma = \langle A, \sigma \rangle$ be a configuration.
 %
@@ -1473,20 +1501,19 @@ $\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
 \label{mono}
 Let $\langle A, \sigma \rangle \rightarrow \langle B, \sigma' \rangle$ be a reduction. 
 Then 
-\begin{itemize}
+\begin{enumerate}
 \item $\exists \sigma''.\  \sigma' = \sigma'' \otimes \sigma$
 \item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle)$
-\end{itemize}
+\end{enumerate}
 \end{lemma}
  
-Note that item by the properties of the residuation operator a witness of the equaliti in item $1$
+By the properties of residuation, a witness of the equality in item $1$ is
 $\sigma' \odiv \sigma$.
 
 \begin{remark}
-The choice for the resulting local and global store could have been 
-$\sigma_1 \odiv \sigma _0$ and $\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
-respectively. 
-Indeed, these expressions have a nicer appearance,
+The choice for the resulting global store in rule {\bf R2}. could have been 
+$\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
+Indeed, the expression has a nicer appearance,
 %Indeed, thanks to Lemma~\ref{mono},
 %we know that $\sigma_1 = \sigma_0 \otimes (\sigma_1 \odiv \sigma_0)$. Now,
 %since it holds that $c \otimes ((c \otimes d) \odiv c) = c \otimes d$,
@@ -1496,7 +1523,7 @@ Indeed, these expressions have a nicer appearance,
 %\sigma_0 \otimes \exists_x (\sigma_1 \odiv \sigma_0)$$.
 %
 and $\sigma_1 \odiv \sigma_0$ seems to better represent the cumulative effect of the
-changes of the local store.
+changes by the local agent.
 However, this is a misleading impression, since the composition of the single updates
 has to take into account the existential quantifications.
 %In fact, the last local update corresponds in our choice to
@@ -1505,57 +1532,44 @@ has to take into account the existential quantifications.
 Let us consider constraints $c$ and $d$ such that $\exists_x c = \exists_x d = \monid$ and $c \otimes d = \bot$.
 As far as our running example is concerned, it might be that $c = x \leq 1$ and $d = x \geq 5$. 
 Now, let $A$ be the agent $\hbox{\tell}(c) \parallel \hbox{\tell}(d)$ and $\gamma$ the configuration 
-$\langle \exists_x^\monid A, \monid \rangle$.
+$\langle \exists_x A, \monid \rangle$.
 Assuming that $c$ is added to the store, with both choices we end up with the reduction
-$\gamma \rightarrow \langle \exists_x^c \hbox{\tell}(d), \monid \rangle$.
-Now note that $(d \otimes c) \odiv \monid = c \otimes ((d \otimes c) \odiv (c \otimes \monid)) = d \otimes c = \bot$, hence
-the choice of the definition for the local store is immaterial. 
+$\gamma \mapsto \langle \exists_x^{[ c ]} \hbox{\tell}(d), \monid \rangle$.
 With the alternative definition for the global store, we would then reach 
- $\langle \exists_x^c \hbox{\tell}(d), \monid \rangle \rightarrow \langle \exists_x^{\bot} \hbox{\ostop}, \bot \rangle$,
+ $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \mapsto \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \bot \rangle$,
  %since $\sigma_1 \odiv \sigma_0 = \bot \odiv \monid = \bot$,  
  thus lifting to the global store the unsatisfiability of the local one.
  Instead, with our choice we obtain 
- $\langle \exists_x^c \hbox{\tell}(d), \monid \rangle \rightarrow \langle \exists_x^{\bot} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
+ $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \mapsto \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
 % since $\sigma \otimes \exists_x(\sigma_1 \odiv (\rho \otimes \sigma _0)) 
 %= \monid \otimes \exists_x ( \bot \odiv (c \otimes \monid))$.
 Now, obviously $\bot \leq \bot \odiv c$: the equality may hold if e.g. the semiring does not have zero divisors, 
-but going back to our running example, with $c = x \leq 1$ we have $\bot \odiv c = \emptyset \odiv x \leq 1 = x > 1$
+but this is not the case, since we assumed $c \otimes d = \bot$.
+Going back to our running example, with $c = x \leq 1$ we have $\bot \odiv c = \emptyset \odiv x \leq 1 = x > 1$
 and thus $\exists_x (\bot \odiv c) = \monid$.
 
-Let us now consider the alternative choice for the local store. First of all, note that under Lemma~\ref{mono}
-we have that $\rho \otimes (\sigma_1 \odiv (\rho \otimes \sigma _0)) \leq \sigma_1 \odiv \sigma_0$:
-the smaller term represents a better approximation of the intuitive local store.
-%
-Indeed, let us consider again the agent $A = \hbox{\tell}(c) \parallel \hbox{\tell}(d)$ 
-with no hypothesis %$\exists_x c = \exists_x d = \monid$ 
-and the 
-configuration $\langle \exists^\monid A, \sigma \rangle$. After both commands are fired, the
-local store should intuitively be (the best approximation of)  $c \otimes d$.
-Assuming that $c$ is added to the store, with both choices of the definition for the local store we end up with the reduction
-$\langle \exists^\monid A, \sigma \rangle \mapsto \langle \exists^{\rho'} \hbox{\tell}(d), \sigma' \rangle$
-such that $\rho' = (c \otimes \sigma) \odiv \sigma$, since the initial local store is $\monid$,
-and $\sigma' = \sigma \otimes \exists_x ((c \otimes \sigma) \odiv \sigma)) = \sigma \otimes \exists_x c$, 
-since $x \not \in sv(\sigma)$. %and $a \otimes ((a \otimes b) \odiv a) = a \otimes b$, 
-%
-%Note that in general $c \leq \rho'$, yet let us assume that for simplicity the equality hold, e.g. because we are in 
-%an invertible semiring and $c \leq 1$.
-%
-Now, we need to evaluate 
-%$\hbox{\tell}(d)$ in $\rho' \otimes (\sigma' \odiv \rho')$, obtaining 
-%$d \otimes \rho' \otimes (\sigma' \odiv \rho')$.
-%
-% with 
-%$\sigma'' = ((\sigma \otimes \exists_x c) \odiv \exists_x c)$, resulting in $d \otimes \rho' \otimes \sigma''$.
-%
-%Going back to 
-the configuration 
-$\langle \exists_x^{\rho'} \hbox{\tell}(d), \sigma'\rangle$, which we already argued must evolve to a global store
-$\sigma \otimes \exists_x c \otimes \exists_x ((d \otimes \rho' \otimes \sigma'') \odiv (\rho' \otimes \sigma''))$
-for $\sigma'' =  \sigma' \odiv \exists_x \rho'$. Now we have that
-$c \otimes d \leq \rho' \otimes ((d \otimes \rho' \otimes \sigma'') \odiv (\rho' \otimes \sigma''))
-\leq (d \otimes \rho' \otimes \sigma'') \odiv \sigma''$, 
-hence confirming our choice of the definition for the local store.
+Note also how the sequence in the local store is $[c,\bot \odiv c]$: $\bot \odiv c$ does not necessarily coincide with $d$.
+However, it is the minimal information collapsing the local store, and since the semiring is not 
+necessarily invertible, it is often the best result we can get.
 \end{remark}
+
+We say that an agent $A$ is initial if it contains only existential operators of the form $\exists_x B$,
+and we denote as $\mapsto^\ast$ the reflexive and transitive closure of $\mapsto$.
+
+\begin{lemma}[On monotonicity, II]
+\label{mono2}
+Let $A$ be an initial agent and 
+$\langle A, \sigma \rangle \mapsto^\ast \langle B \parallel \exists_x^\pi C, \sigma' \rangle$ 
+a sequence of reductions. 
+Then 
+\begin{enumerate}
+\item $\exists \sigma''.\  \sigma' = \sigma'' \otimes \exists_x \pi$
+\end{enumerate}
+\end{lemma}
+
+As before, a witness of the equality in item $1$ is
+$\sigma' \odiv \exists_x \pi$.
+
 
 \section{Saturated Bisimulation}\label{sec:saturated}
 As proposed in \cite{pippo} for crisp languages, we define a barbed equivalence between two agents~\cite{barbed}.  
@@ -1623,11 +1637,11 @@ obtained from Definition~\ref{def:strongsb} by replacing $\mapsto$ with $\mapsto
 \end{definition}
 
 Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
-and they are also congruences. Indeed, a context can modify the behaviour of a configuration only by adding constraints to its store. \todo{CHECK!!!}
+and they are also congruences. Indeed, a context can modify the behaviour of a configuration only by adding constraints to its store. CHECK!!!
 %\marginpar{to be proved for $\exists_x-$ (not needed for Prop.3)}
 
 
-\section{Labelled transition system [TO BE DONE]}
+\section{Labelled reduction semantics}
 
 Although $\approx_{\mathit{s}}$ is fully abstract, it is somewhat unsatisfactory
 because of the upward-closure, i.e., the quantification in condition \emph{3} of Definition~\ref{def:weaksb}.
@@ -1659,10 +1673,10 @@ because of the upward-closure, i.e., the quantification in condition \emph{3} of
   \\ 
   &\mbox{   }&\mbox{   } &\mbox{   }
   \\
-  \mbox{\bf LA2}& ${\displaystyle
+  \mbox{\bf LA2}& $\frac{\displaystyle \alpha \leq  c  \odiv  \sigma} {{\displaystyle
   	\begin{array}{l} \langle \hbox{\ask}(c) \rightarrow A, \sigma \rangle \xrightarrow{\alpha}
   	\langle A, \alpha \otimes \sigma \rangle
-  	\end{array}}  \text{ for } \alpha \leq  c  \odiv  \sigma$
+  	\end{array}}}$
   \ \ \ & \bf{Ask}&
   \\
   &\mbox{   }&\mbox{   }&
@@ -1696,10 +1710,10 @@ because of the upward-closure, i.e., the quantification in condition \emph{3} of
   \\
   & \mbox{   }&\mbox{   }& \mbox{   }
   \\
-  \mbox{\bf LR2}& $\frac {\displaystyle \langle A, \rho \otimes \sigma_0 \rangle \xrightarrow{\alpha}
-  \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv \exists_x \rho }
-  {\displaystyle \langle \exists^\rho_x A, \sigma \rangle \xrightarrow{\alpha}
-  \langle \exists^{\rho \otimes \rho_0}_x B, \alpha \otimes \sigma \otimes \exists_x \rho_0 \rangle  \text{ with } \rho_0 = \sigma_1 \odiv (\alpha \otimes \rho \otimes \sigma_0)}
+  \mbox{\bf LR2} & $\frac {\displaystyle \langle A, \bigotimes \pi \otimes \sigma_0 \rangle \xrightarrow{\alpha}
+  \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv \exists_x \pi }
+  {\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)}
     \text{ for } x \not \in sv(\sigma) \cup sv(\alpha)$
 &\bf{Hide}&
   \end{tabular}
@@ -1733,8 +1747,8 @@ because of the upward-closure, i.e., the quantification in condition \emph{3} of
 
 In Table~\ref{fig:ALTS} and Table~\ref{fig:CRLTS} we refine the notion of transition (respectively given in Table~\ref{fig:operational} and Table~\ref{fig:operational2})
 by adding a label that carries additional information about the constraints that cause the reduction.
-Rules in Table~\ref{fig:ALTS} and Table~\ref{fig:CRLTS} mimick those in Table~\ref{fig:operational} and Table~\ref{fig:operational2}, except for a constraint $\alpha$ that
-represents the minimal information that must be added to $\sigma$ in order to fire an action
+Indeed, rules in Table~\ref{fig:ALTS} and Table~\ref{fig:CRLTS} mimick those in Table~\ref{fig:operational} and Table~\ref{fig:operational2}, except for a constraint $\alpha$ that
+represents the additional information that must be combined with $\sigma$ in order to fire an action
 from $\langle A, \sigma\rangle$  to $\langle A', \sigma' \rangle$.
 % i.e., $\langle A, \sigma \otimes \alpha\rangle \longrightarrow \langle A' , \sigma' \rangle$.
 
@@ -1743,64 +1757,106 @@ some additional information  is imported from the environment, ensuring that the
 $\alpha \otimes \sigma \leq c$ allows the execution of $\hbox{\ask}(c)$.
 
 Once again, the more complex axiom is {\bf LR2}. With respect to {\bf R2}, the additional intuition is that 
-$\alpha$ should not appear in the 
+$\alpha$ should not contain the restricted variable $x$: additional information can be obtained from the environment,
+as long as it does not interact with data that are private to the local agent.
+%
+Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)$ we are 
+removing $\alpha$ from the update to be memorised in the local store. However, 
+since $\alpha$ is present in the global store, it will not be necessary to receive it again in the future. 
 
-
-
-if we reach an agent $\langle \exists^{\rho}_x A,\sigma\rangle$, then during the computation
-at least $\exists_x \rho$ has been added to the global store by the local agent. In order to evaluate $A$, the chosen 
-store is 
-$\rho \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv \exists_x \rho$, thus removing $\exists_x \rho$ 
-and adding $\rho$, which may carry information about $x$. Now, $\rho_0 = \sigma_1 \odiv (\rho \otimes \sigma _0)$ 
-is precisely the information added by the step originating from $A$, which is then restricted and added to $\sigma$. 
-The same effect on the local store is instead cumulative, and it is obtained by $\rho \otimes \rho_0$. 
-
-\begin{lemma}[On monotonicity]
-\label{mono}
-Let $\langle A, \sigma \rangle \rightarrow \langle B, \sigma' \rangle$ be a reduction. 
+\begin{lemma}[On labelled monotonicity]
+\label{l-mono}
+Let $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ be a reduction. 
 Then 
-\begin{itemize}
+\begin{enumerate}
 \item $\exists \sigma''.\  \sigma' = \alpha \otimes \sigma'' \otimes \sigma$ and $\alpha \neq \monid$ implies $\sigma'' = \monid$
-\item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle)$
-\end{itemize}
+\item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle) \cup sv(\alpha)$
+\end{enumerate}
 \end{lemma}
 
+\begin {proof}
+We just skecth the proof for the rule {\bf LR2} in item $1$. Clearly we have that 
+$\exists_x \rho$  is a candidate for the equality, and we must then show that it is indeed 
+a witness.
+Note that by induction hypothesis in the premise of the rule 
+$\sigma_1 = \alpha \otimes \sigma'' \otimes \bigotimes \pi_i \otimes \sigma_0$
+for some $\sigma''$ such that $\alpha \neq \monid$ implies $\sigma'' = \monid$.
+In the conclusion we then have $\rho =  (\alpha \otimes \sigma'' \otimes \bigotimes \pi_i \otimes \sigma_0) \odiv 
+(\alpha \bigotimes \pi_i \otimes \sigma_0)$. If $\alpha \neq \monid$, then $\rho = \monid$ and we are done.
+\end{proof}
 
-\section{Semantics equivalence}
+
+We denote as $\xRightarrow{\mu}$ the reflexive and transitive closure of $\xrightarrow{\alpha}$,
+with $\mu \in {\mathcal C}^\ast$ a sequence of elements defined in the expected way: 
+$\xRightarrow{\mu}\ =\ \xrightarrow{\mu} \ldots \xrightarrow{\mu_n}$
+with $\mu = [\mu_1, \ldots, \mu_n]$.
+
+\begin{lemma}[On monotonicity, II]
+\label{l-mono2}
+Let $A$ be an initial agent and 
+$\langle A, \sigma \rangle \xRightarrow{\mu} \langle B \parallel \exists_x^\pi C, \sigma' \rangle$ 
+a sequence of reductions. 
+Then 
+\begin{enumerate}
+\item $\exists \sigma''.\  \sigma' = \bigotimes \mu \otimes \sigma'' \otimes \exists_x \pi$
+\end{enumerate}
+\end{lemma}
+
+\section{Labelled bisimulation [TO BE DONE]}
+
+\section{On the equivalence between reduction semantics}
+This section shows the relationship between the labelled and the unlabelled reduction semantics.
+We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
+$\langle A, \sigma \rangle \mapsto^\ast \gamma$, and it is l-reachable if 
+$\langle A, \sigma \rangle \xRightarrow{\mu} \gamma$.
+
+In the following, we assume that $\C$ in invertible.
 
 \begin{theorem}[Soundness]
-$\langle A, a \rangle \xmapsto{c} \langle B, b \rangle \implies \langle A, a \otimes c \rangle
-\mapsto \langle B, b \rangle$
+Let $\langle A, \sigma \rangle$ be a l-reachable configuration and
+$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ a reduction. 
+Then $\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
+$\langle A, \alpha \otimes \sigma \rangle \mapsto \langle B, \sigma' \rangle$.
 \end{theorem}
 
 \begin{proof}
-Tell and Rec \\
-\[\sigma \otimes \bot = \sigma \]
-\[\langle \tell(c), \sigma \rangle \xmapsto{\bot} \langle \ostop, \sigma \rangle \implies \]
-\[\langle \tell(c), \sigma \otimes \bot \rangle = \langle \tell(c), \sigma \rangle 
-\mapsto \langle stop, \sigma \rangle\]
-\[\langle p(y), \sigma \rangle \xmapsto{\bot} \langle A[^y/_x], \sigma \rangle \implies \]
-\[\langle p(y), \sigma \otimes \bot \rangle = \langle p(y), \sigma \rangle \mapsto
-\langle A[^y/_x], \sigma \]
-Ask \\
-\[\langle \ask(c) \rightarrow A, \sigma \rangle \xmapsto{c \odiv \sigma}
-\langle A, \sigma \otimes (c \odiv \sigma) \rangle \implies \]
-NB $\sigma \otimes (c \odiv \sigma) \leq c $
-\[\langle \ask(c) \rightarrow A, \sigma \otimes (c \odiv \sigma) \rangle \mapsto
-\langle A, \sigma \otimes (c \odiv \sigma) \rangle \]
-Hide \\
-hyp: $\langle A, c \otimes d_0 \rangle \xmapsto{\alpha} \langle B, d_1 \rangle \implies
-\langle A, c \otimes d_0 \otimes \alpha \rangle \mapsto \langle B, d_1 \rangle$ \\
-$d_0 = (d \otimes \alpha) \odiv \exists_x c$ \\
-$c_1 = d_1 \odiv d_0$ \\
-\[\langle \exists^c_x A, d \rangle \xmapsto{\alpha} \langle 
-\exists^{d_1 \odiv ((d \otimes \alpha) \odiv \exists_x c)} B, 
-((d \otimes \alpha) \odiv \exists_x c) \otimes 
-\exists_x (d_1 \otimes ((d \otimes \alpha) \odiv \exists_x c)) \implies\]
-\[\langle \exists^c_x A, d \otimes \alpha \rangle \mapsto \langle
-\exists^{d_1 \odiv ((d \otimes \alpha) \odiv \exists_x c)} B,
-((d \otimes \alpha) \odiv \exists_x c) \otimes 
-\exists_x (d_1 \otimes ((d \otimes \alpha) \odiv \exists_x c))\]
+We proceed by induction,
+presenting only the proof for rule {\bf LR2}.
+%
+We then have 
+$$\langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
+  with $\sigma_0 = \sigma \odiv \exists_x \pi$, $\rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)$, and 
+  $x \not \in sv(\sigma) \cup sv(\alpha)$.
+The premise tells us that
+$$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \xrightarrow{\alpha}
+  \langle B, \sigma_1 \rangle$$
+%with  $\sigma_0 = \sigma \odiv \bigotimes \exists_x \pi$.
+%
+By induction hypothesis
+$$\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle \mapsto
+  \langle B, \sigma_1 \rangle$$
+Now recall that we must prove that
+$$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \mapsto
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
+which would be implied by 
+$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \mapsto
+  \langle B, \sigma_1 \rangle$$
+% with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv \bigotimes \exists_x \pi$,
+% as long as $\alpha \otimes \sigma \otimes \exists_x \rho = \alpha \otimes \sigma \otimes \exists_x \widehat{\rho}$
+%with $\widehat{\rho} = \widehat{\sigma_1} \odiv (\alpha \otimes \bigotimes \pi  \otimes \widehat{\sigma_0})$.
+%
+Now we have that 
+$$\bigotimes \pi \otimes \widehat{\sigma_0} = \bigotimes \pi \otimes ((\alpha \otimes \sigma) \odiv \exists_x \pi)$$ 
+$$=^1 \bigotimes \pi \otimes ((\alpha \otimes (\sigma \odiv \exists_x \pi) \otimes \exists_x \pi ) \odiv \exists_x \pi)$$
+$$=^2  (\bigotimes \pi \odiv \exists_x \pi) \otimes \exists_x \pi \otimes ((\alpha \otimes (\sigma \odiv \exists_x \pi) \otimes  \exists_x \pi ) \odiv \exists_x \pi)$$
+$$ =^3 (\bigotimes \pi \odiv \exists_x \pi) \otimes \alpha \otimes (\sigma \odiv \exists_x \pi) \otimes \exists_x \pi$$
+$$= \alpha \otimes \bigotimes \pi \otimes  (\sigma \odiv \exists_x \pi) 
+= \alpha \otimes \bigotimes \pi \otimes  \sigma_0
+$$
+and the result follows. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
+and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\bigotimes \pi \leq \exists_x \pi$,
+for $3$ we used the well-known law $a \otimes ((a \otimes b) \odiv a) = a \otimes b$.
 \end{proof}
 
 \begin{theorem}[Completeness]
@@ -1816,7 +1872,9 @@ Tell and Rec \\
 \[ \implies \beta = \sigma \odiv \sigma' = \bigvee\{c \mid \sigma' \otimes c \leq \sigma\} \]
 \end{proof}
 
-\section{Concluding Remarks}\label{sec:conclusion}
+\section{On the equivalence between bisimulation semantics [TO BE DONE]}
+
+\section{Concluding Remarks [TO BE DONE]}\label{sec:conclusion}
 
 \bibliographystyle{splncs03}%splncs
 \bibliography{main,softccp}
