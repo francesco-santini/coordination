@@ -1764,6 +1764,27 @@ Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \ot
 removing $\alpha$ from the update to be memorised in the local store. However, 
 since $\alpha$ is present in the global store, it will not be necessary to receive it again in the future. 
 
+\begin{remark}
+An alternative solution for rule ${\bf LA2}$ would have been to restrict the possible reductions to the one with maximal label, 
+that is, $\langle \hbox{\ask}(c) \rightarrow A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$.However, this might have been restrictive in combination with rule ${\bf LR2}$.
+Consider again  our running example and the configuration 
+$\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \rightarrow \hbox{\ostop}, \monid$. The initial configuration in the premise is
+$\langle \hbox{\ask}(y > 2) \rightarrow \hbox{\ostop}, x > 1 \rangle$, and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
+Selecting $\alpha = (x \leq 1) \vee (y > 2)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y > 2)$,
+or any other value such as $y > 3$,$ y > 4$, $\ldots$, fits well with the intuition of some information  from the environment 
+triggering the reduction.
+
+Note instead that the choice of removing the requirement $x \not \in sv(\alpha)$ and put $\exists_x \alpha$ as label in the 
+conclusion of rule ${\bf LR2}$ would  be too liberal. It would work in our previous example, since 
+$\exists_x((x \leq 1) \vee (y > 3)) = y > 3$. However, consider e.g. 
+the configuration $\gamma = \langle \exists^{[x > 1]}_x \hbox{\ask}(x > 2) \rightarrow \hbox{\ostop}, \monid \rangle$. 
+We would have that 
+$\langle \hbox{\ask}(x > 2) \rightarrow \hbox{\ostop}, x > 1 \rangle \xrightarrow{x \neq 2} \langle \hbox{\ostop}, x > 2 \rangle$,
+and then allowing the reduction $\gamma \xrightarrow{\monid} \langle \exists^{[x > 1, x \neq 2]}_x \hbox{\ostop}, \monid \rangle$,
+which clashes with the intuition that receiving information should not enable reductions involving (necessarily) 
+the restricted variable.
+\end{remark}
+
 \begin{lemma}[On labelled monotonicity]
 \label{l-mono}
 Let $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ be a reduction. 
@@ -1783,6 +1804,7 @@ $\sigma_1 = \alpha \otimes \sigma'' \otimes \bigotimes \pi_i \otimes \sigma_0$
 for some $\sigma''$ such that $\alpha \neq \monid$ implies $\sigma'' = \monid$.
 In the conclusion we then have $\rho =  (\alpha \otimes \sigma'' \otimes \bigotimes \pi_i \otimes \sigma_0) \odiv 
 (\alpha \bigotimes \pi_i \otimes \sigma_0)$. If $\alpha \neq \monid$, then $\rho = \monid$ and we are done.
+\qed
 \end{proof}
 
 
@@ -1833,16 +1855,17 @@ $$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \xrightarrow{\alpha}
   \langle B, \sigma_1 \rangle$$
 %with  $\sigma_0 = \sigma \odiv \bigotimes \exists_x \pi$.
 %
-By induction hypothesis
+By induction hypothesis $\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
 $$\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle \mapsto
   \langle B, \sigma_1 \rangle$$
-Now recall that we must prove that
+Now recall that we must prove that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
 $$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \mapsto
   \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
-which would be implied by 
+which would be implied by $\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle$ being reachable and
 $$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \mapsto
-  \langle B, \sigma_1 \rangle$$
-% with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv \bigotimes \exists_x \pi$,
+  \langle B, \widehat{\sigma_1} \rangle$$
+ with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv \bigotimes \exists_x \pi$
+ and for suitable $\widehat{\sigma_1}$.
 % as long as $\alpha \otimes \sigma \otimes \exists_x \rho = \alpha \otimes \sigma \otimes \exists_x \widehat{\rho}$
 %with $\widehat{\rho} = \widehat{\sigma_1} \odiv (\alpha \otimes \bigotimes \pi  \otimes \widehat{\sigma_0})$.
 %
@@ -1857,21 +1880,31 @@ $$
 and the result follows. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
 and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\bigotimes \pi \leq \exists_x \pi$,
 for $3$ we used the well-known law $a \otimes ((a \otimes b) \odiv a) = a \otimes b$.
+\qed
 \end{proof}
 
-[FINO QUA]
+Before proceeding to completeness, note that if a configuration $\langle A, \sigma \rangle$ is reachable,
+then it is also obviously l-reachable via a sequence of reductions labelled by $\monid$.
 
 \begin{theorem}[Completeness]
-$c \leq a$?, $\langle A, a \rangle \mapsto \langle B, b \rangle \implies 
-\langle A, c \rangle \xmapsto{\alpha} \langle B, d \rangle$ with 
-$c \otimes \alpha \otimes \beta = a \wedge d \otimes \beta = b$ for some $\beta$.
+Let $\langle A, \sigma \rangle$, $\langle A, \tau \rangle$ be reachable configurations such that
+$\sigma \leq \tau$ and
+$\langle A, \sigma \rangle \mapsto \langle B, \sigma' \rangle$ a reduction. 
+Then $\langle A, \tau \rangle$ is a l-reachable configuration and
+$\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau'' \rangle$
+for some $\alpha$ such that $\sigma = \tau \otimes \alpha \otimes \sigma''$ and 
+$\sigma' = \tau' \otimes \sigma''$ for some $\sigma''$.
 \end{theorem}
 
 \begin{proof}
-Tell and Rec \\
-\[ \langle \tell(c), \sigma \rangle \mapsto \langle \ostop, \sigma \rangle \wedge (c \leq a) \]
-\[ \langle \tell(c), \sigma' \rangle \xmapsto{\bot} \langle \ostop, \sigma' \rangle \]
-\[ \implies \beta = \sigma \odiv \sigma' = \bigvee\{c \mid \sigma' \otimes c \leq \sigma\} \]
+We proceed by structural induction on the proof.
+The result is straightforward for rules ${\bf LA1}$, ${\bf LA2}$, and ${\bf LR1}$ with 
+$\alpha = \sigma \odiv \tau$ and $\sigma'' = \monid$, since $\C$ is invertible.
+%
+Similarly for ${\bf LA2}$, with $\alpha = c \odiv \tau$ and 
+
+[TO BE FINISHED]
+
 \end{proof}
 
 \section{On the equivalence between bisimulation semantics [TO BE DONE]}
