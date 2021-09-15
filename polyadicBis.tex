@@ -1210,7 +1210,7 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 	is called \emph{projection} in the soft framework,
 	and $\exists_x c$ is denoted $c\Downarrow_{V\setminus \{x\}}$.}
 
-\begin{proof}
+\begin{proof}[TO BE REDONE]
 %Let us consider a finite set $X$ and a constraint $c$. Recall that since $supp(c)$ is finite,
 %$c$ can be considered as a function $D^k \rightarrow A$ for $k = \# supp(c)$.
 %
@@ -1603,7 +1603,7 @@ $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \item if $\langle A, \sigma \rangle \mapsto \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \mapsto \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
 \item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d \in \mathcal{C}$.
 \end{enumerate}
-We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
+We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
 \end{definition}
 
 We now let $\mapsto^*$ denote the reflexive and transitive closure of $\mapsto$, restricted to increasing computations.
@@ -1766,7 +1766,7 @@ since $\alpha$ is present in the global store, it will not be necessary to recei
 
 \begin{remark}
 An alternative solution for rule ${\bf LA2}$ would have been to restrict the possible reductions to the one with maximal label, 
-that is, $\langle \hbox{\ask}(c) \rightarrow A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$.However, this might have been restrictive in combination with rule ${\bf LR2}$.
+that is, $\langle \hbox{\ask}(c) \rightarrow A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. However, this might have been restrictive in combination with rule ${\bf LR2}$.
 Consider again  our running example and the configuration 
 $\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \rightarrow \hbox{\ostop}, \monid$. The initial configuration in the premise is
 $\langle \hbox{\ask}(y > 2) \rightarrow \hbox{\ostop}, x > 1 \rangle$, and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
@@ -1900,9 +1900,16 @@ $\sigma' = \tau' \otimes \sigma''$ for some $\sigma''$.
 We proceed by structural induction on the proof.
 The result is straightforward for rules ${\bf LA1}$, ${\bf LA2}$, and ${\bf LR1}$ with 
 $\alpha = \sigma \odiv \tau$ and $\sigma'' = \monid$, since $\C$ is invertible.
-%
-Similarly for ${\bf LA2}$, with $\alpha = c \odiv \tau$ and 
 
+As for ${\bf LA2}$, note that $\sigma' = \sigma$, so we need
+to prove that $\langle \hbox{\ask}(c) \rightarrow A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ and $\sigma = \alpha \otimes \tau \otimes \sigma''$ for some $\alpha$ and $\sigma''$.
+A possible candidate for $\alpha$ is $c \odiv \tau$, since it clearly makes the reduction possible,
+while for $\sigma''$ is instead $\sigma \odiv (\alpha \otimes \tau)$: should $\sigma \leq \alpha \otimes \tau$
+then the result would follow by invertibility. Again by invertibility, the latter corresponds to prove that 
+$(\sigma \odiv \tau) \otimes \tau \leq (\sigma \odiv \tau) \otimes \tau$, which clearly holds.
+
+
+Since $\sigma \leq c$, by invertibility $\sigma = (\sigma \odiv c) \otimes c \leq (c \odiv \tau) \otimes \tau$
 [TO BE FINISHED]
 
 \end{proof}
