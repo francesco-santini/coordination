@@ -298,3 +298,6 @@ polyadic.synctex.gz
 *.pdf
 polyadic.pdf
 .DS_Store
+*.gz
+*.log
+*.aux
