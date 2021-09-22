@@ -295,3 +295,4 @@ polyadic.aux
 *.aux
 polyadic.log
 polyadic.synctex.gz
+*.pdf
