@@ -1035,6 +1035,7 @@ is increasing, so that $\exists_x a \odiv \exists_x b \leq \exists_x a \odiv b \
 \end{proof}
 
 \begin{remark}
+\label{remdiv}
 Looking at the proof above, it is clear that $\exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b$
 is actually equivalent to state that
 $\exists_x(a \monop \exists_x b) \geq \exists_x a \monop \exists_x b$.
@@ -1498,7 +1499,7 @@ We denote by $fv(\gamma)$ the set $fv(A) \cup sv(\sigma)$ and by
 $\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
 
 \begin{lemma}[On monotonicity]
-\label{mono}
+\label{rmono}
 Let $\langle A, \sigma \rangle \rightarrow \langle B, \sigma' \rangle$ be a reduction. 
 Then 
 \begin{enumerate}
@@ -1514,7 +1515,7 @@ $\sigma' \odiv \sigma$.
 The choice for the resulting global store in rule {\bf R2}. could have been 
 $\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
 Indeed, the expression has a nicer appearance,
-%Indeed, thanks to Lemma~\ref{mono},
+%Indeed, thanks to Lemma~\ref{rmono},
 %we know that $\sigma_1 = \sigma_0 \otimes (\sigma_1 \odiv \sigma_0)$. Now,
 %since it holds that $c \otimes ((c \otimes d) \odiv c) = c \otimes d$,
 %we have 
@@ -1554,24 +1555,24 @@ necessarily invertible, it is often the best result we can get.
 \end{remark}
 
 We say that an agent $A$ is initial if it contains only existential operators of the form $\exists_x B$,
-and we denote as $\mapsto^\ast$ the reflexive and transitive closure of $\mapsto$.
+and a configuration initial if so is its associated agent and reachable if it can be
+reached by an initial agent via a sequence of reductions.
 
 \begin{lemma}[On monotonicity, II]
 \label{mono2}
-Let $A$ be an initial agent and 
-$\langle A, \sigma \rangle \mapsto^\ast \langle B \parallel \exists_x^\pi C, \sigma' \rangle$ 
-a sequence of reductions. 
+Let $\langle B \parallel \exists_x^\pi A, \sigma \rangle$ 
+be a reachable configuration.
 Then 
 \begin{enumerate}
-\item $\exists \sigma''.\  \sigma' = \sigma'' \otimes \exists_x \pi$
+\item $\exists \sigma'.\  \sigma = \sigma' \otimes \exists_x \pi$
 \end{enumerate}
 \end{lemma}
 
 As before, a witness of the equality in item $1$ is
-$\sigma' \odiv \exists_x \pi$.
+$\sigma \odiv \exists_x \pi$.
 
 
-\section{Saturated Bisimulation}\label{sec:saturated}
+\section{Saturated Bisimulation [to be checked]}\label{sec:saturated}
 As proposed in \cite{pippo} for crisp languages, we define a barbed equivalence between two agents~\cite{barbed}.  
 %
 Intuitively, barbs are basic observations (predicates) on the states of a system, and in our case they correspond 
@@ -1606,7 +1607,7 @@ $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
 \end{definition}
 
-We now let $\mapsto^*$ denote the reflexive and transitive closure of $\mapsto$, restricted to increasing computations.
+We now let $\mapsto^*$ denote the reflexive and transitive closure of $\mapsto$.
 
 \begin{definition} [Weak barbs]
 Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$.
@@ -1807,20 +1808,23 @@ In the conclusion we then have $\rho =  (\alpha \otimes \sigma'' \otimes \bigoti
 \qed
 \end{proof}
 
+We say that a configuration is l-reachable if it can be
+reached by an initial configurations via a sequence of 
+labelled reductions.
 
-We denote as $\xRightarrow{\mu}$ the reflexive and transitive closure of $\xrightarrow{\alpha}$,
-with $\mu \in {\mathcal C}^\ast$ a sequence of elements defined in the expected way: 
-$\xRightarrow{\mu}\ =\ \xrightarrow{\mu} \ldots \xrightarrow{\mu_n}$
-with $\mu = [\mu_1, \ldots, \mu_n]$.
+%We denote as $\xRightarrow{\mu}$ the reflexive and transitive closure of $\xrightarrow{\alpha}$,
+%with $\mu \in {\mathcal C}^\ast$ a sequence of elements defined in the expected way: 
+%$\xRightarrow{\mu}\ =\ \xrightarrow{\mu} \ldots \xrightarrow{\mu_n}$
+%with $\mu = [\mu_1, \ldots, \mu_n]$.
 
-\begin{lemma}[On monotonicity, II]
+\begin{lemma}[On labelled monotonicity, II]
 \label{l-mono2}
-Let $A$ be an initial agent and 
-$\langle A, \sigma \rangle \xRightarrow{\mu} \langle B \parallel \exists_x^\pi C, \sigma' \rangle$ 
-a sequence of reductions. 
+Let 
+$\langle B \parallel \exists_x^\pi C, \sigma \rangle$ 
+be an l-reachable configuration. 
 Then 
 \begin{enumerate}
-\item $\exists \sigma''.\  \sigma' = \bigotimes \mu \otimes \sigma'' \otimes \exists_x \pi$
+\item $\exists \sigma'.\  \sigma = \sigma' \otimes \exists_x \pi$
 \end{enumerate}
 \end{lemma}
 
@@ -1828,14 +1832,14 @@ Then
 
 \section{On the equivalence between reduction semantics}
 This section shows the relationship between the labelled and the unlabelled reduction semantics.
-We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
-$\langle A, \sigma \rangle \mapsto^\ast \gamma$, and it is l-reachable if 
-$\langle A, \sigma \rangle \xRightarrow{\mu} \gamma$.
-
+%We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
+%$\langle A, \sigma \rangle \mapsto^\ast \gamma$, and it is l-reachable if 
+%$\langle A, \sigma \rangle \xRightarrow{\mu} \gamma$.
+%
 In the following, we assume that $\C$ in invertible.
 
 \begin{theorem}[Soundness]
-Let $\langle A, \sigma \rangle$ be a l-reachable configuration and
+Let $\langle A, \sigma \rangle$ be an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ a reduction. 
 Then $\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
 $\langle A, \alpha \otimes \sigma \rangle \mapsto \langle B, \sigma' \rangle$.
@@ -1883,17 +1887,45 @@ for $3$ we used the well-known law $a \otimes ((a \otimes b) \odiv a) = a \otime
 \qed
 \end{proof}
 
-Before proceeding to completeness, note that if a configuration $\langle A, \sigma \rangle$ is reachable,
-then it is also obviously l-reachable via a sequence of reductions labelled by $\monid$.
+The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
+then it is also l-reachable via a sequence of reductions labelled by $\monid$.
+
+\begin{lemma}
+Let $\langle A, \sigma \rangle$ be a reachable configuration and
+$\langle A, \sigma \rangle \mapsto \langle B, \sigma' \rangle$ a reduction. 
+Then $\langle A, \sigma \rangle$ is an l-reachable configuration and
+$\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
+\end{lemma}
+
+However, we are interested in a more general notion of completeness, possibly taking into account 
+reductions needing a label, as stated in the theorem below.
+
+\begin{lemma}
+\label{minor}
+Let $\langle A, \tau \rangle$ be a reachable configuration such that
+$\sigma \leq \tau$. Then $\langle A, \sigma \rangle$ is a reachable configuration.
+\end{lemma}
+
+The proof simply consists in adding in parallel the agent $\hbox{\ask}(\sigma \odiv \tau) \rightarrow \mathit{\ostop}$.
+
+\begin{lemma}
+\label{riminor}
+Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction
+such that $\alpha \leq \beta$. Then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
+\end{lemma}
+
+The lemma just states that the label in a reduction can always be strengthened.
+%and it exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono}.
 
 \begin{theorem}[Completeness]
-Let $\langle A, \sigma \rangle$, $\langle A, \tau \rangle$ be reachable configurations such that
+Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$ and
 $\langle A, \sigma \rangle \mapsto \langle B, \sigma' \rangle$ a reduction. 
-Then $\langle A, \tau \rangle$ is a l-reachable configuration and
-$\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau'' \rangle$
-for some $\alpha$ such that $\sigma = \tau \otimes \alpha \otimes \sigma''$ and 
-$\sigma' = \tau' \otimes \sigma''$ for some $\sigma''$.
+Then 
+%$\langle A, \tau \rangle$ is a l-reachable configuration and
+$\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$
+for some $\alpha$ such that $\sigma = \tau \otimes \alpha \otimes \sigma''$, $\sigma \odiv \tau \leq \alpha$
+and $\sigma' = \tau' \otimes \sigma''$ for some $\sigma''$.
 \end{theorem}
 
 \begin{proof}
@@ -1906,12 +1938,72 @@ to prove that $\langle \hbox{\ask}(c) \rightarrow A, \tau \rangle \xrightarrow{\
 A possible candidate for $\alpha$ is $c \odiv \tau$, since it clearly makes the reduction possible,
 while for $\sigma''$ is instead $\sigma \odiv (\alpha \otimes \tau)$: should $\sigma \leq \alpha \otimes \tau$
 then the result would follow by invertibility. Again by invertibility, the latter corresponds to prove that 
-$(\sigma \odiv \tau) \otimes \tau \leq (\sigma \odiv \tau) \otimes \tau$, which clearly holds.
+$(\sigma \odiv \tau) \otimes \tau \leq (c \odiv \tau) \otimes \tau$, which holds since $\sigma \leq c$.
 
+Let us  move to ${\bf LR2}$ and consider the configurations 
+$\langle \exists^\pi_x A, \sigma \rangle$  and
+$\langle \exists^\pi_x A, \tau \rangle$
+such that $x \not \in sv(\sigma) \cup sv(\tau)$. 
+Since they are both reachable, the former by Lemma~\ref{minor}, we have that 
+$\sigma = (\sigma \odiv \exists_x \pi) \otimes \exists_x \pi$ and
+$\tau = (\tau \odiv \exists_x \pi) \otimes \exists_x \pi$
+by Lemma~\ref{mono2}.
+%
+We have 
+$$\langle \exists^\pi_x A, \sigma \rangle \mapsto
+  \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
+  with $\sigma_0 = \sigma \odiv \exists_x \pi$, $\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0)$.
+The premise tells us that $\langle A, \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
+$$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \mapsto
+  \langle B, \sigma_1 \rangle$$
+%
+ such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
+ by Lemma~\ref{mono}.
+Now let us consider $\tau_0 = \tau \odiv \exists_x \pi$: clearly $\sigma_0 \leq \tau_0$,
+so by induction hypothesis
+$$\langle A, \bigotimes \pi \otimes \tau_0 \rangle  \xrightarrow{\beta}
+  \langle B, \tau_1 \rangle$$  for some $\beta$ such that 
+  $\bigotimes \pi \otimes \sigma_0 = \bigotimes \pi \otimes \tau_0 \otimes \beta \otimes \sigma_2$,
+  $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$,
+  and $\sigma_1 = \tau_1 \otimes \sigma_2$
+  for some $\sigma_2$.
+Moreover, $\tau_1 = (\tau_0 \odiv (\beta \otimes \bigotimes \pi \otimes \tau_0 )) \otimes  \beta \otimes \bigotimes \pi \otimes \tau_0$
+by Lemma~\ref{l-mono}.
 
-Since $\sigma \leq c$, by invertibility $\sigma = (\sigma \odiv c) \otimes c \leq (c \odiv \tau) \otimes \tau$
-[TO BE FINISHED]
+\noindent
+Now, $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$ implies 
+$((\bigotimes \pi \odiv \exists_x \pi) \otimes \sigma) \odiv (\bigotimes \pi \odiv \exists_x \pi) \otimes \tau) \leq \beta$
+by invertibility, and by then it follows that $\sigma \odiv \tau \leq \beta$.
+%
+Let us choose $\alpha = \sigma \odiv \tau$, noting that 
+$x \not \in sv(\alpha)$ by Remark~\ref{remdiv}
+and that $\alpha \odiv \beta$ is a witness for $\sigma_2$, since
+$$\bigotimes \pi \otimes \tau_0 \otimes \beta \otimes (\alpha \odiv \beta) = 
+(\bigotimes \pi \odiv \exists_x \pi)  \otimes  \exists_x \pi \otimes \tau_0 \otimes \alpha =
+(\bigotimes \pi \odiv \exists_x \pi) \otimes \sigma$$
+$$\sigma_1 = \tau_1 \otimes (\alpha \odiv \beta) ?????$$
+%
+By Lemma~\ref{riminor} we have that
+$$\langle A, \bigotimes \pi \otimes \tau_0 \rangle  \xrightarrow{\alpha}
+  \langle B, \tau_1 \otimes (\alpha \odiv \beta) \rangle$$
+which implies
+  $$\langle \exists^\pi_x A, \tau \rangle  \xrightarrow{\alpha}
+  \langle \exists^{\pi \mu}_x B, \alpha \otimes \tau \otimes \exists_x \mu \rangle$$
+with $\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \pi  \otimes \tau_0)$.
 
+\noindent
+We must prove that $\sigma = \tau \otimes \alpha \otimes \sigma''$ and 
+$\sigma \otimes \exists_x \rho = \alpha \otimes \tau \otimes \exists_x \mu \otimes \sigma''$ for some $\sigma''$.
+Since $\alpha = \sigma \odiv \tau$, a possible solution would be $\sigma'' = \monid$,
+as long as $\rho = \mu$,
+%We should then prove that
+%$$\sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0) = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv 
+%(\alpha \otimes \bigotimes \pi  \otimes \tau_0)$$
+and the latter holds since
+$$\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0) = \tau_1 \otimes \sigma_2 \odiv ((\bigotimes \pi  \odiv \exists_x \pi) \otimes \sigma)$$
+$$\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \pi  \otimes \tau_0) = 
+(\tau_1 \otimes (\alpha \odiv \beta)) \odiv ((\sigma \odiv \tau) \otimes (\bigotimes \pi  \odiv \exists_x \pi)  \otimes \tau)$$
+\qed
 \end{proof}
 
 \section{On the equivalence between bisimulation semantics [TO BE DONE]}
