@@ -1460,7 +1460,7 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
 \end{table}
 
 The split distinguishes between the axioms and the rules guaranteeing the closure with respect to the parallel and existential operators. Indeed, rule {\bf  R1} models the interleaving of two agents in parallel, assuming for the sake of simplicity
-that the parallel operator is associative and commutative, as well as $ \hbox{\ostop} \parallel A = A$.
+that the parallel operator is associative and commutative, as well as satisfying $ \hbox{\ostop} \parallel A = A$.
 %
 %
 In {\bf A1} a constraint $c$ is added to the store $\sigma$.
@@ -1554,9 +1554,9 @@ However, it is the minimal information collapsing the local store, and since the
 necessarily invertible, it is often the best result we can get.
 \end{remark}
 
-We say that an agent $A$ is initial if it contains only existential operators of the form $\exists_x B$,
-and a configuration initial if so is its associated agent and reachable if it can be
-reached by an initial agent via a sequence of reductions.
+We say that an agent $A$ is initial if it contains only existential operators of the form $\exists_x B$
+and that a configuration is initial if so is its associated agent and reachable if it can be
+reached by an initial comfiguration via a sequence of reductions.
 
 \begin{lemma}[On monotonicity, II]
 \label{mono2}
@@ -1763,7 +1763,7 @@ as long as it does not interact with data that are private to the local agent.
 %
 Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)$ we are 
 removing $\alpha$ from the update to be memorised in the local store. However, 
-since $\alpha$ is present in the global store, it will not be necessary to receive it again in the future. 
+since $\alpha$ is added to the global store, it will not be necessary to receive it again in the future. 
 
 \begin{remark}
 An alternative solution for rule ${\bf LA2}$ would have been to restrict the possible reductions to the one with maximal label, 
@@ -1808,6 +1808,15 @@ In the conclusion we then have $\rho =  (\alpha \otimes \sigma'' \otimes \bigoti
 \qed
 \end{proof}
 
+\begin{remark}
+Consider a reduction 
+$ \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$.
+  Item $1$ of the lemma above tell us that if $\alpha \neq \monid$, then $\rho = \monid$. 
+  Indeed, this is the expected behaviour: if an input from the context is needed,
+  there is no contribution from the local agent, hence the update is correctly put to $\monid$.
+\end{remark}
+
 We say that a configuration is l-reachable if it can be
 reached by an initial configurations via a sequence of 
 labelled reductions.
@@ -1839,6 +1848,7 @@ This section shows the relationship between the labelled and the unlabelled redu
 In the following, we assume that $\C$ in invertible.
 
 \begin{theorem}[Soundness]
+\label{sound}
 Let $\langle A, \sigma \rangle$ be an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ a reduction. 
 Then $\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
@@ -1854,7 +1864,7 @@ $$\langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
   \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
   with $\sigma_0 = \sigma \odiv \exists_x \pi$, $\rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)$, and 
   $x \not \in sv(\sigma) \cup sv(\alpha)$.
-The premise tells us that
+The premise tells us that $\langle A, \bigotimes \pi \otimes \sigma_0 \rangle$ is l-reachable and
 $$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \xrightarrow{\alpha}
   \langle B, \sigma_1 \rangle$$
 %with  $\sigma_0 = \sigma \odiv \bigotimes \exists_x \pi$.
@@ -1868,7 +1878,7 @@ $$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \mapsto
 which would be implied by $\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle$ being reachable and
 $$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \mapsto
   \langle B, \widehat{\sigma_1} \rangle$$
- with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv \bigotimes \exists_x \pi$
+ with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv \exists_x \pi$
  and for suitable $\widehat{\sigma_1}$.
 % as long as $\alpha \otimes \sigma \otimes \exists_x \rho = \alpha \otimes \sigma \otimes \exists_x \widehat{\rho}$
 %with $\widehat{\rho} = \widehat{\sigma_1} \odiv (\alpha \otimes \bigotimes \pi  \otimes \widehat{\sigma_0})$.
@@ -1883,7 +1893,7 @@ $$= \alpha \otimes \bigotimes \pi \otimes  (\sigma \odiv \exists_x \pi)
 $$
 and the result follows. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
 and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\bigotimes \pi \leq \exists_x \pi$,
-for $3$ we used the well-known law $a \otimes ((a \otimes b) \odiv a) = a \otimes b$.
+for $3$ we used the well-known equality $a \otimes ((a \otimes b) \odiv a) = a \otimes b$.
 \qed
 \end{proof}
 
@@ -1904,18 +1914,46 @@ reductions needing a label, as stated in the theorem below.
 \label{minor}
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$. Then $\langle A, \sigma \rangle$ is a reachable configuration.
+
+Moreover, if  $\langle A, \tau \rangle \mapsto \langle B, \tau' \rangle$ and
+$\langle A, \sigma \rangle \mapsto \langle B, \sigma' \rangle$ are
+two reductions, then $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
+
 \end{lemma}
 
-The proof simply consists in adding in parallel the agent $\hbox{\ask}(\sigma \odiv \tau) \rightarrow \mathit{\ostop}$.
+The proof f the first item  simply consists in noting that if  $\langle A, \tau \rangle$ is reachable from 
+ $\langle B, \mu \rangle$, then $\langle A, \sigma \rangle$ is reachable from
+ $\langle \hbox{\tell}(\sigma \odiv \tau) \rightarrow \mathit{\ostop} \parallel B, \mu \rangle$.
+
 
 \begin{lemma}
 \label{riminor}
 Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction
-such that $\alpha \leq \beta$. Then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
+such that $\alpha \leq \beta$. 
+%
+If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
+%\\
+%
+%Then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B', \tau'' \rangle$
+%and $\tau'' \leq \tau'$.
 \end{lemma}
 
-The lemma just states that the label in a reduction can always be strengthened.
-%and it exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono}.
+The lemma just states that the label in a reduction can always be strengthened,
+as long as rule  {\bf LA1} is not used in the reduction labelled by $\beta$.
+The proof exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono},
+and the condition $\beta \neq \monid$ is required in the inductive step for rule  {\bf LR2}.
+
+\begin{lemma}
+\label{riminor}
+Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction
+such that $\alpha \leq \beta$. 
+%
+If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
+%\\
+%
+%Then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B', \tau'' \rangle$
+%and $\tau'' \leq \tau'$.
+\end{lemma}
 
 \begin{theorem}[Completeness]
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
@@ -1933,12 +1971,21 @@ We proceed by structural induction on the proof.
 The result is straightforward for rules ${\bf LA1}$, ${\bf LA2}$, and ${\bf LR1}$ with 
 $\alpha = \sigma \odiv \tau$ and $\sigma'' = \monid$, since $\C$ is invertible.
 
-As for ${\bf LA2}$, note that $\sigma' = \sigma$, so we need
-to prove that $\langle \hbox{\ask}(c) \rightarrow A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ and $\sigma = \alpha \otimes \tau \otimes \sigma''$ for some $\alpha$ and $\sigma''$.
-A possible candidate for $\alpha$ is $c \odiv \tau$, since it clearly makes the reduction possible,
-while for $\sigma''$ is instead $\sigma \odiv (\alpha \otimes \tau)$: should $\sigma \leq \alpha \otimes \tau$
-then the result would follow by invertibility. Again by invertibility, the latter corresponds to prove that 
-$(\sigma \odiv \tau) \otimes \tau \leq (c \odiv \tau) \otimes \tau$, which holds since $\sigma \leq c$.
+As for ${\bf LA2}$, note that $\sigma' = \sigma \leq c$ and that 
+$\langle \hbox{\ask}(c) \rightarrow A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ 
+for any $\alpha \leq c\odiv \tau$, so that $\tau' = \alpha \otimes \tau$.
+So, we just need to identify an $\alpha$ such that
+$\sigma = \alpha \otimes \tau \otimes \sigma''$ for some $\sigma''$.
+A possible witness for $\alpha$ is $c \odiv \tau$, since $\sigma \leq c$
+implies $\sigma \odiv \tau \leq \alpha$.
+%
+Irregardless of $\alpha$, if $\sigma \leq \alpha \otimes \tau$ 
+a possible witness for $\sigma''$ is $\sigma \odiv (\alpha \otimes \tau)$,
+since the result would follow by invertibility. 
+Again by invertibility, proving $\sigma \leq \alpha \otimes \tau$ 
+corresponds to prove 
+$(\sigma \odiv \tau) \otimes \tau \leq \alpha \otimes \tau$, which holds 
+for $\alpha = c \odiv \tau$.
 
 Let us  move to ${\bf LR2}$ and consider the configurations 
 $\langle \exists^\pi_x A, \sigma \rangle$  and
@@ -1952,13 +1999,13 @@ by Lemma~\ref{mono2}.
 We have 
 $$\langle \exists^\pi_x A, \sigma \rangle \mapsto
   \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
-  with $\sigma_0 = \sigma \odiv \exists_x \pi$, $\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0)$.
+  with $\sigma_0 = \sigma \odiv \exists_x \pi$ and $\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0)$.
 The premise tells us that $\langle A, \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
 $$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \mapsto
   \langle B, \sigma_1 \rangle$$
 %
- such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
- by Lemma~\ref{mono}.
+% such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
+% by Lemma~\ref{mono}.
 Now let us consider $\tau_0 = \tau \odiv \exists_x \pi$: clearly $\sigma_0 \leq \tau_0$,
 so by induction hypothesis
 $$\langle A, \bigotimes \pi \otimes \tau_0 \rangle  \xrightarrow{\beta}
@@ -1967,14 +2014,27 @@ $$\langle A, \bigotimes \pi \otimes \tau_0 \rangle  \xrightarrow{\beta}
   $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$,
   and $\sigma_1 = \tau_1 \otimes \sigma_2$
   for some $\sigma_2$.
-Moreover, $\tau_1 = (\tau_0 \odiv (\beta \otimes \bigotimes \pi \otimes \tau_0 )) \otimes  \beta \otimes \bigotimes \pi \otimes \tau_0$
-by Lemma~\ref{l-mono}.
-
-\noindent
+%Moreover, 
+%$\tau_1 = (\tau_0 \odiv (\beta \otimes \bigotimes \pi \otimes \tau_0 )) \otimes  \beta \otimes \bigotimes \pi \otimes \tau_0$
+%by Lemma~\ref{l-mono}.
+%
+%\noindent
 Now, $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$ implies 
 $((\bigotimes \pi \odiv \exists_x \pi) \otimes \sigma) \odiv (\bigotimes \pi \odiv \exists_x \pi) \otimes \tau) \leq \beta$
 by invertibility, and by then it follows that $\sigma \odiv \tau \leq \beta$.
-%
+
+\noindent
+Now, if $\beta = \monid$ by Theorem~\ref{sound}
+and Lemma~\ref{riminor}
+we have $\sigma_1 =  \tau_1 \otimes 
+((\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0))$
+and by induction hypothesis
+$$\langle \exists^\pi_x A, \tau \rangle \xrightarrow{\monid}
+  \langle \exists^{\pi \mu}_x B, \tau \otimes \exists_x \mu \rangle$$
+with $\mu = \tau_1 \odiv (\bigotimes \pi \otimes \tau_0)$, and we have to prove that
+$\sigma = \tau \otimes \sigma''$ and $\sigma \otimes \exists_x \rho = \tau \otimes  \exists_x \mu \otimes \sigma''$
+for some $\sigma''$.
+
 Let us choose $\alpha = \sigma \odiv \tau$, noting that 
 $x \not \in sv(\alpha)$ by Remark~\ref{remdiv}
 and that $\alpha \odiv \beta$ is a witness for $\sigma_2$, since
