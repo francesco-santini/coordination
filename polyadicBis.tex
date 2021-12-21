@@ -130,23 +130,24 @@ Results are mostly drawn from~\cite{jlamp17}, where also proofs can be found.
 
 The first step is to define an algebraic structure for modelling preferences,
 where it is possible to compare values and combine them.
-Our choice falls into the range of \emph{bipolar} approaches, in order to represent both positive and negative preferences: 
-we refer to~\cite{ipl17} for a detailed introduction and a comparison with other proposals.
-% such as~\cite{xxx}\todo{Manca citazione}.
+Our choice falls into the range of \emph{bipolar} approaches, in order 
+to represent both positive and negative preferences: 
+we refer to~\cite{ipl17} for a detailed introduction and 
+a comparison with other proposals.
 
-\begin{definition}[partial order]
+\begin{definition}[Orders]
 	A partial order (PO) is a pair $\langle A, \leq \rangle$ such that
-	$A$ is a set and 
-	$\leq \,\,\subseteq A \times A$ is a reflexive, transitive, and
-	anti-symmetric relation.
+	$A$ is a set %of values 
+	and $\leq \,\,\subseteq A \times A$ is a reflexive, transitive, and
+	anti-symmetric  relation.
 	% and $\forall a \in A. \bot\leq a$.
 	%
 	%A partial order with bottom (POT) is a triple
 	%$\langle A, \leq, \bot \rangle$ such that $\langle A, \leq \rangle$ is a PO and
 	%$\forall a \in A. \bot \leq a$.
 	%
-	A (join) semi-lattice (SL) is a PO such that any non-empty finite  subset of $A$ has a
-	least upper bound (LUB).
+	A semi-lattice (SL) is a PO
+	such that any non-empty finite subset of $A$ has a least upper bound (LUB).
 \end{definition}
 
 %We write 
@@ -192,30 +193,23 @@ We let $A^C \subseteq A$ denote the set of compact elements of ${\mathbb C}$. }
 %\marginpar{is algebraicity needed?}
 %
 
-\begin{definition}[monoid]
+\begin{definition}[Ordered monoids]\label{defn:clm}
 	A (commutative) monoid is a triple
-	$\langle A, \monop, \monid \rangle$ such that $A$ is a set, $\monop: A \times A \rightarrow A$ is
-	a commutative and associative function, and $\monid \in A$ is the \emph{identity} element,
-	namely, $\forall a \in A. a \monop \monid = a$. % where $\monid \in A$ is the \emph{identity} element.
-	
-	A partially ordered (semi-lattice) monoid is a 4-tuple
-	$\langle A, \leq, \monop, \monid \rangle$ such that 	
-	$\langle A, \leq \rangle$ is a PO (SL) and $\langle A, \monop, \monid \rangle$ a monoid.
-	
-%	\noindent
-%	A partially ordered monoid is monotone if 
-%	satisfying
-% 	A weakly ordered monoid is ordered if 
-%	\begin{itemize}
-%		\item $\forall a, b, c \in A. a \leq b \implies c \monop a \leq c \monop b$.
-%	\end{itemize}
-%	A semi-lattice monoid is an ordered (weakly so, respectively) monoid 
-%	such that its underlying PO is an SL. 
+	$\langle A, \monop,$ $\1 \rangle$ such that $\monop: A \times A \rightarrow A$ is
+	a commutative and associative function and $\1 \in A$ is its \emph{identity} element,
+	i.e., $\forall a \in A. a \monop \1 = a$.
+%	
+	A partially ordered monoid (POM) is a 4-tuple
+	$\langle A, \leq, \monop, \1 \rangle$ such that 	
+	$\langle A, \leq \rangle$ is a PO and $\langle A, \monop, \1 \rangle$ a monoid.
+	%
+	A semi-lattice monoid (SLM) is a 
+	POM such that their underlying PO is a SL.
 \end{definition}
 
 As usual, we use the infix notation: $a \monop b$ stands for $\monop(a,b)$.
 \comment{The monoidal operator can be defined for any multi-set: it is given 
-for a family of elements $a_i \in A$ indexed over a finite, non-empty
+for a family of elements $a_i \in A$ indexed over a non-empty finite
 set $I$, and it is denoted by
 $\bigotimes_{i \in I} a_i$.
 %
@@ -223,17 +217,32 @@ If for an index set $I$ the $a_i$'s are different,
 we write $\bigotimes S$ instead of $\bigotimes_{i \in I} a_i$
 for the set $S = \{a_i \mid i \in I\}$.
 %
-Conventionally, we denote $\bigotimes \emptyset = \bot$.}
+Conventionally, we denote $\bigotimes \emptyset = \bot$.
+}
+
+s\begin{example}[Power set]\label{ex:powerset}
+	Given a (possibly infinite) set $V$ of variables, we consider
+	the monoid $\langle 2^V, \cup, \emptyset \rangle$
+	of (finite, possibly empty) subsets of $V$, with union as the monoidal operator.
+	Since the operator is idempotent (i.e., $\forall a\in A.\, a \monop a = a$), 
+	the natural order ($\forall a, b \in A.\, a \leq b$ iff $a \monop b = b$) 
+	is a partial order, and 
+	it coincides with subset inclusion:
+	in fact, $\langle 2^V, \subseteq, \cup, \emptyset \rangle$
+	is an SLM.
+\end{example}
+
+In general, the partial order $\leq$ and the multiplication operator $\otimes$ can be unrelated.
+This is not the case for distributive SLMs.
 
 \begin{definition}[distributivity]
 \label{dist}
-Let $\langle A, \leq, \monop, \monid \rangle$ be a semi-lattice monoid.
+Let $\langle A, \leq, \monop, \monid \rangle$ be an SLM.
 It is distributive if
 	for  any  non-empty finite  $X \subseteq A$
-	\begin{itemize}
-		\item $\forall a \in A.\,  a \monop  \bigvee X = \bigvee \{a \monop x \mid x \in X\}$.
-	\end{itemize}
-
+%	\begin{itemize}
+		it holds $\forall a \in A.\,  a \monop  \bigvee X = \bigvee \{a \monop x \mid x \in X\}$.
+%	\end{itemize}
 \end{definition}
 
 Note that distributivity implies that $\otimes$ is monotone with respect to $\leq$.
@@ -260,17 +269,17 @@ Note that distributivity implies that $\otimes$ is monotone with respect to $\le
 	that it holds $\forall a, b \in A. a \monop b \leq a$.
 \end{remark}
 
-\begin{example}
-Given a (possibly infinite) set $V$ of variables, two semi-lattice monoids are going to play a key role in the following sections. The first one is the semi-lattice monoid 
-$\mathbb{M}(V) = \langle 2^V_{fin}, \subseteq, \cup, \emptyset \rangle$
-of finite sub-sets of $V$, with the usual order given by sub-set inclusion.
-For the second one, we start by defining the support of an endofunction $f\colon V \to V$ as the set $sv(f) = \{ x \in V \mid f(x)\neq x \}$ and
-$F(V)$ as the set of functions $f\colon V \to V$ with finite support.
-The semi-lattice monoid of interest is  $\mathbb{F}(V) = \langle F(V), id, \circ, \iota \rangle$ where 
-$\iota$ is the identity function,  $\circ$ is function composition and $id$ is the discrete ordering on $F(V)$.
-\end{example}
-
-\bigskip
+%\begin{example}
+%Given a (possibly infinite) set $V$ of variables, two semi-lattice monoids are going to play a key role in the following sections. The first one is the semi-lattice monoid 
+%$\mathbb{M}(V) = \langle 2^V_{fin}, \subseteq, \cup, \emptyset \rangle$
+%of finite sub-sets of $V$, with the usual order given by sub-set inclusion.
+%For the second one, we start by defining the support of an endofunction $f\colon V \to V$ as the set $sv(f) = \{ x \in V \mid f(x)\neq x \}$ and
+%$F(V)$ as the set of functions $f\colon V \to V$ with finite support.
+%The semi-lattice monoid of interest is  $\mathbb{F}(V) = \langle F(V), id, \circ, \iota \rangle$ where 
+%$\iota$ is the identity function,  $\circ$ is function composition and $id$ is the discrete ordering on $F(V)$.
+%\end{example}
+%
+%\bigskip
 %
 % COMMENTATO DA FILIPPO
 %
@@ -306,10 +315,10 @@ The structure of our choice is given by residuated monoids~\cite{golanShort}.
 They introduce a new operator $\odiv$, which represents a ``weak'' (due to the presence of partial orders) inverse of $\otimes$.
 
 \begin{definition}[residuation]\label{def:repo}
-	A residuated monoid (RePO) is a 5-tuple $\langle A, \leq, \monop, \odiv, \monid \rangle$ such that
+	A residuated POM is a 5-tuple $\langle A, \leq, \monop, \odiv, \monid \rangle$ such that
 	$\langle A, \leq, \monop, \monid \rangle$ is a partially ordered monoid and
 	$\odiv: A \times A \rightarrow A$ is a function satisfying $\forall a, b, c \in A. b \monop c \leq a \iff c \leq a \odiv b$.x
-	An ReSL is an RePO such that the underlying PO is a SL.
+%	An ReSL is an RePO such that the underlying PO is a SL.
 \end{definition}
 
 %In the following sections on oft CCP, we will often use absorptive RePOs, i.e., such that 
@@ -576,7 +585,7 @@ is monotone on the first argument (see Lemma~\ref{mono}) the result follows.
 \begin{example}
 \label{nodist2}
 %Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be an ReSL such that $\langle A, \leq \rangle$ is a total order.
-%Then, it holds that $\bigvee \{ x \odiv a \mid x \in X \} = \bigvee X \odiv a$ for all elements $a$ and (finite, non-empty) subsets $X$.
+%Then, it holds that $\bigvee \{ x \odiv a \mid x \in X \} = \bigvee X \odiv a$ for all elements $a$ and (non-empty finite) subsets $X$.
 %In fact, if $\langle A, \leq \rangle$ is a total order and $X$ is finite and non-empty we have that $\bigvee X \in X$, and since $\odiv$ 
 %is monotone on the first argument (see Lemma~\ref{mono}), the result follows.
 %
@@ -884,8 +893,8 @@ The first two requirements just state
 that $\phi$ is a monoid action of $\mathbb{M}$ on $S$, while the latter states that $\phi$ is monotone. Sometimes, we say that $\mathbb{P}$ is an $\mathbb{M}$-PO.}
 
 \subsubsection{Cylindric operators.}
-We fix a partially ordered monoid $\mathbb{S} = \langle A, \leq, \monop, \monid \rangle$
-and a set $V$ of variables, and we then define a family of cylindric operators axiomatising existential quantifiers.
+We fix a POM $\mathbb{S} = \langle A, \leq, \monop, \monid \rangle$
+and a set $V$ of variables, and we define a family of cylindric operators axiomatising existential quantifiers.
 
 \begin{definition}[cylindrification]\label{cyli}
 	A cylindric operator $\exists$ over $\mathbb{S}$ and $V$ ia family of monotone operators
@@ -904,6 +913,8 @@ and a set $V$ of variables, and we then define a family of cylindric operators a
 	$sv(a) = \{ x \mid \exists_x a \neq a\}$. 
 	% and the set of unsupported variables of $a$ is the set of variables $uv(a) =  V \setminus sv(a)$.
 \end{definition}
+
+In other words, $\exists$ fixes a monoid action which is monotone and increasing.
 
 %Note that, since by Definition~\ref{pomo} we have $\exists(\emptyset, a) = a$, the requirements of Definition~\ref{cyli} trivially hold 
 %whenever $X$ is the empty set.
@@ -1259,26 +1270,10 @@ $\xi(x) \neq \xi(y)$).
 \qed
 \end{proof}
 
-%
-%Finally, the diagonal element $\delta_{x,y}$ has support $\{x, y\}$ for 
-%$x \neq y$, while the support for $\delta_{x,x}$ is $\emptyset$. 
-
-
-Note also that the diagonal elements are not guaranteed to be $\monop$-compact,
-even if they have finite support, since $\top$ is not necessarily so.
-%
-To this end, we close the section by adding the simple result below to the soft constraint lore.
-
-\begin{proposition}
-	Let $c \in \mathbb{C}$ be a constraint. It is $\monop$-compact if and only if it has finite support and 
-	$c\eta$ is $\monop$-compact for all $\eta$.
-\end{proposition}
-
-
 \section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detSCCP}
 This section introduces our (meta-)language.
 We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
-a CLIM $\mathbb S = \langle {\mathcal C}, \leq, \otimes\rangle$, which is
+a residuated POM $\mathbb S = \langle {\mathcal C}, \leq, \otimes, \odiv, \1\rangle$, which is
 polyadic over $V$ and whose elements
 are ranged over by $c$, $d$, $\ldots$.
 
@@ -1286,9 +1281,9 @@ are ranged over by $c$, $d$, $\ldots$.
 The set $\mathcal{A}$ of agents, %which is
 parametric with respect to a set $\mathcal{P}$ of (unary) procedure declarations $p(x) = A$,
 is given by the following grammar
-\[ A \Coloneqq \: \: \mathit{\ostop} \mid \textit{\tell}(c)  \mid \textit{\ask}(c) \rightarrow A \mid A \parallel A \mid %\exists_x A \mid %Z \mid \mu_Z A 
+\[ A \Coloneqq \: \: \mathit{\ostop} \mid \textit{\tell}(c)  \mid \textit{\ask}(c) \mapsto A \mid A \parallel A \mid %\exists_x A \mid %Z \mid \mu_Z A 
 p(x) \mid \exists^{\pi}_x A.\]  
-for $\pi \in {\mathcal C}^\ast$ a sequence of elements.
+for $\pi \in {\mathcal C}^\ast$ a (possibly empty) sequence of elements.
 \end{definition}
 
 We consider here the extended agent $\exists^{\pi}_x A$, where $\pi$ is meant to represent the sequence of updates performed on the local store. More precisely, the extended agent may carry some information about the hidden variable 
@@ -1297,7 +1292,7 @@ the $i$-th element of $\pi = [ \pi_0, \ldots, \pi_n]$.
 
 We denote by $fv(A)$ the set of free variables of an agent, defined in the expected way 
 by structural induction, assuming that $fv(\tell(c)) = sv(c)$,
-$fv(\ask(c) \rightarrow A) = sv(c) \cup fv(A)$,
+$fv(\ask(c) \mapsto A) = sv(c) \cup fv(A)$,
 % and We also remark that $fv(\exists_x A) = fv(A) \setminus \{x\}$ 
 and $fv(\exists^{\pi}_x A) = (fv(A) \cup \bigcup_i sv(\pi_i)) \setminus \{x\}$.
 %
@@ -1313,21 +1308,21 @@ Let $[^y/_x]: V \to V$ be the substitution defined as
             w & \text{otherwise}
         \end{cases} \].
 
-It induces a substitution operator $[^y/_x]: \mathcal{A} \rarrow \mathcal{A}$ on agents as follows
+It induces an operator $[^y/_x]: \mathcal{A} \rarrow \mathcal{A}$ on agents in the expected way,  in particular
 
-\begin{itemize}
-	\item $\ostop[^y/_x] = \ostop$
-	\item $\tell(c)[^y/_x] = \tell(s_{[^y/_x]}c)$
-	\item $(\ask(c) \rightarrow A)[^y/_x] = \ask(s_{[^y/_x]}(c)) \rightarrow A[^y/_x]$
+%\begin{itemize}
+%	\item $\ostop[^y/_x] = \ostop$
+%	\item $\tell(c)[^y/_x] = \tell(s_{[^y/_x]}c)$
+%	\item $(\ask(c) \rightarrow A)[^y/_x] = \ask(s_{[^y/_x]}(c)) \rightarrow A[^y/_x]$
 	%\item $[^y/_x] (\exists_w A)  = \exists_w ([^y/_x] A) \ \ \text{for $w \not \in \{x, y\}$}$
-	\item $p(w)[^y/_x] =  p([^y/_x](w))$
-	\item $(A_1 \parallel A_2)[^y/_x]  = (A_1[^y/_x] \parallel A_2[^y/_x])$
-        \item $(\exists^{\pi}_w A)[^y/_x] = \begin{cases} 
+%	\item $p(w)[^y/_x] =  p([^y/_x](w))$
+%	\item $(A_1 \parallel A_2)[^y/_x]  = (A_1[^y/_x] \parallel A_2[^y/_x])$
+        $$(\exists^{\pi}_w A)[^y/_x] = \begin{cases} 
 			\exists^{(s_{[^y/_x]} \pi)}_w A[^y/_x]  & \text{if } w \not \in \{x, y\} \\
              (\exists^{(s_{[^z/_w]} \pi)}_z A[^z/_w])[^y/_x] & \text{for } z \not \in fv(\exists^{\pi}_w A) \text{ otherwise}
-        \end{cases}$
-\end{itemize}
-with $s_{[^y/_x]} \langle \pi_1, \ldots, \pi_n \rangle = \langle s_{[^y/_x]} \pi_1, \ldots, s_{[^y/_x]} \pi_n \rangle$.
+        \end{cases}$$
+%\end{itemize}
+with $s_{[^y/_x]} [ \pi_1, \ldots, \pi_n ]$ a shorthand for $[s_{[^y/_x]} \pi_1, \ldots, s_{[^y/_x]} \pi_n]$.
 \end{definition}
 
 Note that the choice of $z$ in the rule above is immaterial, since for the polyadic operator it holds
@@ -1375,15 +1370,16 @@ Let $A \in \mathcal{A}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
 We now move to consider the reduction semantics of our calculus. 
 %
 Given a sequence $\pi = [\pi_1, \ldots, \pi_n]$, we will use 
-$\bigotimes \pi$ and $\exists_x \pi$
+$\pi_\otimes$ and $\exists_x \pi$
 as shorthands for $\pi_1 \otimes \ldots \otimes \pi_n$ and
-$(\exists_x \pi_1) \otimes \ldots \otimes (\exists_x \pi_n)$, respectively.
+$[\exists_x \pi_1, \ldots, \exists_x \pi_n]$, respectively,
+sometimes combining them as in $(\exists_x \pi)_\otimes$.
 
 \begin{definition}[Reductions]\label{def:reductions}
 Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
 The \emph{direct reduction semantics} for SCCP is the pair 
-$\langle \Gamma,  \mapsto \rangle$
-such that $\mapsto \, \, \subseteq \, \,\Gamma \times   \Gamma$ is the 
+$\langle \Gamma,  \to \rangle$
+such that $\to \, \, \subseteq \, \,\Gamma \times   \Gamma$ is the 
 binary relations obtained by the rules in 
 Table~\ref{fig:operational}.
 
@@ -1403,27 +1399,27 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
    \begin{center}
    \begin{tabular}{lcll} 
    %
-   \mbox{\bf A1}& $ {\displaystyle \langle \hbox{\tell}(c), \sigma \rangle \mapsto \langle 
+   \mbox{\bf A1}& $ {\displaystyle \langle \hbox{\tell}(c), \sigma \rangle \to \langle 
    \hbox{\ostop}, \sigma \otimes c\rangle}$
    \ \ \ & \bf{Tell}&
   \\ 
   &\mbox{   }&\mbox{   } &\mbox{   }
   \\
   \mbox{\bf A2}& $\frac {\displaystyle \sigma \leq c}{\displaystyle
-  	\begin{array}{l} \langle \hbox{\ask}(c) \rightarrow A, \sigma \rangle \mapsto \langle A, \sigma \rangle   	\end{array}}$
+  	\begin{array}{l} \langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \to \langle A, \sigma \rangle   	\end{array}}$
     \ \ \ & \bf{Ask}&
     \\
     &\mbox{   }&\mbox{   }&
     \\
   \mbox{\bf A3}& $\frac {\displaystyle p(x) = A \in \mathcal{P} }
-  {\displaystyle\langle p(y),\sigma\rangle \mapsto \langle A[^y/_x], \sigma \rangle}$ 
+  {\displaystyle\langle p(y),\sigma\rangle \to \langle A[^y/_x], \sigma \rangle}$ 
   &\bf{Rec}&
     %\\
     %&\mbox{   }&\mbox{   }&
     %\\
     %\mbox{\bf A4}& $\frac {\displaystyle sv(\sigma) \cup fv(\exists_x A) \subseteq 
     %\Delta \wedge w \not \in \Delta }
-    %{\displaystyle\langle \exists_x A,\sigma\rangle \mapsto_\Delta \langle [^w/_x]A,
+    %{\displaystyle\langle \exists_x A,\sigma\rangle \to_\Delta \langle [^w/_x]A,
     %\sigma\rangle}$
     %&\bf{Hide}&
     %\\
@@ -1439,19 +1435,19 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
    \begin{center}
    \begin{tabular}{lcll} 
    %
-  \mbox{\bf R1}& $\frac {\displaystyle \langle A, \sigma\rangle \mapsto \langle A', \sigma' \rangle} 
+  \mbox{\bf R1}& $\frac {\displaystyle \langle A, \sigma\rangle \to \langle A', \sigma' \rangle} 
   {\displaystyle \begin{array}{l}
-                          \langle A\parallel B, \sigma \rangle \mapsto \langle A'\parallel B, \sigma' \rangle
+                          \langle A\parallel B, \sigma \rangle \to \langle A'\parallel B, \sigma' \rangle
                           \end{array}}$ 
     & \bf{Par1}&
   \\
   & \mbox{   }&\mbox{   }&
   \\
-    \mbox{\bf R2}& $\frac {\displaystyle \langle A, \bigotimes \pi \otimes \sigma_0 \rangle
-    \mapsto \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv \exists_x \pi}
-    {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \mapsto \langle 
+    \mbox{\bf R2}& $\frac {\displaystyle \langle A, \pi_\otimes \otimes \sigma_0 \rangle
+    \to \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes}
+    {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
     \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho
-    \rangle \text{ with } \rho = \sigma_1 \odiv (\bigotimes \pi \otimes \sigma _0)} \text{ for } x \not \in sv(\sigma)$
+    \rangle \text{ with } \rho = \sigma_1 \odiv (\pi_\otimes \otimes \sigma _0)} \text{ for } x \not \in sv(\sigma)$
     &\bf{Hide}&
   \end{tabular}
   \end{center}
@@ -1482,34 +1478,34 @@ Axiom {\bf A3} replaces a procedure identifier with the associated body, renamin
 
 Let us instead discuss in some details the rule {\bf R2}.
 The intuition is that if we reach an agent $\langle \exists^{\pi}_x A,\sigma\rangle$, then during the computation
-a sequence $\pi$ of updates has been performed by the local agent and $\exists_x \pi$ 
+a sequence $\pi$ of updates has been performed by the local agent and $(\exists_x \pi)_\otimes$ 
 has been added to the global store. In order to evaluate $A$, the chosen 
 store is 
-$\bigotimes \pi \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv \exists_x \pi$, thus removing 
-the effect $\exists_x \pi$ of the sequence of updates from the global store
-and adding the cumulative effect $\bigotimes \pi$ of the local store, which may carry information about $x$. 
-Now, $\rho = \sigma_1 \odiv (\bigotimes \pi \otimes \sigma _0)$ 
+$\pi_\otimes \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$, thus removing 
+the effect $(\exists_x \pi)_\otimes$ of the sequence of updates from the global store
+and adding the cumulative effect $\pi_\otimes$ of the local store, which may carry information about $x$. 
+Now, $\rho = \sigma_1 \odiv (\pi_\otimes \otimes \sigma _0)$ 
 is precisely the information added by the step originating from $A$, which is then restricted and added to $\sigma$. 
 On the local store we simply add that effect $\rho$ to the sequence of updates, with
 $\pi \rho = [\pi_0, \ldots, \pi_n, \rho]$.
 
-Let $\gamma = \langle A, \sigma \rangle$ be a configuration.
-%
-We denote by $fv(\gamma)$ the set $fv(A) \cup sv(\sigma)$ and by
-$\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
-
 \begin{lemma}[On monotonicity]
 \label{rmono}
 Let $\langle A, \sigma \rangle \rightarrow \langle B, \sigma' \rangle$ be a reduction. 
-Then 
-\begin{enumerate}
-\item $\exists \sigma''.\  \sigma' = \sigma'' \otimes \sigma$
-\item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle)$
-\end{enumerate}
+Then $\sigma' = (\sigma' \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle)$.
+%\begin{enumerate}
+%\item $\exists \sigma''.\  \sigma' = \sigma'' \otimes \sigma$
+%\item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle)$
+%\end{enumerate}
 \end{lemma}
  
-By the properties of residuation, a witness of the equality in item $1$ is
-$\sigma' \odiv \sigma$.
+%By the properties of residuation, a witness of the equality in item $1$ is
+%$\sigma' \odiv \sigma$.
+
+\begin{proof}
+The first law is due to the equivalence $((a \otimes b) \odiv b) \otimes b = a \otimes b$, which holds in all residuated POMs.
+The second law is by induction on rule application.
+\end{proof}
 
 \begin{remark}
 The choice for the resulting global store in rule {\bf R2}. could have been 
@@ -1535,13 +1531,13 @@ As far as our running example is concerned, it might be that $c = x \leq 1$ and 
 Now, let $A$ be the agent $\hbox{\tell}(c) \parallel \hbox{\tell}(d)$ and $\gamma$ the configuration 
 $\langle \exists_x A, \monid \rangle$.
 Assuming that $c$ is added to the store, with both choices we end up with the reduction
-$\gamma \mapsto \langle \exists_x^{[ c ]} \hbox{\tell}(d), \monid \rangle$.
+$\gamma \to \langle \exists_x^{[ c ]} \hbox{\tell}(d), \monid \rangle$.
 With the alternative definition for the global store, we would then reach 
- $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \mapsto \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \bot \rangle$,
+ $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \bot \rangle$,
  %since $\sigma_1 \odiv \sigma_0 = \bot \odiv \monid = \bot$,  
  thus lifting to the global store the unsatisfiability of the local one.
  Instead, with our choice we obtain 
- $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \mapsto \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
+ $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
 % since $\sigma \otimes \exists_x(\sigma_1 \odiv (\rho \otimes \sigma _0)) 
 %= \monid \otimes \exists_x ( \bot \odiv (c \otimes \monid))$.
 Now, obviously $\bot \leq \bot \odiv c$: the equality may hold if e.g. the semiring does not have zero divisors, 
@@ -1554,22 +1550,32 @@ However, it is the minimal information collapsing the local store, and since the
 necessarily invertible, it is often the best result we can get.
 \end{remark}
 
-We say that an agent $A$ is initial if it contains only existential operators of the form $\exists_x B$
-and that a configuration is initial if so is its associated agent and reachable if it can be
-reached by an initial comfiguration via a sequence of reductions.
+Let $\gamma = \langle A, \sigma \rangle$ be a configuration.
+%
+We denote by $fv(\gamma)$ the set $fv(A) \cup sv(\sigma)$ and by
+$\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
+
+\begin{definition}
+An agent $A$ is initial if it contains only existential operators of the form $\exists_x B$.
+A configuration is initial if so is its associated agent and reachable if it can be
+reached by an initial configuration via a sequence of reductions.
+\end{definition}
 
 \begin{lemma}[On monotonicity, II]
 \label{mono2}
-Let $\langle B \parallel \exists_x^\pi A, \sigma \rangle$ 
+Let $\langle A \parallel \exists_x^\pi B, \sigma \rangle$ 
 be a reachable configuration.
-Then 
-\begin{enumerate}
-\item $\exists \sigma'.\  \sigma = \sigma' \otimes \exists_x \pi$
-\end{enumerate}
+Then $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$.
+%\begin{enumerate}
+%\item $\exists \sigma'.\  \sigma = \sigma' \otimes (\exists_x \pi)_\otimes$
+%\end{enumerate}
 \end{lemma}
 
-As before, a witness of the equality in item $1$ is
-$\sigma \odiv \exists_x \pi$.
+\begin{proof}
+XXXXX
+\end{proof}
+%As before, a witness of the equality in item $1$ is
+%$\sigma \odiv (\exists_x \pi)_\otimes$.
 
 
 \section{Saturated Bisimulation [to be checked]}\label{sec:saturated}
@@ -1601,19 +1607,19 @@ Definition~\ref{def:strongsb} and Definition~\ref{def:weaksb} respectively provi
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
-\item if $\langle A, \sigma \rangle \mapsto \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \mapsto \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
+\item if $\langle A, \sigma \rangle \to \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \to \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
 \item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d \in \mathcal{C}$.
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
 \end{definition}
 
-We now let $\mapsto^*$ denote the reflexive and transitive closure of $\mapsto$.
+We now let $\rightarrow$ denote the reflexive and transitive closure of $\to$.
 
 \begin{definition} [Weak barbs]
 Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$.
 We say that $\langle A, \sigma \rangle$ weakly verifies $c$, or that $\langle A, \sigma \rangle \Downarrow_c$ holds, 
 if  there exists $\gamma' = \langle B, \rho \rangle$ such that 
-$\gamma \mapsto^* \gamma'$ and $\rho \leq c$.
+$\gamma \Rightarrow \gamma'$ and $\rho \leq c$.
 \end{definition}
 
 \begin{definition}[Weak saturated bisimilarity]\label{def:weaksb} A weak saturated bisimulation is a symmetric relation $R$ on configurations such that whenever
@@ -1622,7 +1628,7 @@ $\gamma \mapsto^* \gamma'$ and $\rho \leq c$.
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \Downarrow_c$;
-\item if $\langle A, \sigma \rangle \mapsto \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \mapsto^* \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
+\item if $\langle A, \sigma \rangle \to \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \Rightarrow \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
 \item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for all $d \in \mathcal{C}$.
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  weakly saturated bisimilar ($\gamma_1  \approx_{\mathit{s}} \gamma_2$) if there exists a  
@@ -1634,7 +1640,7 @@ The asymmetry is functional to later sections. However, it is clearly equivalent
 
 \begin{definition}[Weak saturated bisimilarity, 2]\label{def:weaksb2}
 Weak saturated bisimilarity coincides with the relation 
-obtained from Definition~\ref{def:strongsb} by replacing $\mapsto$ with $\mapsto^*$ and $\downarrow_c$ with $\Downarrow_c$.
+obtained from Definition~\ref{def:strongsb} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
 \end{definition}
 
 Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
@@ -1651,7 +1657,7 @@ because of the upward-closure, i.e., the quantification in condition \emph{3} of
 	Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
 	The  \emph{labelled direct reduction semantics} for SCCP is the pair 
 	$\langle \Gamma,   \xrightarrow{ }  \rangle$
-	such that $\mapsto \, \, \subseteq \, \,\Gamma \times \mathcal{C} \times \Gamma$ is the ternary
+	such that $\to \, \, \subseteq \, \,\Gamma \times \mathcal{C} \times \Gamma$ is the ternary
 	relation obtained by the rules in Table~\ref{fig:ALTS}.
 	
 	The \emph{labelled reduction semantics} for SCCP is the pair 
@@ -1675,7 +1681,7 @@ because of the upward-closure, i.e., the quantification in condition \emph{3} of
   &\mbox{   }&\mbox{   } &\mbox{   }
   \\
   \mbox{\bf LA2}& $\frac{\displaystyle \alpha \leq  c  \odiv  \sigma} {{\displaystyle
-  	\begin{array}{l} \langle \hbox{\ask}(c) \rightarrow A, \sigma \rangle \xrightarrow{\alpha}
+  	\begin{array}{l} \langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{\alpha}
   	\langle A, \alpha \otimes \sigma \rangle
   	\end{array}}}$
   \ \ \ & \bf{Ask}&
@@ -1767,10 +1773,10 @@ since $\alpha$ is added to the global store, it will not be necessary to receive
 
 \begin{remark}
 An alternative solution for rule ${\bf LA2}$ would have been to restrict the possible reductions to the one with maximal label, 
-that is, $\langle \hbox{\ask}(c) \rightarrow A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. However, this might have been restrictive in combination with rule ${\bf LR2}$.
+that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. However, this might have been restrictive in combination with rule ${\bf LR2}$.
 Consider again  our running example and the configuration 
-$\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \rightarrow \hbox{\ostop}, \monid$. The initial configuration in the premise is
-$\langle \hbox{\ask}(y > 2) \rightarrow \hbox{\ostop}, x > 1 \rangle$, and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
+$\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, \monid$. The initial configuration in the premise is
+$\langle \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, x > 1 \rangle$, and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
 Selecting $\alpha = (x \leq 1) \vee (y > 2)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y > 2)$,
 or any other value such as $y > 3$,$ y > 4$, $\ldots$, fits well with the intuition of some information  from the environment 
 triggering the reduction.
@@ -1778,9 +1784,9 @@ triggering the reduction.
 Note instead that the choice of removing the requirement $x \not \in sv(\alpha)$ and put $\exists_x \alpha$ as label in the 
 conclusion of rule ${\bf LR2}$ would  be too liberal. It would work in our previous example, since 
 $\exists_x((x \leq 1) \vee (y > 3)) = y > 3$. However, consider e.g. 
-the configuration $\gamma = \langle \exists^{[x > 1]}_x \hbox{\ask}(x > 2) \rightarrow \hbox{\ostop}, \monid \rangle$. 
+the configuration $\gamma = \langle \exists^{[x > 1]}_x \hbox{\ask}(x > 2) \mapsto \hbox{\ostop}, \monid \rangle$. 
 We would have that 
-$\langle \hbox{\ask}(x > 2) \rightarrow \hbox{\ostop}, x > 1 \rangle \xrightarrow{x \neq 2} \langle \hbox{\ostop}, x > 2 \rangle$,
+$\langle \hbox{\ask}(x > 2) \mapsto \hbox{\ostop}, x > 1 \rangle \xrightarrow{x \neq 2} \langle \hbox{\ostop}, x > 2 \rangle$,
 and then allowing the reduction $\gamma \xrightarrow{\monid} \langle \exists^{[x > 1, x \neq 2]}_x \hbox{\ostop}, \monid \rangle$,
 which clashes with the intuition that receiving information should not enable reductions involving (necessarily) 
 the restricted variable.
@@ -1842,7 +1848,7 @@ Then
 \section{On the equivalence between reduction semantics}
 This section shows the relationship between the labelled and the unlabelled reduction semantics.
 %We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
-%$\langle A, \sigma \rangle \mapsto^\ast \gamma$, and it is l-reachable if 
+%$\langle A, \sigma \rangle \to^\ast \gamma$, and it is l-reachable if 
 %$\langle A, \sigma \rangle \xRightarrow{\mu} \gamma$.
 %
 In the following, we assume that $\C$ in invertible.
@@ -1852,7 +1858,7 @@ In the following, we assume that $\C$ in invertible.
 Let $\langle A, \sigma \rangle$ be an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ a reduction. 
 Then $\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
-$\langle A, \alpha \otimes \sigma \rangle \mapsto \langle B, \sigma' \rangle$.
+$\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
 
 \begin{proof}
@@ -1870,13 +1876,13 @@ $$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \xrightarrow{\alpha}
 %with  $\sigma_0 = \sigma \odiv \bigotimes \exists_x \pi$.
 %
 By induction hypothesis $\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
-$$\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle \mapsto
+$$\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle \to
   \langle B, \sigma_1 \rangle$$
 Now recall that we must prove that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
-$$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \mapsto
+$$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \to
   \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
 which would be implied by $\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle$ being reachable and
-$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \mapsto
+$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \to
   \langle B, \widehat{\sigma_1} \rangle$$
  with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv \exists_x \pi$
  and for suitable $\widehat{\sigma_1}$.
@@ -1902,7 +1908,7 @@ then it is also l-reachable via a sequence of reductions labelled by $\monid$.
 
 \begin{lemma}
 Let $\langle A, \sigma \rangle$ be a reachable configuration and
-$\langle A, \sigma \rangle \mapsto \langle B, \sigma' \rangle$ a reduction. 
+$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$ a reduction. 
 Then $\langle A, \sigma \rangle$ is an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
 \end{lemma}
@@ -1915,15 +1921,15 @@ reductions needing a label, as stated in the theorem below.
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$. Then $\langle A, \sigma \rangle$ is a reachable configuration.
 
-Moreover, if  $\langle A, \tau \rangle \mapsto \langle B, \tau' \rangle$ and
-$\langle A, \sigma \rangle \mapsto \langle B, \sigma' \rangle$ are
+Moreover, if  $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ and
+$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$ are
 two reductions, then $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 
 \end{lemma}
 
 The proof f the first item  simply consists in noting that if  $\langle A, \tau \rangle$ is reachable from 
  $\langle B, \mu \rangle$, then $\langle A, \sigma \rangle$ is reachable from
- $\langle \hbox{\tell}(\sigma \odiv \tau) \rightarrow \mathit{\ostop} \parallel B, \mu \rangle$.
+ $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \mu \rangle$.
 
 
 \begin{lemma}
@@ -1958,7 +1964,7 @@ If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langl
 \begin{theorem}[Completeness]
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$ and
-$\langle A, \sigma \rangle \mapsto \langle B, \sigma' \rangle$ a reduction. 
+$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$ a reduction. 
 Then 
 %$\langle A, \tau \rangle$ is a l-reachable configuration and
 $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$
@@ -1972,7 +1978,7 @@ The result is straightforward for rules ${\bf LA1}$, ${\bf LA2}$, and ${\bf LR1}
 $\alpha = \sigma \odiv \tau$ and $\sigma'' = \monid$, since $\C$ is invertible.
 
 As for ${\bf LA2}$, note that $\sigma' = \sigma \leq c$ and that 
-$\langle \hbox{\ask}(c) \rightarrow A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ 
+$\langle \hbox{\ask}(c) \mapsto A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ 
 for any $\alpha \leq c\odiv \tau$, so that $\tau' = \alpha \otimes \tau$.
 So, we just need to identify an $\alpha$ such that
 $\sigma = \alpha \otimes \tau \otimes \sigma''$ for some $\sigma''$.
@@ -1997,11 +2003,11 @@ $\tau = (\tau \odiv \exists_x \pi) \otimes \exists_x \pi$
 by Lemma~\ref{mono2}.
 %
 We have 
-$$\langle \exists^\pi_x A, \sigma \rangle \mapsto
+$$\langle \exists^\pi_x A, \sigma \rangle \to
   \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
   with $\sigma_0 = \sigma \odiv \exists_x \pi$ and $\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0)$.
 The premise tells us that $\langle A, \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
-$$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \mapsto
+$$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \to
   \langle B, \sigma_1 \rangle$$
 %
 % such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
