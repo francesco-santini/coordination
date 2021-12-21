@@ -336,6 +336,24 @@ Lemma~\ref{lemma:residuation} below precisely states that residuation conveys th
 an approximated form of subtraction.
 % which can be used to remove a constraint from another.
 % operator.
+%
+%We can give an order characterisation of the residuation operator.
+
+\begin{lemma}\label{rclm1}
+	Let $\langle A,$ $\leq, \otimes,  \odiv, \1 \rangle$ be a residuated POM with bottom.
+	Then $a \odiv b = \bigvee \{c \mid b \otimes c \leq a\}$ for all $a, b \in A$.
+\end{lemma}
+
+In words, the LUB of the (possibly infinite) set 
+$\{c \mid b \otimes c \leq a\}$ exists and is equal to $a \odiv b$.
+%
+In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl}).
+
+\begin{lemma}\label{rclm2}
+	Let $\langle A, \leq, \monop, \odiv, \1 \rangle$ be a residuated POM. 
+	Then $\monop$ is monotone.
+	If additionally it is a SLM, then it is distributive.
+\end{lemma}
 
 \begin{lemma}\label{lemma:residuation}
 	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be an RePO.
@@ -364,6 +382,8 @@ an approximated form of subtraction.
 %Thus $\monop$ is monotone (on both arguments), and
 %the underlying monoid is ordered.
 %while $\odiv$  is clearly anti-monotone on the second argument: 
+
+[CAPIRE COSA SALVARE DA QUA ALLA FINE DELLA SEZIONE]
 
 In order to ease the verification of the algebraic structure, it is often needed
 a characterisation of residuation via simpler properties,
@@ -897,7 +917,7 @@ We fix a POM $\mathbb{S} = \langle A, \leq, \monop, \monid \rangle$
 and a set $V$ of variables, and we define a family of cylindric operators axiomatising existential quantifiers.
 
 \begin{definition}[cylindrification]\label{cyli}
-	A cylindric operator $\exists$ over $\mathbb{S}$ and $V$ ia family of monotone operators
+	A cylindric operator $\exists$ over $\mathbb{S}$ and $V$ ia family of monotone functions
 	$\exists_x : A \rightarrow A$ indexed by elements in V such that for all 
 	$a, b \in A$ and $x, y \in V$
 	%\todo{$2_f^V$ non e' stato definito prima e/o f non si sa cosa e' qui}
@@ -942,22 +962,25 @@ We now move to define a family of operators axiomatising substitutions.
 They interact with quantifiers, thus, beside a partially ordered monoid $\mathbb{S}$
 and a set $V$ of variables, we fix a cylindric operator $\exists$ over ${\mathbb S}$ and $V$.
 
-As for notation, for a function $\sigma: V \rightarrow V$ and a set $X \subseteq V$, we denote by 
-$\sigma \mid_{X}: X \rightarrow V$ the obvious restriction, and
-by $\sigma^{c}(X) \subseteq V$ the counter-image of $X$ along $\sigma$.
+As for notation, we let $F(V)$ be the set of functions with domain and codomain $V$.
+For a function $\sigma: V \rightarrow V$ we let $supp(\sigma) = \{x \mid \sigma(x) \neq x\}$
+and, given a set $X \subseteq V$, we denote by 
+$\sigma \mid_{X}: X \rightarrow V$ the restriction and
+by $\sigma^{c}(X)$ the counter-image of $X$ along $\sigma$.
 %~\footnote{We are not going to need the other standard component proposed in the literature , i.e., \emph{diagonals}: a %family of elements $d_{x, y} \in A$ indexed by pairs of elements in $V$.}
 
 
 \begin{definition}[polyadification]
 	\label{def:poly}
-	A polyadic operator $s$ for $\exists$ is a a family of monotone operators $s_\sigma: A \rightarrow A$
-	indexed by elements in $F(V)$ such that for all $x \in V$ and $\sigma, \tau\in F(V)$
+	A polyadic operator $s$ for a cylindric operator $\exists$ is a a family of monotone functions 
+	$s_\sigma: A \rightarrow A$
+	indexed by elements in $F(V)$ such that for all $a, b \in A$, $x \in V$, and $\sigma, \tau\in F(V)$
 	\begin{enumerate}
 		\item $sv(\sigma) \cap sv(a) = \emptyset \implies s_\sigma a = a$
-		\item $\forall a, b \in A.\ s_\sigma(a \monop b) = s_\sigma a \monop s_\sigma b$,
-        \item $\forall a \in A.\ \sigma \mid_{sv(a)} = \tau \mid_{sv(a)} \implies s_\sigma a 
+		\item $s_\sigma(a \monop b) = s_\sigma a \monop s_\sigma b$,
+        \item $\sigma \mid_{sv(a)} = \tau \mid_{sv(a)} \implies s_\sigma a 
         = s_\tau a$,
-        \item $\forall a \in A.\ \exists_x s_\sigma a = \begin{cases}
+        \item $\exists_x s_\sigma a = \begin{cases}
 			s_\sigma \exists_y a &\text{if $\sigma^c(x) = \{y\}$}\\
 			s_\sigma a &\text{if $\sigma^c(x) = \emptyset$}
 			\end{cases}$.				
@@ -968,7 +991,8 @@ by $\sigma^{c}(X) \subseteq V$ the counter-image of $X$ along $\sigma$.
 %
 A polyadic operator offers enough structure for modelling variable substitution. 
 %
-In the following, we fix a polyadic operator $s$ for $\exists$.
+In the following, we fix a cylindric operator $\exists$
+and a polyadic operator $s$ for it.
 
 \comment{\begin{remark}
 The laws are directly adapted from~\cite{sagi2013}, with the exception of $2$, which 
@@ -1024,13 +1048,13 @@ $\mathbb{S}$ is a RePO (see Definition~\ref{def:repo}).
 
 \begin{lemma}
 \label{divex}
-Let $x \in V$.
+Let $x \in V$ and $a, b \in A$.
 %$X \subseteq V$ be finite. 
 Then it holds
-	\begin{itemize}
-         \item $\forall a, b \in A.\ \exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b \leq
+	%\begin{itemize}
+         $\exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b \leq
                                                \exists_x(\exists_x a \odiv b)$.
-	\end{itemize}
+	%\end{itemize}
 \end{lemma}
 
 \begin{proof}
@@ -1052,12 +1076,18 @@ is actually equivalent to state that
 $\exists_x(a \monop \exists_x b) \geq \exists_x a \monop \exists_x b$.
 \end{remark}
 
-We can now show that $\odiv$ does not substantially alter the free variables of its arguments, namely,
-that $sv(a \odiv b) \subseteq sv(a) \cup sv(b)$ holds. Indeed, if $x \not \in sv(a) \cup sv(b)$
+We can show that $\odiv$ does not substantially alter the free variables of its arguments.
+
+\begin{lemma}
+Let $a, b \in A$. Then it holds $sv(a \odiv b) \subseteq sv(a) \cup sv(b)$. 
+\end{lemma}
+\begin{proof}
+Let us assume that $x \not \in sv(a) \cup sv(b)$. Then
 \[\exists_x(a \odiv b) =  \exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b \leq
   \exists_x(\exists_x a \odiv b) =\exists_x(a \odiv b)\]
  and since $\exists_x(a \odiv b) =  \exists_x a \odiv \exists_x b = a \odiv b$,
  the result follows.
+\end{proof}
 
 %\begin{remark}
 %\todo{un esempio dove $\odiv$ non distribuisce}
@@ -1072,10 +1102,10 @@ A result similar to Lemma~\ref{divex} relates residuation and polyadic operators
 %\todo{Mettere motivazione Lemma?}
 
 \begin{lemma}
-Let $\sigma \in F(V)$. Then it holds
-\begin{itemize}
-\item $\forall a,b \in A.\ s_\sigma (a \odiv b) \leq s_\sigma a \odiv s_\sigma b$.
-\end{itemize}
+Let $a, b \in A$ and $\sigma \in F(V)$. Then it holds
+%\begin{itemize}
+$s_\sigma (a \odiv b) \leq s_\sigma a \odiv s_\sigma b$.
+%\end{itemize}
 Furthermore, if $\sigma$ is invertible, then the equality holds.
 %\begin{itemize}
 %\item $\forall a,b \in A.\ s_\sigma (a \odiv b) = s_\sigma a \odiv s_\sigma b$.
@@ -1089,7 +1119,6 @@ As for the inequality, we have
 
 As for the equality, $\sigma$ invertible implies $s_{\sigma^{-1}} s_{\sigma} a = a 
 = s_{\sigma} s_{\sigma^{-1}} a$. Then we have
-
 \[ s_\sigma b \otimes (s_\sigma a \odiv s_\sigma b) \leq s_\sigma a  \implies
    s_{\sigma^{-1}} (s_\sigma b \otimes (s_\sigma a \odiv s_\sigma b))
 \leq s_{\sigma^{-1}} s_\sigma a  \implies \]
@@ -1102,12 +1131,12 @@ As for the equality, $\sigma$ invertible implies $s_{\sigma^{-1}} s_{\sigma} a =
 
 \subsection{Polyadic Soft Constraints}\label{sec:softconstraints}
 \label{subsec:inst} 
-We are now ready to advance our proposal of soft constraints;  follows yet generalises \cite{scc},
+We are now ready to advance our proposal of soft constraints: it follows yet generalises \cite{scc},
 whose underlying algebraic structure is the one of absorptive semirings.
 
 \begin{definition}[(soft) constraints]\label{def:softconstraints}
 	Let $V$ be a set of variables, $D$ a finite domain of interpretation
-	and ${\mathbb S} = \langle A, \leq, \monop, \odiv, \monid \rangle$ a ReSL.
+	and ${\mathbb S} = \langle A, \leq, \monop, \odiv, \monid \rangle$ a residuated SLM.
 	A \emph{(soft) constraint} $c: (V \rightarrow D) \rightarrow
 	A$ is a function associating a value in $A$ with each assignment
 	$\eta: V\rightarrow D$ of the variables.
@@ -1118,8 +1147,7 @@ built starting from chosen $\mathbb S$, $V$, and $D$. The application of a
 constraint function $c:(V \rightarrow D) \rightarrow A$ to a variable
 assignment $\eta:V\rightarrow D$ is denoted $c\eta$.  
 
-Even if
-a constraint involves all the variables in $V$, it may depend on
+A constraint involves all the variables in $V$, yet it may depend on
 the assignment of a finite subset of them, called its support. For
 instance, a binary constraint $c$ with $supp(c)=\{x,y\}$ is a function
 $c: (V\rightarrow D)\rightarrow A$ that depends only on the
@@ -1128,14 +1156,14 @@ assignments $\eta_1, \eta_2: V \rightarrow D$ differing only for the
 image of variables $z \not \in \{x,y\}$ coincide (i.e., $c\eta_1 =
 c\eta_2$).
 %
-The support corresponds to the classical notion of scope of a
-constraint.  We often refer to a constraint with support $X$ as $c_X$.
-Moreover, an assignment over a support $X$ of cardinality $k$ is concisely
-represented by a tuple $t$ in $D^k$, and we often write $c_X(t)$
-instead of $c_X\eta$.
+%The support corresponds to the classical notion of scope of a
+%constraint.  We often refer to a constraint with support $X$ as $c_X$.
+%Moreover, an assignment over a support $X$ of cardinality $k$ is concisely
+%represented by a tuple $t$ in $D^k$, and we often write $c_X(t)$
+%instead of $c_X\eta$.
 
 \smallskip
-The set of constraints forms a ReSL, with the structure
+The set of constraints forms a residuated SLM, with the structure
 lifted from ${\mathbb S}$.
 
 \begin{lemma}[the ReSL of constraints]\label{prop:soft}
@@ -1273,9 +1301,9 @@ $\xi(x) \neq \xi(y)$).
 \section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detSCCP}
 This section introduces our (meta-)language.
 We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
-a residuated POM $\mathbb S = \langle {\mathcal C}, \leq, \otimes, \odiv, \1\rangle$, which is
-polyadic over $V$ and whose elements
-are ranged over by $c$, $d$, $\ldots$.
+a residuated POM $\mathbb S = \langle {\mathcal C}, \leq, \otimes, \odiv, \1\rangle$, 
+which is cylindric and polyadic over $V$ and whose elements
+are ranged over by $c$, $d$, $\ldots$
 
 \begin{definition}[Agents]%
 The set $\mathcal{A}$ of agents, %which is
@@ -1367,13 +1395,14 @@ Let $A \in \mathcal{A}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
 %\end{itemize}
 %\end{proof}
 
-We now move to consider the reduction semantics of our calculus. 
+We now move to the reduction semantics of our calculus. 
 %
 Given a sequence $\pi = [\pi_1, \ldots, \pi_n]$, we will use 
 $\pi_\otimes$ and $\exists_x \pi$
 as shorthands for $\pi_1 \otimes \ldots \otimes \pi_n$ and
 $[\exists_x \pi_1, \ldots, \exists_x \pi_n]$, respectively,
-sometimes combining them as in $(\exists_x \pi)_\otimes$.
+sometimes combining them as in $(\exists_x \pi)_\otimes$,
+with $[]_\otimes = \1$.
 
 \begin{definition}[Reductions]\label{def:reductions}
 Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
@@ -1491,8 +1520,8 @@ $\pi \rho = [\pi_0, \ldots, \pi_n, \rho]$.
 
 \begin{lemma}[On monotonicity]
 \label{rmono}
-Let $\langle A, \sigma \rangle \rightarrow \langle B, \sigma' \rangle$ be a reduction. 
-Then $\sigma' = (\sigma' \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle)$.
+Let $\langle A, \sigma \rangle \rightarrow \langle B, \rho \rangle$ be a reduction. 
+Then $\rho = (\rho \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \rho \rangle) \subseteq fv(\langle A, \sigma \rangle)$.
 %\begin{enumerate}
 %\item $\exists \sigma''.\  \sigma' = \sigma'' \otimes \sigma$
 %\item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle)$
@@ -1504,7 +1533,7 @@ Then $\sigma' = (\sigma' \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \sigma
 
 \begin{proof}
 The first law is due to the equivalence $((a \otimes b) \odiv b) \otimes b = a \otimes b$, which holds in all residuated POMs.
-The second law is by induction on rule application.
+The second law is proved by induction on rule application.
 \end{proof}
 
 \begin{remark}
