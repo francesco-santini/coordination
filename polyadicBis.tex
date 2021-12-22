@@ -1607,7 +1607,7 @@ XXXXX
 %$\sigma \odiv (\exists_x \pi)_\otimes$.
 
 
-\section{Saturated Bisimulation [to be checked]}\label{sec:saturated}
+\section{Saturated Bisimulation}\label{sec:saturated}
 As proposed in \cite{pippo} for crisp languages, we define a barbed equivalence between two agents~\cite{barbed}.  
 %
 Intuitively, barbs are basic observations (predicates) on the states of a system, and in our case they correspond 
@@ -1642,7 +1642,9 @@ $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
 \end{definition}
 
-We now let $\rightarrow$ denote the reflexive and transitive closure of $\to$.
+Note that $\langle A, \sigma \rangle \sim_{\mathit{s}} \langle B, \rho \rangle$ implies
+$\sigma = \rho$. This fact does not hold if we move to weak relations. To this end, 
+we let $\rightarrow$ denote the reflexive and transitive closure of $\to$.
 
 \begin{definition} [Weak barbs]
 Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$.
@@ -1667,20 +1669,36 @@ We write $A \approx_{\mathit{s}} B$ if $\langle A, \monid \rangle \approx_{\math
 
 The asymmetry is functional to later sections. However, it is clearly equivalent to the standard symmetric version.
 
-\begin{definition}[Weak saturated bisimilarity, 2]\label{def:weaksb2}
+\begin{lemma}[Weak saturated bisimilarity, 2]\label{def:weaksb2}
 Weak saturated bisimilarity coincides with the relation 
 obtained from Definition~\ref{def:strongsb} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
-\end{definition}
+\end{lemma}
 
 Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
-and they are also congruences. Indeed, a context can modify the behaviour of a configuration only by adding constraints to its store. CHECK!!!
+and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an agent with an placeholder $\cdot$,
+ can modify the behaviour of a configuration only by adding constraints to its store. 
+
+\begin{proposition}
+Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
+and $C[\cdot]$ a context.
+If $\langle A,\sigma \rangle \sim_{\mathit{s}} \langle B,\rho \rangle$
+then $\langle A,\sigma \otimes d\rangle \sim_{\mathit{s}} \langle B,\rho \otimes d \rangle$
+and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
+%
+Moreover, the same property holds for $\approx_{\mathit{s}}$.
+\end{proposition}
+\begin{proof}
+XXXX
+\end{proof}
+
 %\marginpar{to be proved for $\exists_x-$ (not needed for Prop.3)}
 
 
 \section{Labelled reduction semantics}
 
-Although $\approx_{\mathit{s}}$ is fully abstract, it is somewhat unsatisfactory
-because of the upward-closure, i.e., the quantification in condition \emph{3} of Definition~\ref{def:weaksb}.
+Although $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are fully abstract, it is somewhat unsatisfactory
+because of the upward-closure, i.e., the quantification in condition \emph{3} of 
+Definiton~\ref{def:strongsb} and Definition~\ref{def:weaksb}.
 
 \begin{definition}[Labelled reductions]
 	Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
@@ -1746,10 +1764,10 @@ because of the upward-closure, i.e., the quantification in condition \emph{3} of
   \\
   & \mbox{   }&\mbox{   }& \mbox{   }
   \\
-  \mbox{\bf LR2} & $\frac {\displaystyle \langle A, \bigotimes \pi \otimes \sigma_0 \rangle \xrightarrow{\alpha}
-  \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv \exists_x \pi }
+  \mbox{\bf LR2} & $\frac {\displaystyle \langle A, \pi_\otimes \otimes \sigma_0 \rangle \xrightarrow{\alpha}
+  \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes }
   {\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)}
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)}
     \text{ for } x \not \in sv(\sigma) \cup sv(\alpha)$
 &\bf{Hide}&
   \end{tabular}
@@ -1788,7 +1806,8 @@ represents the additional information that must be combined with $\sigma$ in ord
 from $\langle A, \sigma\rangle$  to $\langle A', \sigma' \rangle$.
 % i.e., $\langle A, \sigma \otimes \alpha\rangle \longrightarrow \langle A' , \sigma' \rangle$.
 
-For the rules in Table~\ref{fig:ALTS}, as well as for rule {\bf  LR1}, we can restate the intuition given for their unlabelled counterparts. The difference concerns the axioms for the $\hbox{\ask}(c)$: if $c$ is not entailed from $\sigma$, then
+For the rules in Table~\ref{fig:ALTS}, as well as for rule {\bf  LR1}, we can restate the intuition given for their unlabelled counterparts. 
+The difference concerns the axioms for the $\hbox{\ask}(c)$: if $c$ is not entailed from $\sigma$, then
 some additional information  is imported from the environment, ensuring that the state
 $\alpha \otimes \sigma \leq c$ allows the execution of $\hbox{\ask}(c)$.
 
@@ -1796,16 +1815,17 @@ Once again, the more complex axiom is {\bf LR2}. With respect to {\bf R2}, the a
 $\alpha$ should not contain the restricted variable $x$: additional information can be obtained from the environment,
 as long as it does not interact with data that are private to the local agent.
 %
-Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)$ we are 
+Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)$ we are 
 removing $\alpha$ from the update to be memorised in the local store. However, 
 since $\alpha$ is added to the global store, it will not be necessary to receive it again in the future. 
 
 \begin{remark}
 An alternative solution for rule ${\bf LA2}$ would have been to restrict the possible reductions to the one with maximal label, 
-that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. However, this might have been restrictive in combination with rule ${\bf LR2}$.
-Consider again  our running example and the configuration 
-$\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, \monid$. The initial configuration in the premise is
-$\langle \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, x > 1 \rangle$, and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
+that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
+However, this might have been restrictive in combination with rule ${\bf LR2}$.
+Consider  our running example and the configuration 
+$\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, \monid \rangle$. The initial configuration in the premise is
+$\langle \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, x > 1 \rangle$ and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
 Selecting $\alpha = (x \leq 1) \vee (y > 2)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y > 2)$,
 or any other value such as $y > 3$,$ y > 4$, $\ldots$, fits well with the intuition of some information  from the environment 
 triggering the reduction.
@@ -1823,23 +1843,24 @@ the restricted variable.
 
 \begin{lemma}[On labelled monotonicity]
 \label{l-mono}
-Let $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ be a reduction. 
+Let $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \rho \rangle$ be a reduction. 
 Then 
-\begin{enumerate}
-\item $\exists \sigma''.\  \sigma' = \alpha \otimes \sigma'' \otimes \sigma$ and $\alpha \neq \monid$ implies $\sigma'' = \monid$
-\item $fv(\langle B, \sigma' \rangle) \subseteq fv(\langle A, \sigma \rangle) \cup sv(\alpha)$
-\end{enumerate}
+%\begin{enumerate}
+$\rho = (\rho \odiv (\alpha \otimes \sigma)) \otimes \alpha \otimes \sigma$ and 
+$fv(\langle B, \rho \rangle) \subseteq fv(\langle A, \sigma \rangle) \cup sv(\alpha)$.
+%\end{enumerate}
+Moreover, if $\alpha \neq \monid$ then $\rho \odiv (\alpha \otimes \sigma) = \monid$.
 \end{lemma}
 
 \begin {proof}
-We just skecth the proof for the rule {\bf LR2} in item $1$. Clearly we have that 
-$\exists_x \rho$  is a candidate for the equality, and we must then show that it is indeed 
-a witness.
-Note that by induction hypothesis in the premise of the rule 
-$\sigma_1 = \alpha \otimes \sigma'' \otimes \bigotimes \pi_i \otimes \sigma_0$
-for some $\sigma''$ such that $\alpha \neq \monid$ implies $\sigma'' = \monid$.
-In the conclusion we then have $\rho =  (\alpha \otimes \sigma'' \otimes \bigotimes \pi_i \otimes \sigma_0) \odiv 
-(\alpha \bigotimes \pi_i \otimes \sigma_0)$. If $\alpha \neq \monid$, then $\rho = \monid$ and we are done.
+The first part is immediate as for Lemma~\ref{mono}.
+%
+For the latter part, note that $\alpha \neq 1$ just means that the rules {\bf LA1}
+and {\bf LA3} are never applied in the reduction. Let us check that the property 
+holds for {\bf LR2}. Inductively, we know that 
+$(\sigma_1 \odiv (\alpha \otimes \pi_\otimes \otimes \sigma_0)) = \monid$, and
+$(\alpha \otimes \sigma \otimes \exists_x ( \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0))) \odiv (\alpha \otimes \sigma) = \monid$
+immediately follows.
 \qed
 \end{proof}
 
@@ -1852,9 +1873,11 @@ $ \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
   there is no contribution from the local agent, hence the update is correctly put to $\monid$.
 \end{remark}
 
-We say that a configuration is l-reachable if it can be
-reached by an initial configurations via a sequence of 
+\begin{definition}
+A configuration is l-reachable if it can be
+reached by an initial configuration via a sequence of 
 labelled reductions.
+\end{definition}
 
 %We denote as $\xRightarrow{\mu}$ the reflexive and transitive closure of $\xrightarrow{\alpha}$,
 %with $\mu \in {\mathcal C}^\ast$ a sequence of elements defined in the expected way: 
@@ -1867,12 +1890,56 @@ Let
 $\langle B \parallel \exists_x^\pi C, \sigma \rangle$ 
 be an l-reachable configuration. 
 Then 
-\begin{enumerate}
-\item $\exists \sigma'.\  \sigma = \sigma' \otimes \exists_x \pi$
-\end{enumerate}
+%\begin{enumerate}
+%\item $\exists \sigma'.\  \sigma = \sigma' \otimes \exists_x \pi$
+%\end{enumerate}
+$\sigma = (\rho \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$.
 \end{lemma}
 
-\section{Labelled bisimulation [TO BE DONE]}
+\begin{proof}
+XXX
+\end{proof}
+
+\section{Labelled bisimulation}
+We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
+As it occurs with the crisp language, and differently from most process calculi~\ref{xxx}, barbs cannot be removed from the 
+definition of bisimilarity because they cannot be inferred by the reductions.
+
+\begin{definition}[Strong bisimilarity]\label{def:strongbis} A strong bisimulation is a symmetric relation $R$ on configurations such that whenever
+%$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
+%and $\gamma_2 = \langle B, \rho \rangle$
+$( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
+\begin{enumerate}
+\item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
+\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \alpha \otimes \rho \rangle \to \gamma_2$ 
+and $(\gamma_1, \gamma_2) \in R$.
+\end{enumerate}
+We say that $\gamma_1$ and $\gamma_2$ are  strongly bisimilar ($\gamma_1  \sim \gamma_2$) if there exists a strong  bisimulation 
+$R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim \langle B, \monid \rangle$.
+\end{definition}
+
+Note that $\langle A, \sigma \rangle \sim \langle B, \rho \rangle$ implies
+$\sigma = \rho$, as for the saturated bisimilarity.
+This fact does not hold if we move to weak relations. 
+
+\begin{definition}[Weak bisimilarity]\label{def:weakbis} A weak bisimulation is a symmetric relation $R$ on configurations such that whenever
+%$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
+%and $\gamma_2 = \langle B, \rho \rangle$
+$( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
+\begin{enumerate}
+\item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \Downarrow_c$;
+\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \otimes \alpha \rangle \Rightarrow \gamma_2$ 
+and $(\gamma_1, \gamma_2) \in R$;
+\end{enumerate}
+We say that $\gamma_1$ and $\gamma_2$ are  weakly bisimilar ($\gamma_1  \approx \gamma_2$) if there exists a  
+weak  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. 
+We write $A \approx B$ if $\langle A, \monid \rangle \approx \langle B, \monid \rangle$.
+\end{definition}
+
+\begin{lemma}[Weak bisimilarity, 2]\label{def:weakbis2}
+Weak bisimilarity coincides with the relation 
+obtained from Definition~\ref{def:strongbis} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
+\end{lemma}
 
 \section{On the equivalence between reduction semantics}
 This section shows the relationship between the labelled and the unlabelled reduction semantics.
@@ -2101,9 +2168,57 @@ $$\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \
 \qed
 \end{proof}
 
-\section{On the equivalence between bisimulation semantics [TO BE DONE]}
+We have now the ingredients to prove key results for strong and weak bisimilarity.
 
-\section{Concluding Remarks [TO BE DONE]}\label{sec:conclusion}
+\begin{proposition}
+Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
+and $C[\cdot]$ a context. Moreover, let $\mathcal{C}$ be invertible.
+If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
+then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$
+and $\langle C[A],\sigma \rangle  \sim \langle C[B],\rho \rangle$.
+%
+%Moreover, the same property holds for $\approx$.
+\end{proposition}
+\begin{proof}
+XXXX
+\end{proof}
+
+\begin{proposition}
+Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations 
+and $c, d \in \mathcal{C}$.
+If $\langle A,\sigma \rangle \approx \langle B,\rho \rangle$
+and $langle A,\sigma \otimes d\rangle \downarrow_c$ then 
+then $\langle b, \rho \otimes d\rangle \Downarrow_c$.
+\end{proposition}
+\begin{proof}
+XXXX
+\end{proof}
+
+\begin{proposition}
+Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
+and $C[\cdot]$ a context. Moreover, let $\mathcal{C}$ be invertible.
+If $\langle A,\sigma \rangle \approx \langle B,\rho \rangle$
+then $\langle A,\sigma \otimes d\rangle \approx \langle B,\rho \otimes d \rangle$
+and $\langle C[A],\sigma \rangle  \approx \langle C[B],\rho \rangle$.
+%
+%Moreover, the same property holds for $\approx$.
+\end{proposition}
+\begin{proof}
+XXX
+\end{proof}
+
+\section{On the equivalence between bisimulation semantics}
+
+\begin{theorem}
+$\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is invertible, then the equality holds.
+\end{theorem}
+
+\begin{theorem}
+$\approx_{\mathit{s}}  \subseteq \approx$. Moreover, if $\mathcal{C}$ is invertible, then the equality holds.
+\end{theorem}
+
+
+\section{Concluding Remarks}\label{sec:conclusion}
 
 \bibliographystyle{splncs03}%splncs
 \bibliography{main,softccp}
