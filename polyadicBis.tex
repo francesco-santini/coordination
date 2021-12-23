@@ -355,14 +355,6 @@ In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl}).
 	If additionally it is a SLM, then it is distributive.
 \end{lemma}
 
-\begin{lemma}\label{lemma:residuation}
-	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be an RePO.
-	Then
-	\begin{itemize}
-		\item $\forall a, b \in A.\, a \odiv b = \bigvee \{ c \mid b \monop c \leq a\}$,
-	\end{itemize}
-\end{lemma}
-
 \shortNoProof{
 \begin{proof}
 	By definition $a \odiv b$ is an upper bound of 
@@ -1532,8 +1524,11 @@ Then $\rho = (\rho \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \rho \rangle
 %$\sigma' \odiv \sigma$.
 
 \begin{proof}
-The first law is due to the equivalence $((a \otimes b) \odiv b) \otimes b = a \otimes b$, which holds in all residuated POMs.
+Thanks to the equivalence $((a \otimes b) \odiv b) \otimes b = a \otimes b$, which holds in residuated POMs,
+it is easy to check that the first law is preserved by reductions,
+in particular by axiom \mbox{\bf A1} and rule \mbox{\bf R2}.
 The second law is proved by induction on rule application.
+\qed
 \end{proof}
 
 \begin{remark}
@@ -1601,7 +1596,21 @@ Then $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\o
 \end{lemma}
 
 \begin{proof}
-XXXXX
+We prove an equivalent property, namely, that there is $\sigma'$ such that 
+$\sigma = \sigma' \otimes (\exists_x \pi)_\otimes$. 
+%
+It holds for initial configurations, and it is clearly preserved by reductions, 
+in particular by those obtained by axiom \mbox{\bf A1} and rule \mbox{\bf R2},
+then we are done.
+\qed
+%
+%As for \mbox{\bf A1}, it suffices to prove that $(\sigma \odiv a) \otimes a = \sigma$ implies  
+%$((\sigma \otimes c) \odiv a) \otimes a = \sigma \otimes c$. Now, 
+%$((\sigma \otimes c) \odiv a) \otimes a \leq \sigma \otimes c$ always holds. 
+%For the reverse, by hypothesis and monotonicity  
+%$(\sigma \odiv a) \otimes a \otimes c \geq \sigma \otimes c$, so it suffices to prove that 
+%$((\sigma \otimes c) \odiv a) \otimes a \geq (\sigma \odiv a) \otimes a \otimes c$.
+%This is in turn implied by $((\sigma \otimes c) \odiv a) \geq (\sigma \odiv a) \otimes c$.
 \end{proof}
 %As before, a witness of the equality in item $1$ is
 %$\sigma \odiv (\exists_x \pi)_\otimes$.
@@ -1636,7 +1645,7 @@ Definition~\ref{def:strongsb} and Definition~\ref{def:weaksb} respectively provi
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
-\item if $\langle A, \sigma \rangle \to \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \to \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
+\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \rangle \to \gamma_2$ and $(\gamma_1, \gamma_2) \in R$;
 \item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d \in \mathcal{C}$.
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
@@ -1659,7 +1668,7 @@ $\gamma \Rightarrow \gamma'$ and $\rho \leq c$.
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \Downarrow_c$;
-\item if $\langle A, \sigma \rangle \to \gamma'_1$ then there is $\gamma'_2$ such that $\langle B, \rho \rangle \Rightarrow \gamma'_2$ and $(\gamma'_1, \gamma'_2) \in R$;
+\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \rangle \Rightarrow \gamma_2$ and $(\gamma_1, \gamma_2) \in R$;
 \item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for all $d \in \mathcal{C}$.
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  weakly saturated bisimilar ($\gamma_1  \approx_{\mathit{s}} \gamma_2$) if there exists a  
@@ -1682,13 +1691,16 @@ and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an agent with
 Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
 and $C[\cdot]$ a context.
 If $\langle A,\sigma \rangle \sim_{\mathit{s}} \langle B,\rho \rangle$
-then $\langle A,\sigma \otimes d\rangle \sim_{\mathit{s}} \langle B,\rho \otimes d \rangle$
-and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
+then $\langle C[A],\sigma \otimes d\rangle \sim_{\mathit{s}} \langle C[B],\rho \otimes d \rangle$.
+%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
 %
 Moreover, the same property holds for $\approx_{\mathit{s}}$.
 \end{proposition}
 \begin{proof}
-XXXX
+By definition $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are upward closed, so we just need to check congruence.
+We then proceed by induction on rule application.
+[DA FINIRE]
+\qed
 \end{proof}
 
 %\marginpar{to be proved for $\exists_x-$ (not needed for Prop.3)}
@@ -1696,8 +1708,8 @@ XXXX
 
 \section{Labelled reduction semantics}
 
-Although $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are fully abstract, it is somewhat unsatisfactory
-because of the upward-closure, i.e., the quantification in condition \emph{3} of 
+Although $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are fully abstract, they are somewhat unsatisfactory
+because of the upward closure, i.e., the quantification in condition \emph{3} of 
 Definiton~\ref{def:strongsb} and Definition~\ref{def:weaksb}.
 
 \begin{definition}[Labelled reductions]
@@ -1843,7 +1855,7 @@ the restricted variable.
 
 \begin{lemma}[On labelled monotonicity]
 \label{l-mono}
-Let $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \rho \rangle$ be a reduction. 
+Let $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \rho \rangle$ be a labelled reduction. 
 Then 
 %\begin{enumerate}
 $\rho = (\rho \odiv (\alpha \otimes \sigma)) \otimes \alpha \otimes \sigma$ and 
@@ -1855,7 +1867,7 @@ Moreover, if $\alpha \neq \monid$ then $\rho \odiv (\alpha \otimes \sigma) = \mo
 \begin {proof}
 The first part is immediate as for Lemma~\ref{mono}.
 %
-For the latter part, note that $\alpha \neq 1$ just means that the rules {\bf LA1}
+For the latter part, note that $\alpha \neq 1$ just means that axioms {\bf LA1}
 and {\bf LA3} are never applied in the reduction. Let us check that the property 
 holds for {\bf LR2}. Inductively, we know that 
 $(\sigma_1 \odiv (\alpha \otimes \pi_\otimes \otimes \sigma_0)) = \monid$, and
@@ -1865,10 +1877,15 @@ immediately follows.
 \end{proof}
 
 \begin{remark}
-Consider a reduction 
+The lemma before tell us that if $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \rho \rangle$ 
+is a labelled reduction and $\alpha \neq \monid$, then $\rho = \alpha \otimes \sigma$.
+Indeed, since $\alpha \neq \monid$ its derivation must use the axiom  {\bf LA2}.
+%
+Consider e.g. a labelled reduction 
 $ \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
   \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$.
-  Item $1$ of the lemma above tell us that if $\alpha \neq \monid$, then $\rho = \monid$. 
+  %Item $1$ of the lemma above tell us that 
+  If $\alpha \neq \monid$, then $\rho = \monid$. 
   Indeed, this is the expected behaviour: if an input from the context is needed,
   there is no contribution from the local agent, hence the update is correctly put to $\monid$.
 \end{remark}
@@ -1897,51 +1914,16 @@ $\sigma = (\rho \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$.
 \end{lemma}
 
 \begin{proof}
-XXX
+As for unabelled reductions, it is easy to show that the equivalent property
+on the existence of $\sigma'$ such that 
+$\sigma = \sigma' \otimes (\exists_x \pi)_\otimes$ is preserved by 
+labelled reductions. 
+\qed
 \end{proof}
 
-\section{Labelled bisimulation}
-We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
-As it occurs with the crisp language, and differently from most process calculi~\ref{xxx}, barbs cannot be removed from the 
-definition of bisimilarity because they cannot be inferred by the reductions.
 
-\begin{definition}[Strong bisimilarity]\label{def:strongbis} A strong bisimulation is a symmetric relation $R$ on configurations such that whenever
-%$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
-%and $\gamma_2 = \langle B, \rho \rangle$
-$( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
-\begin{enumerate}
-\item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
-\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \alpha \otimes \rho \rangle \to \gamma_2$ 
-and $(\gamma_1, \gamma_2) \in R$.
-\end{enumerate}
-We say that $\gamma_1$ and $\gamma_2$ are  strongly bisimilar ($\gamma_1  \sim \gamma_2$) if there exists a strong  bisimulation 
-$R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim \langle B, \monid \rangle$.
-\end{definition}
-
-Note that $\langle A, \sigma \rangle \sim \langle B, \rho \rangle$ implies
-$\sigma = \rho$, as for the saturated bisimilarity.
-This fact does not hold if we move to weak relations. 
-
-\begin{definition}[Weak bisimilarity]\label{def:weakbis} A weak bisimulation is a symmetric relation $R$ on configurations such that whenever
-%$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
-%and $\gamma_2 = \langle B, \rho \rangle$
-$( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
-\begin{enumerate}
-\item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \Downarrow_c$;
-\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \otimes \alpha \rangle \Rightarrow \gamma_2$ 
-and $(\gamma_1, \gamma_2) \in R$;
-\end{enumerate}
-We say that $\gamma_1$ and $\gamma_2$ are  weakly bisimilar ($\gamma_1  \approx \gamma_2$) if there exists a  
-weak  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. 
-We write $A \approx B$ if $\langle A, \monid \rangle \approx \langle B, \monid \rangle$.
-\end{definition}
-
-\begin{lemma}[Weak bisimilarity, 2]\label{def:weakbis2}
-Weak bisimilarity coincides with the relation 
-obtained from Definition~\ref{def:strongbis} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
-\end{lemma}
-
-\section{On the equivalence between reduction semantics}
+\section{On the correspondence between reduction semantics [RIVEDERE DA QUA]}
+\label{corres}
 This section shows the relationship between the labelled and the unlabelled reduction semantics.
 %We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
 %$\langle A, \sigma \rangle \to^\ast \gamma$, and it is l-reachable if 
@@ -1952,7 +1934,7 @@ In the following, we assume that $\C$ in invertible.
 \begin{theorem}[Soundness]
 \label{sound}
 Let $\langle A, \sigma \rangle$ be an l-reachable configuration and
-$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ a reduction. 
+$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$. 
 Then $\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
 $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
@@ -2004,7 +1986,7 @@ then it is also l-reachable via a sequence of reductions labelled by $\monid$.
 
 \begin{lemma}
 Let $\langle A, \sigma \rangle$ be a reachable configuration and
-$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$ a reduction. 
+$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$. 
 Then $\langle A, \sigma \rangle$ is an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
 \end{lemma}
@@ -2030,8 +2012,7 @@ The proof f the first item  simply consists in noting that if  $\langle A, \tau 
 
 \begin{lemma}
 \label{riminor}
-Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction
-such that $\alpha \leq \beta$. 
+Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ with $\alpha \leq \beta$. 
 %
 If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
 %\\
@@ -2047,8 +2028,8 @@ and the condition $\beta \neq \monid$ is required in the inductive step for rule
 
 \begin{lemma}
 \label{riminor}
-Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction
-such that $\alpha \leq \beta$. 
+Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ with
+$\alpha \leq \beta$. 
 %
 If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
 %\\
@@ -2060,7 +2041,7 @@ If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langl
 \begin{theorem}[Completeness]
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$ and
-$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$ a reduction. 
+$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$. 
 Then 
 %$\langle A, \tau \rangle$ is a l-reachable configuration and
 $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$
@@ -2168,44 +2149,77 @@ $$\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \
 \qed
 \end{proof}
 
-We have now the ingredients to prove key results for strong and weak bisimilarity.
 
-\begin{proposition}
-Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
-and $C[\cdot]$ a context. Moreover, let $\mathcal{C}$ be invertible.
-If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
-then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$
-and $\langle C[A],\sigma \rangle  \sim \langle C[B],\rho \rangle$.
-%
-%Moreover, the same property holds for $\approx$.
-\end{proposition}
-\begin{proof}
-XXXX
-\end{proof}
+\section{Labelled bisimulation [RIVEDERE DA QUA]}
+We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
+As it occurs with the crisp language, and differently from most process calculi~\ref{xxx}, barbs cannot be removed from the 
+definition of bisimilarity because they cannot be inferred by the reductions.
+
+\begin{definition}[Strong bisimilarity]\label{def:strongbis} A strong bisimulation is a symmetric relation $R$ on configurations such that whenever
+%$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
+%and $\gamma_2 = \langle B, \rho \rangle$
+$( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
+\begin{enumerate}
+\item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
+\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \alpha \otimes \rho \rangle \to \gamma_2$ 
+and $(\gamma_1, \gamma_2) \in R$.
+\end{enumerate}
+We say that $\gamma_1$ and $\gamma_2$ are  strongly bisimilar ($\gamma_1  \sim \gamma_2$) if there exists a strong  bisimulation 
+$R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim \langle B, \monid \rangle$.
+\end{definition}
+
+Note that $\langle A, \sigma \rangle \sim \langle B, \rho \rangle$ implies
+$\sigma = \rho$, as for saturated bisimilarity.
+%This fact does not hold if we move to weak relations. 
+
+\begin{definition}[Weak bisimilarity]\label{def:weakbis} A weak bisimulation is a symmetric relation $R$ on configurations such that whenever
+%$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
+%and $\gamma_2 = \langle B, \rho \rangle$
+$( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
+\begin{enumerate}
+\item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \Downarrow_c$;
+\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \otimes \alpha \rangle \Rightarrow \gamma_2$ 
+and $(\gamma_1, \gamma_2) \in R$;
+\end{enumerate}
+We say that $\gamma_1$ and $\gamma_2$ are  weakly bisimilar ($\gamma_1  \approx \gamma_2$) if there exists a  
+weak  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. 
+We write $A \approx B$ if $\langle A, \monid \rangle \approx \langle B, \monid \rangle$.
+\end{definition}
+
+\begin{lemma}[Weak bisimilarity, 2]\label{def:weakbis2}
+Weak bisimilarity coincides with the relation 
+obtained from Definition~\ref{def:strongbis} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
+\end{lemma}
 
 \begin{proposition}
 Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations 
 and $c, d \in \mathcal{C}$.
 If $\langle A,\sigma \rangle \approx \langle B,\rho \rangle$
-and $langle A,\sigma \otimes d\rangle \downarrow_c$ then 
-then $\langle b, \rho \otimes d\rangle \Downarrow_c$.
+and $\langle A,\sigma \otimes d\rangle \downarrow_c$ then 
+then $\langle B, \rho \otimes d\rangle \Downarrow_c$.
 \end{proposition}
-\begin{proof}
-XXXX
-\end{proof}
+%\begin{proof}
+%\qed
+%\end{proof}
+
+The feasibility of $\sim$ and $\approx$ resides on the fact that they are not 
+upward closed by definition. Thanks to the correspondence results in Section~\ref{corres}, 
+they can be proved so, as well as congruences.
+%
+Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
 \begin{proposition}
 Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
-and $C[\cdot]$ a context. Moreover, let $\mathcal{C}$ be invertible.
-If $\langle A,\sigma \rangle \approx \langle B,\rho \rangle$
-then $\langle A,\sigma \otimes d\rangle \approx \langle B,\rho \otimes d \rangle$
-and $\langle C[A],\sigma \rangle  \approx \langle C[B],\rho \rangle$.
+and $C[\cdot]$ a context.
+If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
+then $\langle C[A],\sigma \otimes d\rangle \sim \langle C[B],\rho \otimes d \rangle$.
+%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
 %
-%Moreover, the same property holds for $\approx$.
+Moreover, the same property holds for $\approx$.
 \end{proposition}
-\begin{proof}
-XXX
-\end{proof}
+%\begin{proof}
+%\qed
+%\end{proof}
 
 \section{On the equivalence between bisimulation semantics}
 
