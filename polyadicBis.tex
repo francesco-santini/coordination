@@ -317,7 +317,7 @@ They introduce a new operator $\odiv$, which represents a ``weak'' (due to the p
 \begin{definition}[residuation]\label{def:repo}
 	A residuated POM is a 5-tuple $\langle A, \leq, \monop, \odiv, \monid \rangle$ such that
 	$\langle A, \leq, \monop, \monid \rangle$ is a partially ordered monoid and
-	$\odiv: A \times A \rightarrow A$ is a function satisfying $\forall a, b, c \in A. b \monop c \leq a \iff c \leq a \odiv b$.x
+	$\odiv: A \times A \rightarrow A$ is a function satisfying $\forall a, b, c \in A. b \monop c \leq a \iff c \leq a \odiv b$.
 %	An ReSL is an RePO such that the underlying PO is a SL.
 \end{definition}
 
@@ -1887,7 +1887,8 @@ $ \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
   %Item $1$ of the lemma above tell us that 
   If $\alpha \neq \monid$, then $\rho = \monid$. 
   Indeed, this is the expected behaviour: if an input from the context is needed,
-  there is no contribution from the local agent, hence the update is correctly put to $\monid$.
+  there is no contribution by the agent to the local store, hence the update is 
+  correctly $\monid$.
 \end{remark}
 
 \begin{definition}
@@ -1910,7 +1911,7 @@ Then
 %\begin{enumerate}
 %\item $\exists \sigma'.\  \sigma = \sigma' \otimes \exists_x \pi$
 %\end{enumerate}
-$\sigma = (\rho \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$.
+$\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$.
 \end{lemma}
 
 \begin{proof}
@@ -1922,7 +1923,7 @@ labelled reductions.
 \end{proof}
 
 
-\section{On the correspondence between reduction semantics [RIVEDERE DA QUA]}
+\section{On the correspondence between reduction semantics}
 \label{corres}
 This section shows the relationship between the labelled and the unlabelled reduction semantics.
 %We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
@@ -1940,44 +1941,51 @@ $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
 
 \begin{proof}
-We proceed by induction,
+The property holds for the axioms, since e.g. for {\bf LR2} we know that
+$\alpha \leq c \odiv \sigma$ implies $\alpha \otimes \sigma \leq c$ for residuated POMs.
+%
+We then proceed by induction on rule derivations,
 presenting only the proof for rule {\bf LR2}.
 %
-We then have 
+We have 
 $$\langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
   \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
-  with $\sigma_0 = \sigma \odiv \exists_x \pi$, $\rho = \sigma_1 \odiv (\alpha \otimes \bigotimes \pi  \otimes \sigma_0)$, and 
+  with $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$, $\rho = \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)$, and 
   $x \not \in sv(\sigma) \cup sv(\alpha)$.
-The premise tells us that $\langle A, \bigotimes \pi \otimes \sigma_0 \rangle$ is l-reachable and
-$$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \xrightarrow{\alpha}
+The premise tells us that $\langle A, \pi_\otimes \otimes \sigma_0 \rangle$ is l-reachable and
+$$\langle A, \pi_\otimes \otimes \sigma_0 \rangle \xrightarrow{\alpha}
   \langle B, \sigma_1 \rangle$$
 %with  $\sigma_0 = \sigma \odiv \bigotimes \exists_x \pi$.
 %
 By induction hypothesis $\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
-$$\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle \to
+$$\langle A, \alpha \otimes \pi_\otimes \otimes \sigma_0 \rangle \to
   \langle B, \sigma_1 \rangle$$
 Now recall that we must prove that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
 $$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \to
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
-which would be implied by $\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle$ being reachable and
-$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \to
-  \langle B, \widehat{\sigma_1} \rangle$$
- with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv \exists_x \pi$
- and for suitable $\widehat{\sigma_1}$.
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle.$$
+Reachability is implied by $\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle$ being reachable,
+%and
+%$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \to
+%  \langle B, \widehat{\sigma_1} \rangle$$
+ with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv (\exists_x \pi)_\otimes$.
+% and for suitable $\widehat{\sigma_1}$.
 % as long as $\alpha \otimes \sigma \otimes \exists_x \rho = \alpha \otimes \sigma \otimes \exists_x \widehat{\rho}$
 %with $\widehat{\rho} = \widehat{\sigma_1} \odiv (\alpha \otimes \bigotimes \pi  \otimes \widehat{\sigma_0})$.
 %
 Now we have that 
-$$\bigotimes \pi \otimes \widehat{\sigma_0} = \bigotimes \pi \otimes ((\alpha \otimes \sigma) \odiv \exists_x \pi)$$ 
-$$=^1 \bigotimes \pi \otimes ((\alpha \otimes (\sigma \odiv \exists_x \pi) \otimes \exists_x \pi ) \odiv \exists_x \pi)$$
-$$=^2  (\bigotimes \pi \odiv \exists_x \pi) \otimes \exists_x \pi \otimes ((\alpha \otimes (\sigma \odiv \exists_x \pi) \otimes  \exists_x \pi ) \odiv \exists_x \pi)$$
-$$ =^3 (\bigotimes \pi \odiv \exists_x \pi) \otimes \alpha \otimes (\sigma \odiv \exists_x \pi) \otimes \exists_x \pi$$
-$$= \alpha \otimes \bigotimes \pi \otimes  (\sigma \odiv \exists_x \pi) 
-= \alpha \otimes \bigotimes \pi \otimes  \sigma_0
+$$\pi_\otimes \otimes \widehat{\sigma_0} = \pi_\otimes \otimes ((\alpha \otimes \sigma) \odiv (\exists_x \pi)_\otimes)$$ 
+$$=^1 \pi_\otimes \otimes ((\alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi )_\otimes) \odiv (\exists_x \pi)_\otimes)$$
+$$=^2  (\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes \otimes 
+((\alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes  (\exists_x \pi)_\otimes) \odiv (\exists_x \pi)_\otimes)$$
+$$ =^3 (\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes \alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$$
+$$= \alpha \otimes \pi_\otimes \otimes  (\sigma \odiv (\exists_x \pi))_\otimes 
+= \alpha \otimes \pi_\otimes \otimes  \sigma_0
 $$
-and the result follows. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
-and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\bigotimes \pi \leq \exists_x \pi$,
-for $3$ we used the well-known equality $a \otimes ((a \otimes b) \odiv a) = a \otimes b$.
+and by induction hypothesis reachability follows, as well as 
+$$\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle \to \langle B, \sigma_1 \rangle.$$
+and we are done. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
+and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\pi_\otimes \leq (\exists_x \pi)_\otimes$,
+for $3$ we used the equality $a \otimes ((a \otimes b) \odiv a) = a \otimes b$.
 \qed
 \end{proof}
 
@@ -1990,6 +1998,14 @@ $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$.
 Then $\langle A, \sigma \rangle$ is an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
 \end{lemma}
+\begin{proof}
+Only axiom  {\bf LA2} needs to be checked, and it is obvious, since $\sigma \leq c$ implies that 
+$\monid \leq c \odiv \sigma$ and thus 
+$\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{\monid}
+  	\langle A, \monid \otimes \sigma \rangle$.
+\end{proof}	
+	
+[RIVEDERE DA QUA]
 
 However, we are interested in a more general notion of completeness, possibly taking into account 
 reductions needing a label, as stated in the theorem below.
@@ -1999,16 +2015,17 @@ reductions needing a label, as stated in the theorem below.
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$. Then $\langle A, \sigma \rangle$ is a reachable configuration.
 
-Moreover, if  $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ and
-$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$ are
-two reductions, then $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
-
+Moreover, if  $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ then
+$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$, 
+with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 \end{lemma}
-
-The proof f the first item  simply consists in noting that if  $\langle A, \tau \rangle$ is reachable from 
- $\langle B, \mu \rangle$, then $\langle A, \sigma \rangle$ is reachable from
- $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \mu \rangle$.
-
+\begin{proof}
+%As for the first item, i
+It suffices to note that if
+$\langle B, \mu \rangle \to \langle A, \tau \rangle$,
+then $\langle A, \sigma \rangle$ is reachable from
+ $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \mu \rangle$ and
+\end{proof}
 
 \begin{lemma}
 \label{riminor}
@@ -2050,6 +2067,7 @@ and $\sigma' = \tau' \otimes \sigma''$ for some $\sigma''$.
 \end{theorem}
 
 \begin{proof}
+[DA RIVEDERE]
 We proceed by structural induction on the proof.
 The result is straightforward for rules ${\bf LA1}$, ${\bf LA2}$, and ${\bf LR1}$ with 
 $\alpha = \sigma \odiv \tau$ and $\sigma'' = \monid$, since $\C$ is invertible.
@@ -2091,7 +2109,7 @@ $$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \to
 % by Lemma~\ref{mono}.
 Now let us consider $\tau_0 = \tau \odiv \exists_x \pi$: clearly $\sigma_0 \leq \tau_0$,
 so by induction hypothesis
-$$\langle A, \bigotimes \pi \otimes \tau_0 \rangle  \xrightarrow{\beta}
+$$\langle A, \pi_\otimes \otimes \tau_0 \rangle  \xrightarrow{\beta}
   \langle B, \tau_1 \rangle$$  for some $\beta$ such that 
   $\bigotimes \pi \otimes \sigma_0 = \bigotimes \pi \otimes \tau_0 \otimes \beta \otimes \sigma_2$,
   $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$,
@@ -2150,7 +2168,7 @@ $$\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \
 \end{proof}
 
 
-\section{Labelled bisimulation [RIVEDERE DA QUA]}
+\section{Labelled bisimulation}
 We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
 As it occurs with the crisp language, and differently from most process calculi~\ref{xxx}, barbs cannot be removed from the 
 definition of bisimilarity because they cannot be inferred by the reductions.
@@ -2161,7 +2179,7 @@ definition of bisimilarity because they cannot be inferred by the reductions.
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
-\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \alpha \otimes \rho \rangle \to \gamma_2$ 
+\item if $\langle A, \sigma \rangle \xrightarrow{\alpha} \gamma_1$ then there is $\gamma_2$ such that $\langle B, \alpha \otimes \rho \rangle \to \gamma_2$ 
 and $(\gamma_1, \gamma_2) \in R$.
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  strongly bisimilar ($\gamma_1  \sim \gamma_2$) if there exists a strong  bisimulation 
@@ -2178,7 +2196,7 @@ $\sigma = \rho$, as for saturated bisimilarity.
 $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \Downarrow_c$;
-\item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \otimes \alpha \rangle \Rightarrow \gamma_2$ 
+\item if $\langle A, \sigma \rangle \xrightarrow{\alpha} \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \otimes \alpha \rangle \Rightarrow \gamma_2$ 
 and $(\gamma_1, \gamma_2) \in R$;
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  weakly bisimilar ($\gamma_1  \approx \gamma_2$) if there exists a  
@@ -2198,9 +2216,26 @@ If $\langle A,\sigma \rangle \approx \langle B,\rho \rangle$
 and $\langle A,\sigma \otimes d\rangle \downarrow_c$ then 
 then $\langle B, \rho \otimes d\rangle \Downarrow_c$.
 \end{proposition}
-%\begin{proof}
-%\qed
-%\end{proof}
+\begin{proof}
+Let $\langle A,\sigma \otimes d\rangle \downarrow_c$, that is, \sigma \otimes d\rangle \leq c$.
+Since \langle A, \sigma \rangle \approx \langle b, \rho \rangle$ and $\langle A,\sigma \otimes d\rangle \downarrow_\sigma$,
+then there exists  $\langle B', \rho'\rangle$ such that 
+ $\langle B, \rho \rangle \D \Rightarrow \langle B', \rho' \rangle$ and 
+ $\rho' \leq \sigma$.
+
+B, ??and 
+A, ?? ??, then there exists 
+B?, ???such that 
+B, ?? ??
+B?, ???and ??????for ?=fv(
+B?, ???) \fv(
+B, ??). Let us assume, without loss of generality, that ??sv(d) =?; since reductions are monotone (item 4 of Lemma6), we have 
+B, ??d? ??
+B?, ???d?. Finally, c???d =????d ????????d ???(???d), hence 
+B, ??d? ?c.
+
+\qed
+\end{proof}
 
 The feasibility of $\sim$ and $\approx$ resides on the fact that they are not 
 upward closed by definition. Thanks to the correspondence results in Section~\ref{corres}, 
