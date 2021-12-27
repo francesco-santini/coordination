@@ -375,6 +375,8 @@ In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl17}).
 %the underlying monoid is ordered.
 %while $\odiv$  is clearly anti-monotone on the second argument: 
 
+%Distributivity holds also for the empty set and for infinite sets, if the LUBs exist.
+
 [CAPIRE COSA SALVARE DA QUA ALLA FINE DELLA SEZIONE]
 
 In order to ease the verification of the algebraic structure, it is often needed
@@ -383,8 +385,8 @@ as the ones given below.
 
 \begin{lemma}
 \label{mono}
-Let $\langle A, \leq, \monop, \monid \rangle$ be a partially ordered monoid  and
-	$\odiv: A \times A \rightarrow A$ a function. Then $\langle A, \leq, \monop, \odiv, \monid \rangle$ is an RePO if and only if
+Let $\langle A, \leq, \monop, \monid \rangle$ be a POM  and
+	$\odiv: A \times A \rightarrow A$ a function. Then $\langle A, \leq, \monop, \odiv, \monid \rangle$ is a residuated POM if and only if
 	\begin{itemize}
 		\item $\forall a, b \in A. b \monop (a \odiv b) \leq a \leq (b \monop a) \odiv b$,
 		\item $\forall a, b, c \in A.\, a \leq b \implies a \otimes c \leq b \otimes c$ and $a\odiv c \leq b \odiv c$.
@@ -418,7 +420,7 @@ Using the monotonicity of $\odiv$ from $b \monop c \leq a$ we get
 \end{proof}
 }
 
-It is easy to show that in any RePO the $\odiv$ operator is also anti-monotone on the second argument, i.e., 
+It is easy to show that in any residuated POM the $\odiv$ operator is also anti-monotone on the second argument, i.e., 
 $\forall a, b, c \in A.\, a\leq b \implies  c\odiv b \leq c \odiv a$.
 %
 Other properties are also straightforward, such as 
@@ -441,7 +443,7 @@ of residuated monoids that are suitable for an easier manipulation
 of constraints (see e.g.~\cite{ecai06}).
 
 \begin{definition}[localisation / invertibility]
-	An RePO $\langle A, \leq, \monop, \odiv, \monid \rangle$ is
+	A residuated POM $\langle A, \leq, \monop, \odiv, \monid \rangle$ is
 	\begin{itemize}
 		\item
 		\emph{localised} if $\forall a, b \in A. a \leq b \implies a \odiv b \leq \monid$;
@@ -450,7 +452,7 @@ of constraints (see e.g.~\cite{ecai06}).
 	\end{itemize}
 \end{definition}
 
-Note that if a RePO is localised then $\forall a \in A. a \odiv a = \monid$.
+Note that if a residuated POM is localised then $\forall a \in A. a \odiv a = \monid$.
 %\marginpar{all RePO are localized?}
 
 %\begin{remark}
@@ -473,19 +475,6 @@ Note that if a RePO is localised then $\forall a \in A. a \odiv a = \monid$.
 	(partially) relax constraints (see again~\cite{ecai06}).
 \end{remark}
 
-Moving to ReSLs, next lemma ensures that residuation implies distributivity.
-
-\begin{lemma}
-	\label{dist2}
-	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be an ReSL.
-	Then the underlying SL is distributive.
-%	 and $X \subseteq A$ a finite set.
-%	Then
-%	\begin{itemize}
-%		\item $\forall a \in A.\, a \monop  \bigvee X = \bigvee \{a \monop x \mid x \in X\}$.
-%	\end{itemize}
-\end{lemma}
-
 \shortNoProof{
 \begin{proof} Let $X \subseteq A$ be a finite non-empty set. 	
 	%\paragraph{$\bigvee \{a \monop x \mid x \in X\} \leq a \monop  \bigvee X$}
@@ -501,6 +490,8 @@ Moving to ReSLs, next lemma ensures that residuation implies distributivity.
 \qed
 \end{proof}
 }
+
+\comment{
 %Note that the proof does not require that $\otimes$ is monotone, which is thus a derived property.
 %
 Distributivity holds also for the empty set and for infinite sets, if the necessary LUBs exist.
@@ -533,9 +524,10 @@ Also this inequation holds for the empty set and for infinite sets, if the neces
 %
 Moreover, it also holds that $\bigvee \{ a \odiv x \mid x \in X \} \geq a \odiv \bigvee X$, since $\odiv$ is anti-monotone on the second argument.
 %\end{remark}
+}
 
 \begin{proposition}\label{reabs}
-	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be an ReSL. The following are equivalent
+	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be a residuated SLM. The following are equivalent
 	\begin{enumerate}
 		\item $\forall a \in A.\, a \leq \1$
 		\item $\forall a \in A.\, \1 \odiv a = \1$		
@@ -575,12 +567,12 @@ that $c \leq \1 \odiv (\1 \odiv c)$, then $3$ implies $1$.
 %The proposition above provides an important characterisation for all absorptive ReSLs, including all those mentioned in Remark~\ref{rmk:soft}.
 %\end{remark}
 
-There are some important classes of ReSLs  such that $\odiv$ is easily proved to be distributive in the first argument,
+There are some important classes of residuated SLMs  such that $\odiv$ is easily proved to be distributive in the first argument,
 while it is not so with respect to the second argument, not even in the absorptive case.
 
 \begin{lemma}
 	\label{distodiv2}
-	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be an ReSL such that $\langle A, \leq \rangle$ is a total order and $X \subseteq A$ a finite non-empty set. Then 
+	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be a residuated SLM such that $\langle A, \leq \rangle$ is a total order and $X \subseteq A$ a finite non-empty set. Then 
 	\begin{itemize}
 		\item $\forall a \in A.\, \bigvee \{ x \odiv a \mid x \in X \} = \bigvee X \odiv a$
 	\end{itemize}	
@@ -605,10 +597,10 @@ Let $n$ be a positive integer and $[n] = \{0, \ldots, n\}$ the segment of intege
 as the tuple $\langle [n], \geq, \oplus, \ominus, 0 \rangle$, where $\oplus$ and $\ominus$ are the bounded sum and subtraction, 
 which are given as $m\oplus p = min\{n, m+p\}$ and $m\ominus p = max\{0,m-p\}$.
 
-Now, it can be shown that $\mathbb{M}_n$ is an absorptive ReSL, and since it is a total order,
+Now, it can be shown that $\mathbb{M}_n$ is an absorptive residuated SLM, and since it is a total order,
 $\ominus$ is  distributive on the first argument.
 %
-However, in general it is not distributive on the second one. Consider an integer $m$ such that 
+However, it is not distributive on the second one. Consider an integer $m$ such that 
 $m \neq n$ and the set $\{m, m+1\}$:
 we then have that $(m+1) \ominus \bigvee\{m, m+1\} = 1$,
 while instead $\bigvee\{(m+1) \ominus m, (m+1) \ominus (m+1)\} = 0$.
