@@ -2127,10 +2127,8 @@ since $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$ in all residuated POMs.
 Since  $x \not \in sv(\sigma) \cup sv(\tau)$ we can assume that $x \not \in sv(\beta)$. Then, we have to prove that 
 $$\sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \xi \otimes ((\sigma \otimes \exists_x \rho) \odiv (\beta \otimes \tau \otimes \exists_x \xi))$$
 with $\xi = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau_0)$, as well as $\rho = \xi$.
-
-recalling that $\sigma = \beta \otimes \tau \otimes (\sigma \odiv (\beta \otimes \tau))$.
-
-
+%
+\comment{
 \noindent
 Now, if $\beta = \monid$ by Theorem~\ref{sound}
 and Lemma~\ref{riminor}
@@ -2171,6 +2169,7 @@ and the latter holds since
 $$\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0) = \tau_1 \otimes \sigma_2 \odiv ((\bigotimes \pi  \odiv \exists_x \pi) \otimes \sigma)$$
 $$\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \pi  \otimes \tau_0) = 
 (\tau_1 \otimes (\alpha \odiv \beta)) \odiv ((\sigma \odiv \tau) \otimes (\bigotimes \pi  \odiv \exists_x \pi)  \otimes \tau)$$
+}
 \qed
 \end{proof}
 
@@ -2197,6 +2196,7 @@ Note that $\langle A, \sigma \rangle \sim \langle B, \rho \rangle$ implies
 $\sigma = \rho$, as for saturated bisimilarity.
 %This fact does not hold if we move to weak relations. 
 
+\comment{
 \begin{definition}[Weak bisimilarity]\label{def:weakbis} A weak bisimulation is a symmetric relation $R$ on configurations such that whenever
 %$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
 %and $\gamma_2 = \langle B, \rho \rangle$
@@ -2211,7 +2211,6 @@ weak  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$.
 We write $A \approx B$ if $\langle A, \monid \rangle \approx \langle B, \monid \rangle$.
 \end{definition}
 
-\comment{
 \begin{lemma}[Weak bisimilarity, 2]\label{def:weakbis2}
 Weak bisimilarity coincides with the relation 
 obtained from Definition~\ref{def:strongbis} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
