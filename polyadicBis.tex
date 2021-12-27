@@ -220,7 +220,7 @@ for the set $S = \{a_i \mid i \in I\}$.
 Conventionally, we denote $\bigotimes \emptyset = \bot$.
 }
 
-s\begin{example}[Power set]\label{ex:powerset}
+\begin{example}[Power set]\label{ex:powerset}
 	Given a (possibly infinite) set $V$ of variables, we consider
 	the monoid $\langle 2^V, \cup, \emptyset \rangle$
 	of (finite, possibly empty) subsets of $V$, with union as the monoidal operator.
@@ -332,7 +332,7 @@ They introduce a new operator $\odiv$, which represents a ``weak'' (due to the p
 %$\forall a, b, c \in A. a \leq b \implies a \odiv c \leq b \odiv c$.
 %Among other things, n
 In order to confirm the intuition about weak inverses,
-Lemma~\ref{lemma:residuation} below precisely states that residuation conveys the meaning of 
+Lemma~\ref{rclm1} below precisely states that residuation conveys the meaning of 
 an approximated form of subtraction.
 % which can be used to remove a constraint from another.
 % operator.
@@ -347,7 +347,7 @@ an approximated form of subtraction.
 In words, the LUB of the (possibly infinite) set 
 $\{c \mid b \otimes c \leq a\}$ exists and is equal to $a \odiv b$.
 %
-In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl}).
+In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl17}).
 
 \begin{lemma}\label{rclm2}
 	Let $\langle A, \leq, \monop, \odiv, \1 \rangle$ be a residuated POM. 
@@ -1302,15 +1302,18 @@ The set $\mathcal{A}$ of agents, %which is
 parametric with respect to a set $\mathcal{P}$ of (unary) procedure declarations $p(x) = A$,
 is given by the following grammar
 \[ A \Coloneqq \: \: \mathit{\ostop} \mid \textit{\tell}(c)  \mid \textit{\ask}(c) \mapsto A \mid A \parallel A \mid %\exists_x A \mid %Z \mid \mu_Z A 
-p(x) \mid \exists^{\pi}_x A.\]  
-for $\pi \in {\mathcal C}^\ast$ a (possibly empty) sequence of elements.
+p(x) \mid \exists_x A\]  
+%for $\pi \in {\mathcal C}^\ast$ a (possibly empty) sequence of elements.
 \end{definition}
 
-We consider here the extended agent $\exists^{\pi}_x A$, where $\pi$ is meant to represent the sequence of updates performed on the local store. More precisely, the extended agent may carry some information about the hidden variable 
-$x$ in an incremental way. In the following, we often write $\exists_x A$ for $\exists^{[ ]}_x A$ and $\pi_i$ for 
+In the following we will consider 
+a set $\mathcal{E}$ of extended agents that uses the existential operator $\exists^{\pi}_x A$, 
+where $\pi$ is meant to represent the sequence of updates performed on the local store. 
+More precisely, the extended agent may carry some information about the hidden variable 
+$x$ in an incremental way. We will often write $\exists_x A$ for $\exists^{[ ]}_x A$ and $\pi_i$ for 
 the $i$-th element of $\pi = [ \pi_0, \ldots, \pi_n]$.
 
-We denote by $fv(A)$ the set of free variables of an agent, defined in the expected way 
+We denote by $fv(A)$ the set of free variables of an (extended) agent, defined in the expected way 
 by structural induction, assuming that $fv(\tell(c)) = sv(c)$,
 $fv(\ask(c) \mapsto A) = sv(c) \cup fv(A)$,
 % and We also remark that $fv(\exists_x A) = fv(A) \setminus \{x\}$ 
@@ -1328,7 +1331,7 @@ Let $[^y/_x]: V \to V$ be the substitution defined as
             w & \text{otherwise}
         \end{cases} \].
 
-It induces an operator $[^y/_x]: \mathcal{A} \rarrow \mathcal{A}$ on agents in the expected way,  in particular
+It induces an operator $[^y/_x]: \mathcal{E} \rarrow \mathcal{E}$ on extended agents as expected,  in particular
 
 %\begin{itemize}
 %	\item $\ostop[^y/_x] = \ostop$
@@ -1353,7 +1356,7 @@ differing only for hidden variables are considered equivalent, i.e.,
 $\exists_w^\pi A = \exists_z^{(s_{[^z/_w]}\pi)} A[^z/_w]$ for $z \not \in fv(\exists^{\pi}_w A)$.
 
 \begin{lemma}
-Let $A \in \mathcal{A}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
+Let $A \in \mathcal{E}$ and $x \not \in fv(E)$. Then $A[^y/_x] = A$.
 \end{lemma}
 
 %\begin{proof}
@@ -1397,7 +1400,7 @@ sometimes combining them as in $(\exists_x \pi)_\otimes$,
 with $[]_\otimes = \1$.
 
 \begin{definition}[Reductions]\label{def:reductions}
-Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
+Let $\Gamma = {\mathcal E} \times \C$ be the set of \emph{configurations}.
 The \emph{direct reduction semantics} for SCCP is the pair 
 $\langle \Gamma,  \to \rangle$
 such that $\to \, \, \subseteq \, \,\Gamma \times   \Gamma$ is the 
@@ -1580,9 +1583,9 @@ We denote by $fv(\gamma)$ the set $fv(A) \cup sv(\sigma)$ and by
 $\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
 
 \begin{definition}
-An agent $A$ is initial if it contains only existential operators of the form $\exists_x B$.
-A configuration is initial if so is its associated agent and reachable if it can be
-reached by an initial configuration via a sequence of reductions.
+A configuration $\langle A, \sigma \rangle$ is initial if $A\in \mathcal{A}$
+and it is reachable if it can be reached by an initial configuration via a sequence of 
+reductions.
 \end{definition}
 
 \begin{lemma}[On monotonicity, II]
@@ -1599,7 +1602,7 @@ Then $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\o
 We prove an equivalent property, namely, that there is $\sigma'$ such that 
 $\sigma = \sigma' \otimes (\exists_x \pi)_\otimes$. 
 %
-It holds for initial configurations, and it is clearly preserved by reductions, 
+It holds for initial configurations, and since it is clearly preserved by reductions, 
 in particular by those obtained by axiom \mbox{\bf A1} and rule \mbox{\bf R2},
 then we are done.
 \qed
@@ -1652,7 +1655,9 @@ We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_
 \end{definition}
 
 Note that $\langle A, \sigma \rangle \sim_{\mathit{s}} \langle B, \rho \rangle$ implies
-$\sigma = \rho$. This fact does not hold if we move to weak relations. To this end, 
+$\sigma = \rho$. 
+\comment{
+This fact does not hold if we move to weak relations. To this end, 
 we let $\rightarrow$ denote the reflexive and transitive closure of $\to$.
 
 \begin{definition} [Weak barbs]
@@ -1683,23 +1688,28 @@ Weak saturated bisimilarity coincides with the relation
 obtained from Definition~\ref{def:strongsb} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
 \end{lemma}
 
+
 Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
 and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an agent with an placeholder $\cdot$,
  can modify the behaviour of a configuration only by adding constraints to its store. 
+}
+Since $\sim_{\mathit{s}}$ is a saturated bisimulation, it is clearly upward closed.
+Moreover, it is also a congruence. Indeed, a context $C[\cdot]$, i.e., an agent with an placeholder $\cdot$,
+can modify the behaviour of a configuration only by adding constraints to its store. 
 
 \begin{proposition}
-Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
+Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations
 and $C[\cdot]$ a context.
 If $\langle A,\sigma \rangle \sim_{\mathit{s}} \langle B,\rho \rangle$
-then $\langle C[A],\sigma \otimes d\rangle \sim_{\mathit{s}} \langle C[B],\rho \otimes d \rangle$.
+then $\langle C[A],\sigma \rangle \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
 %and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
 %
-Moreover, the same property holds for $\approx_{\mathit{s}}$.
+%Moreover, the same property holds for $\approx_{\mathit{s}}$.
 \end{proposition}
 \begin{proof}
-By definition $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are upward closed, so we just need to check congruence.
+By definition $\sim_{\mathit{s}}$ is upward closed, so we just need to check congruence.
 We then proceed by induction on rule application.
-[DA FINIRE]
+[DA FINIRE. MA SERVIREBBE UNA CHIUSURA RISPETTO ALLE SOSTITUZIONI INVERTIBILI...]
 \qed
 \end{proof}
 
@@ -2021,10 +2031,11 @@ with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 \end{lemma}
 \begin{proof}
 %As for the first item, i
-It suffices to note that if
+As for the first item, it suffices to note that if
 $\langle B, \mu \rangle \to \langle A, \tau \rangle$,
 then $\langle A, \sigma \rangle$ is reachable from
- $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \mu \rangle$ and
+ $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \mu \rangle$.
+ [DA FINIRE. MI PARE CHE SERVA LA LOCALIZATION]
 \end{proof}
 
 \begin{lemma}
@@ -2043,18 +2054,6 @@ as long as rule  {\bf LA1} is not used in the reduction labelled by $\beta$.
 The proof exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono},
 and the condition $\beta \neq \monid$ is required in the inductive step for rule  {\bf LR2}.
 
-\begin{lemma}
-\label{riminor}
-Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ with
-$\alpha \leq \beta$. 
-%
-If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
-%\\
-%
-%Then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B', \tau'' \rangle$
-%and $\tau'' \leq \tau'$.
-\end{lemma}
-
 \begin{theorem}[Completeness]
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$ and
@@ -2062,59 +2061,59 @@ $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$.
 Then 
 %$\langle A, \tau \rangle$ is a l-reachable configuration and
 $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$
-for some $\alpha$ such that $\sigma = \tau \otimes \alpha \otimes \sigma''$, $\sigma \odiv \tau \leq \alpha$
-and $\sigma' = \tau' \otimes \sigma''$ for some $\sigma''$.
+for some $\alpha$ such that $\sigma \odiv \tau \leq \alpha$
+and $\sigma' = \tau' \otimes (\sigma \odiv (\tau \otimes \alpha))$.
 \end{theorem}
+
+Note that by invertibility $\sigma \odiv \tau \leq \alpha$ implies $\sigma \leq \alpha \otimes \tau$,
+thus again by invertibility $\sigma = \tau \otimes \alpha \otimes (\sigma \odiv (\tau \otimes \alpha))$.
 
 \begin{proof}
 [DA RIVEDERE]
-We proceed by structural induction on the proof.
-The result is straightforward for rules ${\bf LA1}$, ${\bf LA2}$, and ${\bf LR1}$ with 
-$\alpha = \sigma \odiv \tau$ and $\sigma'' = \monid$, since $\C$ is invertible.
+We proceed by induction on derivation.
+The result is immediate for axiom ${\bf A1}$ and ${\bf A3}$, with 
+$\alpha = \monid$, and it holds by induction hypothesis for 
+${\bf LR1}$.
 
-As for ${\bf LA2}$, note that $\sigma' = \sigma \leq c$ and that 
+As for ${\bf A2}$, note that $\sigma' = \sigma \leq c$ and that 
 $\langle \hbox{\ask}(c) \mapsto A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ 
 for any $\alpha \leq c\odiv \tau$, so that $\tau' = \alpha \otimes \tau$.
-So, we just need to identify an $\alpha$ such that
-$\sigma = \alpha \otimes \tau \otimes \sigma''$ for some $\sigma''$.
-A possible witness for $\alpha$ is $c \odiv \tau$, since $\sigma \leq c$
-implies $\sigma \odiv \tau \leq \alpha$.
 %
-Irregardless of $\alpha$, if $\sigma \leq \alpha \otimes \tau$ 
-a possible witness for $\sigma''$ is $\sigma \odiv (\alpha \otimes \tau)$,
-since the result would follow by invertibility. 
-Again by invertibility, proving $\sigma \leq \alpha \otimes \tau$ 
-corresponds to prove 
-$(\sigma \odiv \tau) \otimes \tau \leq \alpha \otimes \tau$, which holds 
-for $\alpha = c \odiv \tau$.
+By choosing $\alpha = c \odiv \tau$ we have that $\sigma \leq c$
+implies $\sigma \odiv \tau \leq c \odiv \tau = \alpha$,
+and 
+by invertibility 
+$\sigma = \alpha \otimes \tau \otimes  (\sigma \odiv (\tau \otimes \alpha))$.
 
-Let us  move to ${\bf LR2}$ and consider the configurations 
+Let us  move to ${\bf R2}$ and consider the configurations 
 $\langle \exists^\pi_x A, \sigma \rangle$  and
 $\langle \exists^\pi_x A, \tau \rangle$
 such that $x \not \in sv(\sigma) \cup sv(\tau)$. 
 Since they are both reachable, the former by Lemma~\ref{minor}, we have that 
-$\sigma = (\sigma \odiv \exists_x \pi) \otimes \exists_x \pi$ and
-$\tau = (\tau \odiv \exists_x \pi) \otimes \exists_x \pi$
+$\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$ and
+$\tau = (\tau \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$
 by Lemma~\ref{mono2}.
 %
 We have 
 $$\langle \exists^\pi_x A, \sigma \rangle \to
   \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
-  with $\sigma_0 = \sigma \odiv \exists_x \pi$ and $\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0)$.
-The premise tells us that $\langle A, \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
-$$\langle A, \bigotimes \pi \otimes \sigma_0 \rangle \to
+  with $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$ and $\rho = \sigma_1 \odiv (\pi_\otimes  \otimes \sigma_0)$.
+The premise tells us that $\langle A, \pi_\otimes \otimes \sigma_0 \rangle$ is reachable and
+$$\langle A, \pi_\otimes \otimes \sigma_0 \rangle \to
   \langle B, \sigma_1 \rangle$$
 %
 % such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
 % by Lemma~\ref{mono}.
-Now let us consider $\tau_0 = \tau \odiv \exists_x \pi$: clearly $\sigma_0 \leq \tau_0$,
+Now let us consider $\tau_0 = \tau \odiv (\exists_x \pi)_\otimes$: clearly $\sigma_0 \leq \tau_0$,
 so by induction hypothesis
 $$\langle A, \pi_\otimes \otimes \tau_0 \rangle  \xrightarrow{\beta}
-  \langle B, \tau_1 \rangle$$  for some $\beta$ such that 
-  $\bigotimes \pi \otimes \sigma_0 = \bigotimes \pi \otimes \tau_0 \otimes \beta \otimes \sigma_2$,
-  $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$,
-  and $\sigma_1 = \tau_1 \otimes \sigma_2$
-  for some $\sigma_2$.
+  \langle B, \tau_1 \rangle$$  for $\beta$ such that 
+  $(\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0) \leq \beta$
+  and $\sigma_1 = \tau_1 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\beta \otimes \pi_\otimes \otimes \tau_0))$,
+  recalling that moreover
+  $\pi_\otimes \otimes \sigma_0 = \pi_\otimes \otimes \tau_0 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0))$.
+
+
 %Moreover, 
 %$\tau_1 = (\tau_0 \odiv (\beta \otimes \bigotimes \pi \otimes \tau_0 )) \otimes  \beta \otimes \bigotimes \pi \otimes \tau_0$
 %by Lemma~\ref{l-mono}.
@@ -2122,7 +2121,15 @@ $$\langle A, \pi_\otimes \otimes \tau_0 \rangle  \xrightarrow{\beta}
 %\noindent
 Now, $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$ implies 
 $((\bigotimes \pi \odiv \exists_x \pi) \otimes \sigma) \odiv (\bigotimes \pi \odiv \exists_x \pi) \otimes \tau) \leq \beta$
-by invertibility, and by then it follows that $\sigma \odiv \tau \leq \beta$.
+by invertibility, and then it follows that $\sigma \odiv \tau \leq \beta$
+since $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$ in all residuated POMs.
+
+Since  $x \not \in sv(\sigma) \cup sv(\tau)$ we can assume that $x \not \in sv(\beta)$. Then, we have to prove that 
+$$\sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \xi \otimes ((\sigma \otimes \exists_x \rho) \odiv (\beta \otimes \tau \otimes \exists_x \xi))$$
+with $\xi = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau_0)$, as well as $\rho = \xi$.
+
+recalling that $\sigma = \beta \otimes \tau \otimes (\sigma \odiv (\beta \otimes \tau))$.
+
 
 \noindent
 Now, if $\beta = \monid$ by Theorem~\ref{sound}
@@ -2204,6 +2211,7 @@ weak  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$.
 We write $A \approx B$ if $\langle A, \monid \rangle \approx \langle B, \monid \rangle$.
 \end{definition}
 
+\comment{
 \begin{lemma}[Weak bisimilarity, 2]\label{def:weakbis2}
 Weak bisimilarity coincides with the relation 
 obtained from Definition~\ref{def:strongbis} by replacing $\to$ with $\Rightarrow$ and $\downarrow_c$ with $\Downarrow_c$.
@@ -2217,27 +2225,17 @@ and $\langle A,\sigma \otimes d\rangle \downarrow_c$ then
 then $\langle B, \rho \otimes d\rangle \Downarrow_c$.
 \end{proposition}
 \begin{proof}
-Let $\langle A,\sigma \otimes d\rangle \downarrow_c$, that is, \sigma \otimes d\rangle \leq c$.
-Since \langle A, \sigma \rangle \approx \langle b, \rho \rangle$ and $\langle A,\sigma \otimes d\rangle \downarrow_\sigma$,
+Let $\langle A,\sigma \otimes d\rangle \downarrow_c$, that is, \sigma \otimes d \leq c$.
+Since \langle A, \sigma \rangle \approx \langle B, \rho \rangle$ and $\langle A,\sigma \rangle \downarrow_\sigma$,
 then there exists  $\langle B', \rho'\rangle$ such that 
  $\langle B, \rho \rangle \D \Rightarrow \langle B', \rho' \rangle$ and 
  $\rho' \leq \sigma$.
-
-B, ??and 
-A, ?? ??, then there exists 
-B?, ???such that 
-B, ?? ??
-B?, ???and ??????for ?=fv(
-B?, ???) \fv(
-B, ??). Let us assume, without loss of generality, that ??sv(d) =?; since reductions are monotone (item 4 of Lemma6), we have 
-B, ??d? ??
-B?, ???d?. Finally, c???d =????d ????????d ???(???d), hence 
-B, ??d? ?c.
-
+ [DA FINIRE]
 \qed
 \end{proof}
+}
 
-The feasibility of $\sim$ and $\approx$ resides on the fact that they are not 
+The feasibility of $\sim$ resides on the fact that it is not 
 upward closed by definition. Thanks to the correspondence results in Section~\ref{corres}, 
 they can be proved so, as well as congruences.
 %
@@ -2250,7 +2248,7 @@ If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
 then $\langle C[A],\sigma \otimes d\rangle \sim \langle C[B],\rho \otimes d \rangle$.
 %and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
 %
-Moreover, the same property holds for $\approx$.
+%Moreover, the same property holds for $\approx$.
 \end{proposition}
 %\begin{proof}
 %\qed
