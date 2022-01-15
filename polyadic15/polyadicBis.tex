@@ -1969,7 +1969,7 @@ $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
 
 \begin{proof}
-The property holds for the axioms, since e.g. for {\bf LR2} we know that
+The property holds for the axioms, since e.g. for {\bf LA2} we know that
 $\alpha \leq c \odiv \sigma$ implies $\alpha \otimes \sigma \leq c$ for residuated POMs.
 %
 We then proceed by induction on rule derivations,
@@ -2194,7 +2194,9 @@ $$\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \
 
 \section{Labelled bisimulation}
 We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
-As it occurs with the crisp language, and differently from most process calculi~\ref{xxx}, barbs cannot be removed from the 
+As it occurs with the crisp language~\cite{pippo} and the soft variant with global variables~\cite{festcatuscia}, 
+%and differently from most process calculi~\ref{xxx}, 
+barbs cannot be removed from the 
 definition of bisimilarity because they cannot be inferred by the reductions.
 
 \begin{definition}[Strong bisimilarity]\label{def:strongbis} A strong bisimulation is a symmetric relation $R$ on configurations such that whenever
@@ -2254,7 +2256,7 @@ then there exists  $\langle B', \rho'\rangle$ such that
 %
 The feasibility of $\sim$ resides on the fact that it is not 
 upward closed by definition. Thanks to the correspondence results in Section~\ref{corres}, 
-they can be proved so, as well as congruences.
+it can be proved so, as well as a congruence.
 %
 %Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
