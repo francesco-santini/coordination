@@ -1300,7 +1300,7 @@ p(x) \mid \exists_x A\]
 
 In the following we will consider 
 a set $\mathcal{E}$ of extended agents that uses the existential operator $\exists^{\pi}_x A$, 
-where $\pi$ is meant to represent the sequence of updates performed on the local store. 
+where $\pi \in {\mathcal C}^\ast$ is meant to represent the sequence of updates performed on the local store. 
 More precisely, the extended agent may carry some information about the hidden variable 
 $x$ in an incremental way. We will often write $\exists_x A$ for $\exists^{[ ]}_x A$ and $\pi_i$ for 
 the $i$-th element of $\pi = [ \pi_0, \ldots, \pi_n]$.
@@ -1348,7 +1348,7 @@ differing only for hidden variables are considered equivalent, i.e.,
 $\exists_w^\pi A = \exists_z^{(s_{[^z/_w]}\pi)} A[^z/_w]$ for $z \not \in fv(\exists^{\pi}_w A)$.
 
 \begin{lemma}
-Let $A \in \mathcal{E}$ and $x \not \in fv(E)$. Then $A[^y/_x] = A$.
+Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
 \end{lemma}
 
 %\begin{proof}
@@ -1382,6 +1382,7 @@ Let $A \in \mathcal{E}$ and $x \not \in fv(E)$. Then $A[^y/_x] = A$.
 %\end{itemize}
 %\end{proof}
 
+\subsection{reduction semantics}
 We now move to the reduction semantics of our calculus. 
 %
 Given a sequence $\pi = [\pi_1, \ldots, \pi_n]$, we will use 
@@ -1611,7 +1612,7 @@ then we are done.
 %$\sigma \odiv (\exists_x \pi)_\otimes$.
 
 
-\section{Saturated Bisimulation}\label{sec:saturated}
+\subsection{Saturated Bisimulation}\label{sec:saturated}
 As proposed in \cite{pippo} for crisp languages, we define a barbed equivalence between two agents~\cite{barbed}.  
 %
 Intuitively, barbs are basic observations (predicates) on the states of a system, and in our case they correspond 
@@ -1622,14 +1623,15 @@ Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$
 and we say that $\langle A, \sigma \rangle$ verifies $c$, or that $\langle A, \sigma \rangle \downarrow_c$ holds, if  $\sigma \leq c$.
 \end{definition}
 
-In other terms, $\hbox{\ask}(c)$ must be enabled in $\langle A, \sigma \rangle$.
+In other terms, satisfying a barb $c$ means that $\hbox{\ask}(c)$ must be enabled in $\langle A, \sigma \rangle$.
 %
-Since \emph{barbed bisimilarity} is an equivalence already for CCP, along~\cite{pippo}
+We now move to consider equivalence and, %Since \emph{barbed bisimilarity} is an equivalence already for CCP, 
+along~\cite{pippo}
 we propose the use of \emph{saturated bisimilarity}
 %~\cite{barbedMontanari} has been proposed 
-in order to obtain a congruence:
+in order to obtain a congruence.
 %
-Definition~\ref{def:strongsb} and Definition~\ref{def:weaksb} respectively provide the strong and weak definition of saturated bisimilarity.
+%Definition~\ref{def:strongsb} and Definition~\ref{def:weaksb} respectively provide the strong and weak definition of saturated bisimilarity.
 %We say that $\gamma = \langle P, \sigma\rangle$ satisfies the barb $c$, written $\gamma \downarrow_c$,
 %iff $\gamma \longrightarrow \gamma'$ and $\gamma' \downarrow_c$.
 %\marginpar{Are barbs compact?}
@@ -1647,7 +1649,7 @@ We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_
 \end{definition}
 
 Note that $\langle A, \sigma \rangle \sim_{\mathit{s}} \langle B, \rho \rangle$ implies
-$\sigma = \rho$. 
+that $\sigma = \rho$.
 \comment{
 This fact does not hold if we move to weak relations. To this end, 
 we let $\rightarrow$ denote the reflexive and transitive closure of $\to$.
@@ -1682,37 +1684,51 @@ obtained from Definition~\ref{def:strongsb} by replacing $\to$ with $\Rightarrow
 
 
 Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
-and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an agent with an placeholder $\cdot$,
+and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an (extended) sagent with an placeholder $\cdot$,
  can modify the behaviour of a configuration only by adding constraints to its store. 
 }
-Since $\sim_{\mathit{s}}$ is a saturated bisimulation, it is clearly upward closed.
-Moreover, it is also a congruence. Indeed, a context $C[\cdot]$, i.e., an agent with an placeholder $\cdot$,
+%Since $\sim_{\mathit{s}}$ is a saturated bisimulation, it is clearly closed with respect
+%to the addition of constraints to a store. 
+Moreover, it is also a congruence. Indeed, a context $C[\cdot]$, i.e., an (extended) agent with an placeholder $\cdot$,
 can modify the behaviour of a configuration only by adding constraints to its store. 
 
 \begin{proposition}
-Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations
-and $C[\cdot]$ a context.
-If $\langle A,\sigma \rangle \sim_{\mathit{s}} \langle B,\rho \rangle$
-then $\langle C[A],\sigma \rangle \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
-%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
-%
-%Moreover, the same property holds for $\approx_{\mathit{s}}$.
+Let $A$, $B$ be agents and $C[\cdot]$ a context.
+If $A \sim_{\mathit{s}} B$
+then $C[A] \sim_{\mathit{s}} C[B]$.
+%%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
+%Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations
+%and $C[\cdot]$ a context.
+%If $\langle A,\sigma \rangle \sim_{\mathit{s}} \langle B,\rho \rangle$
+%then $\langle C[A],\sigma \rangle \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
+%%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
+%%
+%%Moreover, the same property holds for $\approx_{\mathit{s}}$.
 \end{proposition}
-\begin{proof}
-By definition $\sim_{\mathit{s}}$ is upward closed, so we just need to check congruence.
-We then proceed by induction on rule application.
-[DA FINIRE. MA SERVIREBBE UNA CHIUSURA RISPETTO ALLE SOSTITUZIONI INVERTIBILI...]
-\qed
-\end{proof}
 
+%Note that we are considering here also extended agents.
+%and that for the result it is pivotal to require 
+%the closure with respect to the addition of constraints.
+
+%\begin{proof}
+%By definition $\sim_{\mathit{s}}$ is upward closed, so we just need to check congruence.
+%We then proceed by induction on rule application.
+%[DA FINIRE. MA SERVIREBBE UNA CHIUSURA RISPETTO ALLE SOSTITUZIONI INVERTIBILI...]
+%\qed
+%\end{proof}
+%
 %\marginpar{to be proved for $\exists_x-$ (not needed for Prop.3)}
 
 
 \section{Labelled reduction semantics}
-
-Although $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are fully abstract, they are somewhat unsatisfactory
-because of the upward closure, i.e., the quantification in condition \emph{3} of 
-Definiton~\ref{def:strongsb} and Definition~\ref{def:weaksb}.
+The definition of $\sim_{\mathit{s}}$ 
+%and $\approx_{\mathit{s}}$ are fully abstract, they are somewhat 
+is unsatisfactory
+because of the store closure, i.e., the quantification in condition \emph{3} of 
+Definiton~\ref{def:strongsb}.
+% and Definition~\ref{def:weaksb}.
+This section presents a labelled version of the reduction semantics that will be used to 
+define a suitable bisimulation that avoids such drawback.
 
 \begin{definition}[Labelled reductions]
 	Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
@@ -2187,7 +2203,7 @@ $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ i
 Note that $\langle A, \sigma \rangle \sim \langle B, \rho \rangle$ implies
 $\sigma = \rho$, as for saturated bisimilarity.
 %This fact does not hold if we move to weak relations. 
-
+%
 \comment{
 \begin{definition}[Weak bisimilarity]\label{def:weakbis} A weak bisimulation is a symmetric relation $R$ on configurations such that whenever
 %$(\gamma_1,\gamma_2) \in R$ with $\gamma_1 = \langle A, \sigma \rangle$
@@ -2225,25 +2241,29 @@ then there exists  $\langle B', \rho'\rangle$ such that
 \qed
 \end{proof}
 }
-
+%
 The feasibility of $\sim$ resides on the fact that it is not 
 upward closed by definition. Thanks to the correspondence results in Section~\ref{corres}, 
 they can be proved so, as well as congruences.
 %
-Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
+%Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
 \begin{proposition}
-Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations, $d \in \mathcal{C}$
-and $C[\cdot]$ a context.
+Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations and $d \in \mathcal{C}$.
 If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
-then $\langle C[A],\sigma \otimes d\rangle \sim \langle C[B],\rho \otimes d \rangle$.
-%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
-%
-%Moreover, the same property holds for $\approx$.
+then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
 \end{proposition}
-%\begin{proof}
-%\qed
-%\end{proof}
+\begin{proof}
+TO BE DONE
+\end{proof}
+
+An immediate consequence of the result above is that $\sim$ is a congruence.
+
+\begin{proposition}
+Let $A$, $B$ be agents and $C[\cdot]$ a context.
+If $A \sim B$
+then $C[A] \sim C[B]$.
+\end{proposition}
 
 \section{On the equivalence between bisimulation semantics}
 
