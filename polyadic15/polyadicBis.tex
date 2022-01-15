@@ -1392,7 +1392,7 @@ Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
 %\end{itemize}
 %\end{proof}
 
-\subsection{reduction semantics}
+\subsection{Reduction semantics}
 We now move to the reduction semantics of our calculus. 
 %
 Given a sequence $\pi = [\pi_1, \ldots, \pi_n]$, we will use 
@@ -2266,7 +2266,22 @@ If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
 then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
 \end{proposition}
 \begin{proof}
-TO BE DONE
+We need to show that the relation 
+$R = \{\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
+is a labelled bisimulation. We then assume that 
+$\langle A, \sigma \otimes d \rangle  \xrightarrow{\alpha} \langle A', \sigma' \rangle$: 
+we need to prove that there exists $B'$ such that
+$\langle B,\alpha \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
+  and $\langle A', \sigma' \rangle R \langle B', \sigma' \rangle$.
+By soundness we have that 
+$\langle A, \alpha \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$; 
+  by completeness that 
+  $\langle A,  \sigma \rangle  \xrightarrow{XXX}\langle A', \sigma'' \rangle$,
+  where YYYY.
+  Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, we have that 
+  there exists $B'$ such that 
+  $\langle B, XXX \otimes \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
+  and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$.
 \end{proof}
 
 An immediate consequence of the result above is that $\sim$ is a congruence.
