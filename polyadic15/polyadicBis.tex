@@ -89,8 +89,9 @@
 
 \begin{document}
 
-\title{Soft Concurrent Constraint Programming\\ with Local Variables~\thanks{Research 
-partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''.}}
+\title{Soft Concurrent Constraint Programming\\ with Local Variables
+	%~\thanks{Research partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''.}
+}
 
 
 \author{Laura Bussi\inst{1}, Fabio Gadducci\inst{1}, 
@@ -115,6 +116,15 @@ Francesco Santini\inst{2}
 \keywords{Soft concurrent constraint programming, local variables, observational semantics, polyadic algebras, residuated monoids.}
 
 \section{Introduction}\label{sec:intro}
+\emph{Concurrent Constraint Programming} (CCP) is a declarative model for concurrency where agents interact on a common store of information by telling and asking constraints~\cite{emerging}.  In its general meaning, a constraint is defined as a relationship on a set of variables: an assignment of (some of) the variables in the store needs to be found in order to satisfy a given goal.  A constraint system provides a signature from which the constraints can be constructed;  it can be formalised as an algebraic structure with operators to express conjunction of constraints, absence and inconsistent information, hiding of information and parameter passing.
+
+
+The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  the first-order calculus~\cite{cylalgebraic}, which have been widely  adopted in the literature to provide the semantics of constraint formulas~\cite{fgcs92,popl91}. A cylindric algebra is formed by enhancing a Boolean algebra by means of a family of unary operations called \emph{cylindrications}. Technically, the cylindrification operation $\exists_S(c)$ is used to project out the information about a set of variables $S$ from a constraint $c$: it is important to focus only on  the variables that appear in the goal of a constraint logic program, for example.
+
+While polyadic algebras are the algebraic version of the pure first-order calculus, cylindric algebras yield an algebraisation of the first-order calculus with \emph{equality}. However, equality can be also achieved in polyadic algebras via additional axioms that specify which terms are to be considered equal under the abstract interpretation.
+
+ While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (to perform parameters passing~\cite{popl91} and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the join semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
+
 This work originates from \cite{festcatuscia}, where a first implementation of polyadic constraints was ideated (together with a polynomial representation of soft constraints). However, this paper extends that first attempt with a concurrent constraint language on top of its, and process-equivalence relations.
 The work is organised as  follows: in Sect.~\ref{sec:bg} we present the necessary background on the algebraic structure needed to model polyadic constraints. Then, Sect~\ref{}, 
 
