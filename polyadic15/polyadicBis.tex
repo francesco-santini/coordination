@@ -387,6 +387,46 @@ In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl17}).
 
 %Distributivity holds also for the empty set and for infinite sets, if the LUBs exist.
 
+In any residuated POM the $\odiv$ operator is also monote one the first argument and 
+anti-monotone on the second one, i.e., 
+$\forall a, b, c \in A.\, a\leq b \implies  c\odiv b \leq c \odiv a$.
+%
+Other easy to prove properties are
+$\forall a\in A. \monid \leq a \odiv a$ and
+$\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) \leq a$.
+% which in turn implies 
+%that $\forall a\in A. a \monop (a \odiv a) = a$ and
+%
+%, and \emph{iii)} $a \odiv (b \monop c) = (a \odiv b) \odiv c$.
+%should $\monop$ be idempotent, $b \leq a$ implies $a \odiv b = a$.
+%
+%$\forall a, b \in A. a < b \implies \monid \not \leq a \odiv b$, where
+%$a < b$ means $a \leq b$ and $a \neq b$.
+%
+%Residuation is monotone on the first argument:
+%$\forall a, b, c \in A. a \leq b \implies a \odiv c \leq b \odiv c$.
+%%falsa and if $b \leq a$, then $a \odiv b = \monid$. For more properties of residuation we refer to \cite[Table~4.1]{resbook}.
+%
+%
+These latter facts suggests the definition below, which identifies sub-classes 
+of residuated monoids that are suitable for an easier manipulation
+of constraints (see e.g.~\cite{ecai06}).
+
+\begin{definition}[localisation / invertibility]
+	A residuated POM $\langle A, \leq, \monop, \odiv, \monid \rangle$ is
+	\begin{itemize}
+		\item
+		\emph{localised} if $\forall a \in A. a \odiv a = \1$;
+		\item
+		\emph{invertible} if $\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) = a$.
+	\end{itemize}
+\end{definition}
+
+\begin{remark}
+When introduced in~\cite[Def.~xxx]{ecai06}, localisation was equivalently stated as 
+$\forall a, b \in A. a \leq b \implies a \odiv b \leq \1$.
+\end{remark}
+
 [CAPIRE COSA SALVARE DA QUA ALLA FINE DELLA SEZIONE]
 
 In order to ease the verification of the algebraic structure, it is often needed
@@ -430,39 +470,6 @@ Using the monotonicity of $\odiv$ from $b \monop c \leq a$ we get
 \end{proof}
 }
 
-It is easy to show that in any residuated POM the $\odiv$ operator is also anti-monotone on the second argument, i.e., 
-$\forall a, b, c \in A.\, a\leq b \implies  c\odiv b \leq c \odiv a$.
-%
-Other properties are also straightforward, such as 
-$\forall a\in A. \monid \leq a \odiv a$, which in turn implies 
-that $\forall a\in A. a \monop (a \odiv a) = a$ and
-%
-%, and \emph{iii)} $a \odiv (b \monop c) = (a \odiv b) \odiv c$.
-%should $\monop$ be idempotent, $b \leq a$ implies $a \odiv b = a$.
-%
-$\forall a, b \in A. a < b \implies \monid \not \leq a \odiv b$, where
-$a < b$ means $a \leq b$ and $a \neq b$.
-%
-%Residuation is monotone on the first argument:
-%$\forall a, b, c \in A. a \leq b \implies a \odiv c \leq b \odiv c$.
-%%falsa and if $b \leq a$, then $a \odiv b = \monid$. For more properties of residuation we refer to \cite[Table~4.1]{resbook}.
-%
-%
-The latter fact suggests the definition below, which identifies sub-classes 
-of residuated monoids that are suitable for an easier manipulation
-of constraints (see e.g.~\cite{ecai06}).
-
-\begin{definition}[localisation / invertibility]
-	A residuated POM $\langle A, \leq, \monop, \odiv, \monid \rangle$ is
-	\begin{itemize}
-		\item
-		\emph{localised} if $\forall a, b \in A. a \leq b \implies a \odiv b \leq \monid$;
-		\item
-		\emph{invertible} if $\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) = a$.
-	\end{itemize}
-\end{definition}
-
-Note that if a residuated POM is localised then $\forall a \in A. a \odiv a = \monid$.
 %\marginpar{all RePO are localized?}
 
 %\begin{remark}
@@ -1587,8 +1594,8 @@ $\gamma[^z/_w]$ the component-wise application of the substitution $[^z/_w]$.
 
 \begin{definition}
 A configuration $\langle A, \sigma \rangle$ is initial if $A\in \mathcal{A}$
-and it is reachable if it can be reached by an initial configuration via a sequence of 
-reductions.
+and $\sigma = \1$; it is reachable if it can be reached by an initial configuration 
+via a sequence of reductions.
 \end{definition}
 
 \begin{lemma}[On monotonicity, II]
@@ -1767,7 +1774,7 @@ define a suitable bisimulation that avoids such drawback.
   \\ 
   &\mbox{   }&\mbox{   } &\mbox{   }
   \\
-  \mbox{\bf LA2}& $\frac{\displaystyle \alpha \leq  c  \odiv  \sigma} {{\displaystyle
+  \mbox{\bf LA2}& $\frac{\displaystyle \alpha \leq  c  \odiv  \sigma \wedge \alpha \leq \1} {{\displaystyle
   	\begin{array}{l} \langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{\alpha}
   	\langle A, \alpha \otimes \sigma \rangle
   	\end{array}}}$
@@ -1850,6 +1857,10 @@ For the rules in Table~\ref{fig:ALTS}, as well as for rule {\bf  LR1}, we can re
 The difference concerns the axioms for the $\hbox{\ask}(c)$: if $c$ is not entailed from $\sigma$, then
 some additional information  is imported from the environment, ensuring that the state
 $\alpha \otimes \sigma \leq c$ allows the execution of $\hbox{\ask}(c)$.
+The requirement $\alpha \leq \1$ ensures that the received information strengthens the store, 
+i.e., $\alpha \otimes \sigma \leq \sigma$.
+%in order not to put forward future requests, as it might be otherwise needed for e.g. 
+%$\hbox{\ask}(c) \to \hbox{\ask}(c) \to \hbox{\ostop}$.
 
 Once again, the more complex axiom is {\bf LR2}. With respect to {\bf R2}, the additional intuition is that 
 $\alpha$ should not contain the restricted variable $x$: additional information can be obtained from the environment,
@@ -1860,7 +1871,10 @@ removing $\alpha$ from the update to be memorised in the local store. However,
 since $\alpha$ is added to the global store, it will not be necessary to receive it again in the future. 
 
 \begin{remark}
-An alternative solution for rule ${\bf LA2}$ would have been to restrict the possible reductions to the one with maximal label, 
+Concerning the rule ${\bf LA2}$, the requirement $\alpha \leq \1$ might have been replaced by $\alpha \leq \sigma \odiv \sigma$,
+still ensuring a strengthening of the store. In view of later results on localised POMs, this choice will be immaterial.
+%
+More importantly, an alternative solution for the rule would have been to restrict the possible reductions to the one with maximal label, 
 that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
 However, this might have been restrictive in combination with rule ${\bf LR2}$.
 Consider  our running example and the configuration 
@@ -1889,14 +1903,17 @@ Then
 $\rho = (\rho \odiv (\alpha \otimes \sigma)) \otimes \alpha \otimes \sigma$ and 
 $fv(\langle B, \rho \rangle) \subseteq fv(\langle A, \sigma \rangle) \cup sv(\alpha)$.
 %\end{enumerate}
-Moreover, if $\alpha \neq \monid$ then $\rho \odiv (\alpha \otimes \sigma) = \monid$.
+Moreover, if $\mathbb S$ is localised and $\alpha \neq \monid$ then $\rho \odiv (\alpha \otimes \sigma) = \monid$.
 \end{lemma}
 
 \begin {proof}
 The first part is immediate as for Lemma~\ref{mono}.
 %
-For the latter part, note that $\alpha \neq 1$ just means that axioms {\bf LA1}
-and {\bf LA3} are never applied in the reduction. Let us check that the property 
+For the latter part, note that $\alpha \neq 1$ means that the proof of the reduction 
+uses only the axiom {\bf LA2}, and the property holds because 
+$\mathbb S$ is localised and $\rho = \alpha \otimes \sigma$.
+%
+Let us check that the property 
 holds for {\bf LR2}. Inductively, we know that 
 $(\sigma_1 \odiv (\alpha \otimes \pi_\otimes \otimes \sigma_0)) = \monid$, and
 $(\alpha \otimes \sigma \otimes \exists_x ( \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0))) \odiv (\alpha \otimes \sigma) = \monid$
@@ -2033,6 +2050,10 @@ $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{\monid}
   	\langle A, \monid \otimes \sigma \rangle$.
 \end{proof}	
 	
+These results ensure that a configuration is reachable if and only if it is l-reachable.
+\\
+
+
 [RIVEDERE DA QUA]
 
 However, we are interested in a more general notion of completeness, possibly taking into account 
@@ -2050,9 +2071,9 @@ with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 \begin{proof}
 %As for the first item, i
 As for the first item, it suffices to note that if
-$\langle B, \mu \rangle \to \langle A, \tau \rangle$,
+$\langle B, \1 \rangle \to \langle A, \tau \rangle$,
 then $\langle A, \sigma \rangle$ is reachable from
- $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \mu \rangle$.
+ $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \1 \rangle$.
  [DA FINIRE. MI PARE CHE SERVA LA LOCALIZATION]
 \end{proof}
 
@@ -2261,27 +2282,39 @@ it can be proved so, as well as a congruence.
 %Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
 \begin{proposition}
-Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations and $d \in \mathcal{C}$.
+Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be l-reachable configurations and $d \in \mathcal{C}$.
 If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
 then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
 \end{proposition}
 \begin{proof}
 We need to show that the relation 
-$R = \{\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
+$R = \{ (\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle) \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
 is a labelled bisimulation. We then assume that 
 $\langle A, \sigma \otimes d \rangle  \xrightarrow{\alpha} \langle A', \sigma' \rangle$: 
 we need to prove that there exists $B'$ such that
 $\langle B,\alpha \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
-  and $\langle A', \sigma' \rangle R \langle B', \sigma' \rangle$.
-By soundness we have that 
-$\langle A, \alpha \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$; 
-  by completeness that 
-  $\langle A,  \sigma \rangle  \xrightarrow{XXX}\langle A', \sigma'' \rangle$,
-  where YYYY.
-  Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, we have that 
+  and $(\langle A', \sigma' \rangle, \langle B', \sigma' \rangle) \in R$.
+
+If  $\langle A,\sigma \rangle$ is l-reachable so is $\langle A,\sigma \otimes d \rangle$.
+%
+By soundness $\langle A, \alpha \otimes  \sigma \otimes d \rangle$ is reachable and
+$\langle A, \alpha \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$.
+  By completeness $\langle A,  \sigma \rangle$ is l-reachable and
+  $\langle A,  \sigma \rangle  \xrightarrow{\beta}\langle A', \sigma'' \rangle$,
+  where $\alpha \otimes d \leq \beta$ and YYYY.
+  Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
   there exists $B'$ such that 
-  $\langle B, XXX \otimes \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
+  $\langle B, \beta \otimes \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
   and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$.
+  Now, by localisation $(\alpha \otimes d) \odiv \beta \leq 1$ 
+  and by Lemma~\ref{minor}
+  we have 
+  %$(\alpha \otimes d) \odiv \beta) \otimes \beta \otimes \sigma = \alpha \otimes d \otimes \sigma$
+  $\langle B, (((\alpha \otimes d) \odiv \beta) \otimes \beta \otimes \sigma \rangle 
+  \xrightarrow{} \langle B', \sigma''' \rangle$
+  with 
+  $\sigma''' = \sigma'' \otimes ([((\alpha \otimes d) \odiv \beta) \otimes \beta \otimes \sigma] 
+  \odiv (\beta \otimes \sigma))$
 \end{proof}
 
 An immediate consequence of the result above is that $\sim$ is a congruence.
