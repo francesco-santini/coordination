@@ -125,8 +125,11 @@ While polyadic algebras are the algebraic version of the pure first-order calcul
 
  While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (to perform parameters passing~\cite{popl91} and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the join semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
 
+\emph{Polyadic Soft Language} is \todo{to be introduced}
+
 This work originates from \cite{festcatuscia}, where a first implementation of polyadic constraints was ideated (together with a polynomial representation of soft constraints). However, this paper extends that first attempt with a concurrent constraint language on top of its, and process-equivalence relations.
 The work is organised as  follows: in Sect.~\ref{sec:bg} we present the necessary background on the algebraic structure needed to model polyadic constraints. Then, Sect~\ref{}, 
+Section~\ref{sec:detpolyadicCCP} presents the PSCCP language. 
 
 \section{An Introduction to Residuated Monoids}\label{sec:bg}
 
@@ -865,7 +868,7 @@ $\bigvee \{p \odiv n, u \odiv n\}  = \bot < \bigvee \{p, u\} \odiv n = t \odiv n
 \end{example}
 }
 
-\section{An Alternative Proposal for Costraint Manipulation}
+\section{An Alternative Proposal for Constraint Manipulation}
 \label{newpro}
 
 This section presents our personal take on polyadic algebras for ordered monoids:
@@ -973,7 +976,7 @@ by $\sigma^{c}(X)$ the counter-image of $X$ along $\sigma$.
 
 \begin{definition}[polyadification]
 	\label{def:poly}
-	A polyadic operator $s$ for a cylindric operator $\exists$ is a a family of monotone functions 
+	A polyadic operator $s$ for a cylindric operator $\exists$ is a family of monotone functions 
 	$s_\sigma: A \rightarrow A$
 	indexed by elements in $F(V)$ such that for all $a, b \in A$, $x \in V$, and $\sigma, \tau\in F(V)$
 	\begin{enumerate}
@@ -1252,7 +1255,7 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 	is called \emph{projection} in the soft framework,
 	and $\exists_x c$ is denoted $c\Downarrow_{V\setminus \{x\}}$.}
 
-\begin{proof}[TO BE REDONE]
+\begin{proof}[TO BE REDONE]\todo{To be redone}
 %Let us consider a finite set $X$ and a constraint $c$. Recall that since $supp(c)$ is finite,
 %$c$ can be considered as a function $D^k \rightarrow A$ for $k = \# supp(c)$.
 %
@@ -1300,8 +1303,8 @@ $\xi(x) \neq \xi(y)$).
 \qed
 \end{proof}
 
-\section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detSCCP}
-This section introduces our (meta-)language.
+\section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detpolyadicCCP}
+This section introduces our language.
 We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
 a residuated POM $\mathbb S = \langle {\mathcal C}, \leq, \otimes, \odiv, \1\rangle$, 
 which is cylindric and polyadic over $V$ and whose elements
@@ -1320,7 +1323,7 @@ In the following we will consider
 a set $\mathcal{E}$ of extended agents that uses the existential operator $\exists^{\pi}_x A$, 
 where $\pi \in {\mathcal C}^\ast$ is meant to represent the sequence of updates performed on the local store. 
 More precisely, the extended agent may carry some information about the hidden variable 
-$x$ in an incremental way. We will often write $\exists_x A$ for $\exists^{[ ]}_x A$ and $\pi_i$ for 
+$x$ in an incremental way. We will often write $\exists_x A$ for $\exists^{[ \,]}_x A$ and $\pi_i$ for 
 the $i$-th element of $\pi = [ \pi_0, \ldots, \pi_n]$.
 
 We denote by $fv(A)$ the set of free variables of an (extended) agent, defined in the expected way 
@@ -1339,7 +1342,7 @@ Let $[^y/_x]: V \to V$ be the substitution defined as
 		\begin{cases} 
 			y & \text{if $w = x$} \\
             w & \text{otherwise}
-        \end{cases} \].
+        \end{cases}. \]
 
 It induces an operator $[^y/_x]: \mathcal{E} \rarrow \mathcal{E}$ on extended agents as expected,  in particular
 
@@ -1366,7 +1369,7 @@ differing only for hidden variables are considered equivalent, i.e.,
 $\exists_w^\pi A = \exists_z^{(s_{[^z/_w]}\pi)} A[^z/_w]$ for $z \not \in fv(\exists^{\pi}_w A)$.
 
 \begin{lemma}
-Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
+Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.\todo{Già dimostrato}
 \end{lemma}
 
 %\begin{proof}
@@ -1403,12 +1406,12 @@ Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
 \subsection{Reduction semantics}
 We now move to the reduction semantics of our calculus. 
 %
-Given a sequence $\pi = [\pi_1, \ldots, \pi_n]$, we will use 
+Given a sequence $\pi = [\pi_1, \ldots,$ $\pi_n]$, we will use 
 $\pi_\otimes$ and $\exists_x \pi$
 as shorthands for $\pi_1 \otimes \ldots \otimes \pi_n$ and
 $[\exists_x \pi_1, \ldots, \exists_x \pi_n]$, respectively,
 sometimes combining them as in $(\exists_x \pi)_\otimes$,
-with $[]_\otimes = \1$.
+with $[\,]_\otimes = \1$.
 
 \begin{definition}[Reductions]\label{def:reductions}
 Let $\Gamma = {\mathcal E} \times \C$ be the set of \emph{configurations}.
@@ -1426,8 +1429,8 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
 \end{definition}
 
 %\vspace{-.25cm}
-\def\odiv{\; {\ominus\hspace{-6pt} \div} \;}
-\def\odivvv{\; {\ominus\hspace{-6pt} \div} \;}
+%\def\odiv{\; {\ominus\hspace{-6pt} \div} \;}
+%\def\odivvv{\; {\ominus\hspace{-6pt} \div} \;}
 
 \begin{table}  %\hfil5
   %\scalebox{0.9}{
@@ -1761,9 +1764,7 @@ define a suitable bisimulation that avoids such drawback.
          obtained by the rules in Table~\ref{fig:ALTS} and Table~\ref{fig:CRLTS}.
 \end{definition}
 
-\def\odiv{\; {\ominus\hspace{-6.8pt} \div} \;}
-\def\odivv{\; {\ominus\hspace{-5.2pt} \div} \;}
-\def\odivvv{\; {\ominus\hspace{-7.8pt} \div} \;}
+
 \begin{table}  %\hfil5
    \begin{center}
    	  \scalebox{0.9}{
@@ -1792,16 +1793,14 @@ define a suitable bisimulation that avoids such drawback.
 \caption{Axioms of the labelled semantics for \SCCP.}
 \label{fig:ALTS}
 \end{table}
-\def\odiv{\, {\ominus\hspace{-7.8pt} \div} \,}
-\def\odivvv{\; {\ominus\hspace{-4.7pt} \div} \;}
 
 
-\def\odiv{\; {\ominus\hspace{-6.8pt} \div} \;}
-\def\odivv{\; {\ominus\hspace{-5.2pt} \div} \;}
-\def\odivvv{\; {\ominus\hspace{-7.8pt} \div} \;}
+
+\def\oodiv{\; {\ominus\hspace{-7pt} \div} \;}
+
 \begin{table}  %\hfil5
    \begin{center}
-   	  \scalebox{0.9}{
+   	  \scalebox{0.85}{
    \begin{tabular}{lcll} 
    %
   \mbox{\bf LR1}& $\frac {\displaystyle \langle A,\sigma \rangle \xrightarrow{\alpha} \langle A', \sigma' \rangle} 
@@ -1813,9 +1812,9 @@ define a suitable bisimulation that avoids such drawback.
   & \mbox{   }&\mbox{   }& \mbox{   }
   \\
   \mbox{\bf LR2} & $\frac {\displaystyle \langle A, \pi_\otimes \otimes \sigma_0 \rangle \xrightarrow{\alpha}
-  \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes }
+  \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \oodiv (\exists_x \pi)_\otimes }
   {\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)}
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)}
     \text{ for } x \not \in sv(\sigma) \cup sv(\alpha)$
 &\bf{Hide}&
   \end{tabular}
