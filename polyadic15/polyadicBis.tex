@@ -486,7 +486,7 @@ Using the monotonicity of $\odiv$ from $b \monop c \leq a$ we get
 \begin{remark}\label{rmk:soft}
 	Some well-known structures used for soft constraints are the 
 	%\emph{Boolean} ($\langle \{\mathit{false},\mathit{true}\}, \mathit{false} \leq \mathit{true}, \wedge, \mathit{false}, \mathit{true}\rangle$), 
-	\emph{Fuzzy} ($\langle [0,1], \leq,$ $\min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], \leq,\allowbreak\times, 1 \rangle$), 
+	\emph{Fuzzy} ($\langle [0,1], \leq,$ $\min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], \leq, \allowbreak\times, 1 \rangle$), 
 	and \emph{Tropical}   ($\langle \mathbb{R}^+, \geq, +, 0 \rangle$) semirings, for $\geq$ the inverse of the standard order 
 	(thus $0$ the top of the SL). In all these cases the underlying monoids 
 	are both invertible and localised, thus
@@ -880,7 +880,7 @@ the laws for polyadic operators in residuated monoids.
 
 \subsection{Cylindric and Polyadic Operators for Ordered Monoids}
 \label{cypo}
-We now introduce two families of operators 
+We  introduce two families of operators 
 %(cylindric and polyadic ones) 
 that will be used
 for modelling variables hiding and substitution, which represent
@@ -1040,14 +1040,15 @@ Since by definition we have $\exists (Y \setminus sv(a), a)) = a$, the result fo
 
 \subsection{Cylindric and Polyadic Operators for Residuated Monoids}
 \label{cyre}
-Both algebraic structures introduced in the previous section are quite standard,
-even if polyadic operators are less-known in the soft-constraints literature:
-we tailored their presentation to our needs, and indeed the properties
-presented in Section~\ref{propo} appear to be original. It is now time to consider 
-the interaction of such structures with residuation. 
+%Both algebraic structures introduced in the previous section are quite standard,
+%even if polyadic operators are less-known in the soft-constraints literature:
+%we tailored their presentation to our needs, and indeed the properties
+%presented in Section~\ref{propo} appear to be original. 
+We now consider 
+the interaction of previous structures with residuation. 
 %
 To this end, in the following we assume that 
-$\mathbb{S}$ is a RePO (see Definition~\ref{def:repo}).
+$\mathbb{S}$ is a RePO (see Def.~\ref{def:repo}).
 
 
 \begin{lemma}
@@ -1065,7 +1066,7 @@ Then it holds
 As for the inequality on the left, we have
  \[\exists_x b \otimes (a \odiv \exists_x b) \leq a \implies
    \exists_x(\exists_x b \otimes (a \odiv \exists_x b)) \leq \exists_x a \implies\]
- \[\exists_x b \otimes \exists_x(a \odiv \exists_x b)) \leq \exists_x a \implies
+ \[\exists_x b \otimes \exists_x(a \odiv \exists_x b) \leq \exists_x a \implies
    \exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b\]
 
 For the inequality on the right, note that $\odiv$ is anti-monotone on the second argument and $\exists$ 
