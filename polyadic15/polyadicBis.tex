@@ -1873,12 +1873,15 @@ Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otime
 removing $\alpha$ from the update to be memorised in the local store. However, 
 since $\alpha$ is added to the global store, it will not be necessary to receive it again in the future. 
 
+
+\def\ooodiv{\; {\ominus\hspace{-5.7pt} \div} \;}
+
 \begin{remark}
 Concerning the rule ${\bf LA2}$, the requirement $\alpha \leq \1$ might have been replaced by $\alpha \leq \sigma \odiv \sigma$,
 still ensuring a strengthening of the store. In view of later results on localised POMs, this choice will be immaterial.
 %
 More importantly, an alternative solution for the rule would have been to restrict the possible reductions to the one with maximal label, 
-that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \odiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
+that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \ooodiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
 However, this might have been restrictive in combination with rule ${\bf LR2}$.
 Consider  our running example and the configuration 
 $\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, \monid \rangle$. The initial configuration in the premise is
