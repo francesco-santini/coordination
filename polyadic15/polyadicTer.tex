@@ -426,7 +426,7 @@ of constraints (see e.g.~\cite{ecai06}).
 \end{definition}
 
 \begin{remark}
-When introduced in~\cite[Def.~xxx]{ecai06}, localisation was equivalently stated as 
+When introduced in~\cite[Def.~2.4]{ipl17}, localisation was equivalently stated as 
 $\forall a, b \in A. a \leq b \implies a \odiv b \leq \1$.
 Indeed, the latter implies $a \odiv a \leq \1$, while  $\1 \leq a \odiv a$
 by definition. Now, assuming $a \odiv a = \1$ and $a \leq b$, 
@@ -1372,7 +1372,7 @@ differing only for hidden variables are considered equivalent, i.e.,
 $\exists_w^\pi A = \exists_z^{(s_{[^z/_w]}\pi)} A[^z/_w]$ for $z \not \in fv(\exists^{\pi}_w A)$.
 
 \begin{lemma}
-Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.\todo{Già dimostrato}
+Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.\todo{Gi\`a dimostrato}
 \end{lemma}
 
 %\begin{proof}
@@ -1484,11 +1484,11 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
   \\
   & \mbox{   }&\mbox{   }&
   \\
-    \mbox{\bf R2}& $\frac {\displaystyle \langle A, \pi_\otimes \otimes \sigma_0 \rangle
-    \to \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes}
+    \mbox{\bf R2}& $\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle
+    \to \langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes}
     {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
     \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho
-    \rangle \text{ with } \rho = \sigma_1 \odiv (\pi_\otimes \otimes \sigma _0)} \text{ for } x \not \in sv(\sigma)$
+    \rangle \text{ with } \rho = \sigma_1 \odiv (\pi_0 \otimes \sigma)} \text{ for } x \not \in sv(\sigma)$
     &\bf{Hide}&
   \end{tabular}
   \end{center}
@@ -1522,10 +1522,11 @@ The intuition is that if we reach an agent $\langle \exists^{\pi}_x A,\sigma\ran
 a sequence $\pi$ of updates has been performed by the local agent and $(\exists_x \pi)_\otimes$ 
 has been added to the global store. In order to evaluate $A$, the chosen 
 store is 
-$\pi_\otimes \otimes \sigma_0$ for $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$, thus removing 
-the effect $(\exists_x \pi)_\otimes$ of the sequence of updates from the global store
-and adding the cumulative effect $\pi_\otimes$ of the local store, which may carry information about $x$. 
-Now, $\rho = \sigma_1 \odiv (\pi_\otimes \otimes \sigma _0)$ 
+$\pi_0 \otimes \sigma$ for $\pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes$: the
+effect $(\exists_x \pi)_\otimes$ of the sequence of updates is removed from the local store $\pi_\otimes$,
+which may carry information about $x$, since that effect had been previously added to the global store.
+%
+Now, $\rho = \sigma_1 \odiv (\pi_0 \otimes \sigma)$ 
 is precisely the information added by the step originating from $A$, which is then restricted and added to $\sigma$. 
 On the local store we simply add that effect $\rho$ to the sequence of updates, with
 $\pi \rho = [\pi_0, \ldots, \pi_n, \rho]$.
@@ -1552,7 +1553,8 @@ The second law is proved by induction on rule application.
 \end{proof}
 
 \begin{remark}
-The choice for the resulting global store in rule {\bf R2}. could have been 
+[TO BE REDONE]
+The choice for the resulting global store in rule {\bf R2} could have been 
 $\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
 Indeed, the expression has a nicer appearance,
 %Indeed, thanks to Lemma~\ref{rmono},
@@ -1615,7 +1617,7 @@ Then $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\o
 %\end{enumerate}
 \end{lemma}
 
-\begin{proof}
+\begin{proof}[to be done better]
 We prove an equivalent property, namely, that there is $\sigma'$ such that 
 $\sigma = \sigma' \otimes (\exists_x \pi)_\otimes$. 
 %
@@ -1713,7 +1715,7 @@ and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an (extended)
 }
 %Since $\sim_{\mathit{s}}$ is a saturated bisimulation, it is clearly closed with respect
 %to the addition of constraints to a store. 
-Moreover, it is also a congruence. Indeed, a context $C[\cdot]$, i.e., an (extended) agent with an placeholder $\cdot$,
+Moreover, it is also a congruence. Indeed, a context $C[\cdot]$, i.e., an agent with an placeholder $\cdot$,
 can modify the behaviour of a configuration only by adding constraints to its store. 
 
 \begin{proposition}
@@ -1814,10 +1816,10 @@ define a suitable bisimulation that avoids such drawback.
   \\
   & \mbox{   }&\mbox{   }& \mbox{   }
   \\
-  \mbox{\bf LR2} & $\frac {\displaystyle \langle A, \pi_\otimes \otimes \sigma_0 \rangle \xrightarrow{\alpha}
-  \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \oodiv (\exists_x \pi)_\otimes }
+  \mbox{\bf LR2} & $\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle \xrightarrow{\alpha}
+  \langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \oodiv (\exists_x \pi)_\otimes }
   {\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)}
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_0 \otimes \sigma)}
     \text{ for } x \not \in sv(\sigma) \cup sv(\alpha)$
 &\bf{Hide}&
   \end{tabular}
@@ -1862,6 +1864,7 @@ some additional information  is imported from the environment, ensuring that the
 $\alpha \otimes \sigma \leq c$ allows the execution of $\hbox{\ask}(c)$.
 The requirement $\alpha \leq \1$ ensures that the received information strengthens the store, 
 i.e., $\alpha \otimes \sigma \leq \sigma$.
+\todo{$\alpha \leq \1$ si pu\`o rimuovere}
 %in order not to put forward future requests, as it might be otherwise needed for e.g. 
 %$\hbox{\ask}(c) \to \hbox{\ask}(c) \to \hbox{\ostop}$.
 
@@ -1869,7 +1872,7 @@ Once again, the more complex axiom is {\bf LR2}. With respect to {\bf R2}, the a
 $\alpha$ should not contain the restricted variable $x$: additional information can be obtained from the environment,
 as long as it does not interact with data that are private to the local agent.
 %
-Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)$ we are 
+Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \pi_0  \otimes \sigma)$ we are 
 removing $\alpha$ from the update to be memorised in the local store. However, 
 since $\alpha$ is added to the global store, it will not be necessary to receive it again in the future. 
 
@@ -1921,8 +1924,8 @@ $\mathbb S$ is localised and $\rho = \alpha \otimes \sigma$.
 %
 Let us check that the property 
 holds for {\bf LR2}. Inductively, we know that 
-$(\sigma_1 \odiv (\alpha \otimes \pi_\otimes \otimes \sigma_0)) = \monid$, and
-$(\alpha \otimes \sigma \otimes \exists_x ( \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0))) \odiv (\alpha \otimes \sigma) = \monid$
+$(\sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)) = \monid$, and
+$(\alpha \otimes \sigma \otimes \exists_x ( \sigma_1 \odiv (\alpha \otimes \pi_0  \otimes \sigma))) \odiv (\alpha \otimes \sigma) = \monid$
 immediately follows.
 \qed
 \end{proof}
@@ -1966,6 +1969,7 @@ $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes
 \end{lemma}
 
 \begin{proof}
+\todo{riguardare}
 As for unabelled reductions, it is easy to show that the equivalent property
 on the existence of $\sigma'$ such that 
 $\sigma = \sigma' \otimes (\exists_x \pi)_\otimes$ is preserved by 
@@ -1976,12 +1980,12 @@ labelled reductions.
 
 \section{On the correspondence between reduction semantics}
 \label{corres}
-This section shows the relationship between the labelled and the unlabelled reduction semantics.
+This section shows the connection between labelled and unlabelled reduction semantics.
 %We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
 %$\langle A, \sigma \rangle \to^\ast \gamma$, and it is l-reachable if 
 %$\langle A, \sigma \rangle \xRightarrow{\mu} \gamma$.
 %
-In the following, we assume that $\C$ in invertible.
+%In the following, we assume that $\C$ in invertible.
 
 \begin{theorem}[Soundness]
 \label{sound}
@@ -1992,6 +1996,10 @@ $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
 
 \begin{proof}
+We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
+have equivalent proofs, namely, they use axioms and rules in the same order,
+up-to the obvious renaming (i.e., ${\bf LA1}$ for ${\bf A1}$, and so on).
+
 The property holds for the axioms, since e.g. for {\bf LA2} we know that
 $\alpha \leq c \odiv \sigma$ implies $\alpha \otimes \sigma \leq c$ for residuated POMs.
 %
@@ -1999,22 +2007,22 @@ We then proceed by induction on rule derivations,
 presenting only the proof for rule {\bf LR2}.
 %
 We have 
-$$\langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
-  with $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$, $\rho = \sigma_1 \odiv (\alpha \otimes \pi_\otimes  \otimes \sigma_0)$, and 
-  $x \not \in sv(\sigma) \cup sv(\alpha)$.
-The premise tells us that $\langle A, \pi_\otimes \otimes \sigma_0 \rangle$ is l-reachable and
-$$\langle A, \pi_\otimes \otimes \sigma_0 \rangle \xrightarrow{\alpha}
-  \langle B, \sigma_1 \rangle$$
-%with  $\sigma_0 = \sigma \odiv \bigotimes \exists_x \pi$.
+  $$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle \xrightarrow{\alpha}
+  \langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \oodiv (\exists_x \pi)_\otimes }
+  {\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_0 \otimes \sigma)}$$
 %
-By induction hypothesis $\langle A, \alpha \otimes \bigotimes \pi \otimes \sigma_0 \rangle$ is reachable and
-$$\langle A, \alpha \otimes \pi_\otimes \otimes \sigma_0 \rangle \to
+ for $x \not \in sv(\sigma) \cup sv(\alpha)$.
+%
+By induction hypothesis $\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle$ is reachable and
+$$\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle \to
   \langle B, \sigma_1 \rangle$$
-Now recall that we must prove that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
+From this it follows by {\bf LR2} that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
 $$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \to
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle.$$
-Reachability is implied by $\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle$ being reachable,
+  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
+ and we are done.
+ \qed
+\comment{Reachability is implied by $\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle$ being reachable,
 %and
 %$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \to
 %  \langle B, \widehat{\sigma_1} \rangle$$
@@ -2036,8 +2044,7 @@ and by induction hypothesis reachability follows, as well as
 $$\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle \to \langle B, \sigma_1 \rangle.$$
 and we are done. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
 and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\pi_\otimes \leq (\exists_x \pi)_\otimes$,
-for $3$ we used the equality $a \otimes ((a \otimes b) \odiv a) = a \otimes b$.
-\qed
+for $3$ we used the equality $a \otimes ((a \otimes b) \odiv a) = a \otimes b$}
 \end{proof}
 
 The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
@@ -2056,7 +2063,7 @@ $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{\monid}
   	\langle A, \monid \otimes \sigma \rangle$.
 \end{proof}	
 	
-These results ensure that a configuration is reachable if and only if it is l-reachable.
+These results also ensure that a configuration is reachable iff it is l-reachable.
 \\
 
 
@@ -2103,7 +2110,7 @@ and the condition $\beta \neq \monid$ is required in the inductive step for rule
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$ and
 $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$. 
-If $\C$ in localised then 
+If $\C$ is invertible then 
 %$\langle A, \tau \rangle$ is a l-reachable configuration and
 $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$
 for some $\alpha$ such that $\sigma \odiv \tau \leq \alpha$
@@ -2121,7 +2128,7 @@ up-to the obvious renaming (i.e., ${\bf A1}$ for ${\bf LA1}$, and so on).
 
 The result is immediate for axioms ${\bf A1}$ and ${\bf A3}$, with 
 $\alpha = \monid$, as well as for 
-${\bf LR1}$.
+${\bf R1}$.
 
 As for ${\bf A2}$, we have 
 $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{} \langle A, \sigma \rangle$ 
