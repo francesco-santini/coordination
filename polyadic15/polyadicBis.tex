@@ -428,6 +428,9 @@ of constraints (see e.g.~\cite{ecai06}).
 \begin{remark}
 When introduced in~\cite[Def.~xxx]{ecai06}, localisation was equivalently stated as 
 $\forall a, b \in A. a \leq b \implies a \odiv b \leq \1$.
+Indeed, the latter implies $a \odiv a \leq \1$, while  $\1 \leq a \odiv a$
+by definition. Now, assuming $a \odiv a = \1$ and $a \leq b$, 
+by anti-monotonicity $a \odiv b \leq a \odiv a = \1$.
 \end{remark}
 
 [CAPIRE COSA SALVARE DA QUA ALLA FINE DELLA SEZIONE]
@@ -2097,32 +2100,40 @@ and the condition $\beta \neq \monid$ is required in the inductive step for rule
 Let $\langle A, \tau \rangle$ be a reachable configuration such that
 $\sigma \leq \tau$ and
 $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$. 
-Then 
+If $\C$ in localised then 
 %$\langle A, \tau \rangle$ is a l-reachable configuration and
 $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$
 for some $\alpha$ such that $\sigma \odiv \tau \leq \alpha$
 and $\sigma' = \tau' \otimes (\sigma \odiv (\tau \otimes \alpha))$.
 \end{theorem}
 
-Note that by invertibility $\sigma \odiv \tau \leq \alpha$ implies $\sigma \leq \alpha \otimes \tau$,
-thus again by invertibility $\sigma = \tau \otimes \alpha \otimes (\sigma \odiv (\tau \otimes \alpha))$.
+Since $\sigma \leq \tau$, by invertibility $\sigma \odiv \tau \leq \alpha$ implies $\sigma \leq \alpha \otimes \tau$,
+%thus again by invertibility $\sigma = \tau \otimes \alpha \otimes (\sigma \odiv (\tau \otimes \alpha))$
+which in turn again by invertibility implies $(\sigma \odiv \tau) \odiv \alpha = \sigma \odiv (\tau \otimes \alpha)$. 
 
 \begin{proof}
-[DA RIVEDERE]
-We proceed by induction on derivation.
-The result is immediate for axiom ${\bf A1}$ and ${\bf A3}$, with 
-$\alpha = \monid$, and it holds by induction hypothesis for 
+We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
+have equivalent proofs, namely, they use axioms and rules in the same order,
+up-to the obvious renaming (i.e., ${\bf A1}$ for ${\bf LA1}$, and so on).
+
+The result is immediate for axioms ${\bf A1}$ and ${\bf A3}$, with 
+$\alpha = \monid$, as well as for 
 ${\bf LR1}$.
 
-As for ${\bf A2}$, note that $\sigma' = \sigma \leq c$ and that 
+As for ${\bf A2}$, we have 
+$\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{} \langle A, \sigma \rangle$ 
+with $\sigma \leq c$ and thus
 $\langle \hbox{\ask}(c) \mapsto A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ 
-for any $\alpha \leq c\odiv \tau$, so that $\tau' = \alpha \otimes \tau$.
+for any $\alpha \leq c\odiv \tau$.
 %
-By choosing $\alpha = c \odiv \tau$ we have that $\sigma \leq c$
-implies $\sigma \odiv \tau \leq c \odiv \tau = \alpha$,
-and 
-by invertibility 
+Now $\sigma \leq c$
+implies $\sigma \odiv \tau \leq c \odiv \tau$,
+so it suffices to consider any $\alpha$ such that
+$\sigma \odiv \tau \leq \alpha \leq c \odiv \tau$.
+Indeed, as noted above this implies that $\sigma \leq \alpha \otimes \tau$
+and by invertibility 
 $\sigma = \alpha \otimes \tau \otimes  (\sigma \odiv (\tau \otimes \alpha))$.
+\marginpar{se localizzato, allora vale anche $\alpha \leq \1$}
 
 Let us  move to ${\bf R2}$ and consider the configurations 
 $\langle \exists^\pi_x A, \sigma \rangle$  and
@@ -2133,24 +2144,38 @@ $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes
 $\tau = (\tau \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$
 by Lemma~\ref{mono2}.
 %
-We have 
-$$\langle \exists^\pi_x A, \sigma \rangle \to
-  \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
-  with $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$ and $\rho = \sigma_1 \odiv (\pi_\otimes  \otimes \sigma_0)$.
-The premise tells us that $\langle A, \pi_\otimes \otimes \sigma_0 \rangle$ is reachable and
-$$\langle A, \pi_\otimes \otimes \sigma_0 \rangle \to
-  \langle B, \sigma_1 \rangle$$
+Let us assume to have the reduction
+    $$\frac {\displaystyle \langle A, \pi_\otimes \otimes \sigma_0 \rangle
+    \to \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes}
+    {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
+    \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho
+    \rangle \text{ with } \rho = \sigma_1 \odiv (\pi_\otimes \otimes \sigma _0)} \text{ for } x \not \in sv(\sigma)$$
+%$$\langle \exists^\pi_x A, \sigma \rangle \to
+%  \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
+%  with $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$ and $\rho = \sigma_1 \odiv (\pi_\otimes  \otimes \sigma_0)$.
+%The premise tells us that $\langle A, \pi_\otimes \otimes \sigma_0 \rangle$ is reachable and
+%$$\langle A, \pi_\otimes \otimes \sigma_0 \rangle \to
+%  \langle B, \sigma_1 \rangle$$
 %
 % such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
 % by Lemma~\ref{mono}.
 Now let us consider $\tau_0 = \tau \odiv (\exists_x \pi)_\otimes$: clearly $\sigma_0 \leq \tau_0$,
 so by induction hypothesis
 $$\langle A, \pi_\otimes \otimes \tau_0 \rangle  \xrightarrow{\beta}
-  \langle B, \tau_1 \rangle$$  for $\beta$ such that 
+  \langle B, \tau_1 \rangle \text{ with } \tau_0 = \tau \odiv  (\exists_x \pi)_\otimes$$  for $\beta$ such that 
   $(\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0) \leq \beta$
-  and $\sigma_1 = \tau_1 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\beta \otimes \pi_\otimes \otimes \tau_0))$,
-  recalling that moreover
-  $\pi_\otimes \otimes \sigma_0 = \pi_\otimes \otimes \tau_0 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0))$.
+  and $\sigma_1 = \tau_1 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0 \otimes \beta))$,
+  from which we can derive (if $x \not \in \beta$)
+  $${\displaystyle\langle \exists^{\pi}_x A,\tau\rangle \xrightarrow{\beta} 
+   \langle \exists^{\pi \xi}_x B, \beta \otimes  \tau \otimes \exists_x \xi
+    \rangle \text{ with } \xi = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau _0)}$$
+and we just need to prove that $\sigma \odiv \tau \leq \beta$ and $\xi = \rho$, 
+since from these properties it follows that
+ $\sigma_1 = \sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \xi \otimes (\sigma \odiv (\tau \otimes \beta))) = 
+ \tau_1 \otimes (\sigma \odiv (\tau \otimes \beta))$.
+  
+ % recalling that moreover
+ % $\pi_\otimes \otimes \sigma_0 = \pi_\otimes \otimes \tau_0 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0))$.
 
 
 %Moreover, 
@@ -2158,16 +2183,44 @@ $$\langle A, \pi_\otimes \otimes \tau_0 \rangle  \xrightarrow{\beta}
 %by Lemma~\ref{l-mono}.
 %
 %\noindent
-Now, $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$ implies 
-$((\bigotimes \pi \odiv \exists_x \pi) \otimes \sigma) \odiv (\bigotimes \pi \odiv \exists_x \pi) \otimes \tau) \leq \beta$
-by invertibility, and then it follows that $\sigma \odiv \tau \leq \beta$
-since $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$ in all residuated POMs.
+As for the first property, $(\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0) \leq \beta$ implies 
+by invertibility and Lemma~\ref{mono2} mentioned above that
+$((\bigotimes \pi \odiv (\exists_x \pi)_\otimes) \otimes \sigma) \odiv (\bigotimes \pi \odiv (\exists_x \pi)_\otimes) \otimes \tau) \leq \beta$,
+and then it follows that $\sigma \odiv \tau \leq \beta$
+since $a \leq b$ implies $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$.
+%since $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$ in all residuated POMs.
 
+Now, recall that by monotonicity 
+$\sigma_1 = (\sigma_1 \odiv ( \pi_\otimes \otimes \sigma_0)) \otimes  \pi_\otimes \otimes \sigma_0$ (Lemma~\ref{mono}) and
+$\tau_1 = (\tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau_0)) \otimes \beta \otimes \pi_\otimes \otimes \tau_0$ 
+(Lemma~\ref{l-mono}). 
+%Further, we already shown that $((a \otimes b) \odiv b) \otimes b = a \otimes b$, which implies
+%that  $((a \odiv b) \otimes b) \odiv b = a \odiv b$. From the latter is follows that
+%\xi = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau _0)}
+
+Let us now move to consider the axioms at the basis of the reduction
+$$\langle A, \pi_\otimes \otimes \sigma_0 \rangle \to  \langle B, \sigma_1 \rangle$$
+If is it using \mbox{\bf A1}, that is \mbox{\bf L1} for the labelled reduction, we have that 
+$\beta = \1$. 
+%
+We then have to show the equivalence of $\rho =  \sigma_1 \odiv (\pi_\otimes \otimes \sigma_0)$ and
+$\xi = \tau_1 \odiv (\pi_\otimes \otimes \tau_0)$.
+%
+By induction hypothesis 
+$\sigma_1 = \tau_1 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0))$,
+
+If is it using \mbox{\bf A2}, that is \mbox{\bf L2} for the labelled reduction,
+since $\C$ is localised it is possible to show that 
+$\sigma_1 \odiv ( \pi_\otimes \otimes \sigma_0) = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau_0) = \1$,
+strengthening what is already specified in Lemma~\ref{l-mono}.
+Hence $\rho = \xi = \1$, and we are done.
+
+
+\comment{
 Since  $x \not \in sv(\sigma) \cup sv(\tau)$ we can assume that $x \not \in sv(\beta)$. Then, we have to prove that 
 $$\sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \xi \otimes ((\sigma \otimes \exists_x \rho) \odiv (\beta \otimes \tau \otimes \exists_x \xi))$$
 with $\xi = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau_0)$, as well as $\rho = \xi$.
 %
-\comment{
 \noindent
 Now, if $\beta = \monid$ by Theorem~\ref{sound}
 and Lemma~\ref{riminor}
