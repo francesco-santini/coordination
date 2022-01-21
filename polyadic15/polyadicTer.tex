@@ -131,6 +131,16 @@ This work originates from \cite{festcatuscia}, where a first implementation of p
 The work is organised as  follows: in Sect.~\ref{sec:bg} we present the necessary background on the algebraic structure needed to model polyadic constraints. Then, Sect~\ref{}, 
 Section~\ref{sec:detpolyadicCCP} presents the PSCCP language. 
 
+\section{Related Work}\label{sec:related}
+As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores and information mobility.
+
+In \cite{spatialvalencia} the authors describe a \emph{spatial} constraint systems with operators to
+specify information and processes moving from a space to another. Such a language provides for the specification of spatial mobility and epistemic concepts such as belief, utterance and lies: besides local stores for agents  (representing belief), it can express the epistemic notion of knowledge by means of a derived spatial operator that specifies global shared information. Differently from this work, our approach focuses on preferences, on the concurrent language on top of the system, and on process equivalences.
+
+The process calculi in \cite{parrowlics,buscemi} provide  to agents the use of assertions within $\pi$-like processes. A soft language is adopted in \cite{buscemi}: from a variant of $\pi$-calculus it inherits \emph{explicit fusions}, i.e. simple constraints expressing name equalities.
+ However the algebraic structure is neither resituated nor  polyadic; in addition, no process-equivalence relation is proposed.
+
+
 \section{An Introduction to Residuated Monoids}\label{sec:bg}
 
 This section reports some results on residuated monoids,
