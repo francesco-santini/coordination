@@ -2135,53 +2135,10 @@ then $\langle A, \sigma \rangle$ is reachable from
 \end{proof}
 }
 %
+
 Now, note that he proof of every (labelled) reduction is given by the choice of an axiom 
 and a series of applications of the rules {\bf LR1} and  {\bf LR2}.
-
-\begin{lemma}
-\label{LA2}
-Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction 
-via the axiom {\bf LA2}. If $\C$ is localised then $\tau' = \beta \otimes \tau$
-and for every $\sigma$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
-$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
-%for any $\alpha \leq \xi$.
-%\begin{enumerate}
-%\item there exists $\alpha$ such that
-%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
-%and $(\beta \otimes \tau) \odiv \sigma \leq \alpha$;
-%\item for every $\alpha$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then 
-%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
-%\end{enumerate}
-%
-%Moreover, if  $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ then
-%$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$, 
-%with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
-\end{lemma}
-\begin{proof}
-Let $\langle \hbox{\ask}(c) \mapsto B, \tau \rangle \xrightarrow{\beta} \langle A, c \otimes \tau \rangle$.
-Since $\beta \leq c \odiv \tau$ implies 
-%$\beta \otimes \tau \leq c$
-%, hence item $2$ holds.
-%As for item $1$,  $\beta \otimes \tau \leq c$ 
-%in turn implies 
-$(\beta \otimes \tau)\odiv \sigma \leq c \odiv \sigma$,
-%thus with $\xi = c \odiv \sigma$ 
-we are done.
-As for the inductive step, the proof for 
-{\bf LR1} is obvious. For {\bf LR2},
-it suffices to note that by hypothesis 
-$\tau_1 = \beta \otimes \tau$ and $\sigma_1 = \alpha \otimes \sigma$
-and by locality 
-$\tau_1 \odiv (\beta \otimes \pi_0 \otimes \tau) = \monid = \sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)$.
-%thus any $\alpha$ in the interval will do.
-\qed
-\end{proof}
-
-Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible choice, even if 
-it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$,
-e.g. if $\sigma = \bot$, in which case $\alpha = \top$.
-%
-For the next lemma, note that if 
+Also, note that if 
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ is a reduction 
 via the axiom {\bf LA1}, then $\alpha = \1$.
 
@@ -2231,6 +2188,51 @@ The proof exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono
 and the condition $\beta \neq \monid$ is required in the inductive step for rule  {\bf LR2}.
 }
 
+\begin{lemma}
+\label{LA2}
+Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction 
+via the axiom {\bf LA2}. If $\C$ is localised then $\tau' = \beta \otimes \tau$
+and for every $\sigma$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
+$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
+%for any $\alpha \leq \xi$.
+%\begin{enumerate}
+%\item there exists $\alpha$ such that
+%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
+%and $(\beta \otimes \tau) \odiv \sigma \leq \alpha$;
+%\item for every $\alpha$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then 
+%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
+%\end{enumerate}
+%
+%Moreover, if  $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ then
+%$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$, 
+%with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
+\end{lemma}
+\begin{proof}
+Let $\langle \hbox{\ask}(c) \mapsto B, \tau \rangle \xrightarrow{\beta} \langle A, c \otimes \tau \rangle$.
+Since $\beta \leq c \odiv \tau$ implies 
+%$\beta \otimes \tau \leq c$
+%, hence item $2$ holds.
+%As for item $1$,  $\beta \otimes \tau \leq c$ 
+%in turn implies 
+$(\beta \otimes \tau)\odiv \sigma \leq c \odiv \sigma$,
+%thus with $\xi = c \odiv \sigma$ 
+we are done.
+As for the inductive step, the proof for 
+{\bf LR1} is obvious. For {\bf LR2},
+it suffices to note that by hypothesis 
+$\tau_1 = \beta \otimes \tau$ and $\sigma_1 = \alpha \otimes \sigma$
+and by locality 
+$\tau_1 \odiv (\beta \otimes \pi_0 \otimes \tau) = \monid = \sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)$.
+%thus any $\alpha$ in the interval will do.
+\qed
+\end{proof}
+
+Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible choice, even if 
+it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$,
+e.g. if $\sigma = \bot$, in which case $\alpha = \top$.
+
+
+%
 \begin{theorem}[Completeness]
 Let $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ be a reduction
 and $\tau \odiv \sigma \leq \monid$.
@@ -2466,7 +2468,7 @@ and $(\gamma_1, \gamma_2) \in R$;
 \item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d$ such that $\sigma \otimes d \not \leq \sigma$. 
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  strongly bisimilar ($\gamma_1  \sim \gamma_2$) if there exists a strong  bisimulation 
-$R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim \langle B, \monid \rangle$.
+$R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim B$ if $\langle A, \monid \rangle \sim \langle B, \monid \rangle$.
 \end{definition}
 
 Note that $\langle A, \sigma \rangle \sim \langle B, \rho \rangle$ implies
@@ -2558,28 +2560,28 @@ axiom used.
 Now $\langle B, \sigma \rangle \xrightarrow{\monid} \langle B', \sigma'' \rangle$, and we may now check the proof of
 such reduction.
 If it is  {\bf LA1}, we retrace the same steps as before and 
-$\langle B, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{\monid} \langle B', \sigma_1 \rangle$
-with $\sigma_1 = \sigma'' \otimes \beta \otimes d$
-and $\sigma_1 = \sigma'' \otimes \beta \otimes d$, and we are done.
+$\langle B, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{\monid} \langle B', \sigma' \rangle$
+with $\sigma' = \sigma'' \otimes \beta \otimes d$, and we are done.
 %
 If it is  {\bf LA2}, it suffices to note that $\beta \otimes \sigma \otimes d\leq \sigma$,
 hence $\langle B, \sigma \otimes \beta \otimes d \rangle \xrightarrow{\monid} \langle B', \sigma'' \otimes \beta \otimes d\rangle$
 and we are done.
 
 \item{[{\bf LA2}]}
-
-\end{description}
-\\  
-%  $(\sigma \otimes \alpha \otimes d) \odiv \sigma\leq \beta$ and 
-%  $\sigma'' = \sigma' \otimes (\sigma \odiv (\sigma \otimes \alpha \otimes d))$.
-
- % \\
- % 
-%  From the former it follows that 
-%  $\sigma \otimes ((\sigma \otimes \alpha \otimes d) \odiv \sigma) = \sigma \otimes \alpha \otimes d\leq \sigma \otimes \beta$
-%\\
-
+ By Lemma~\ref{LA2} (completeness for {\bf LA2}) we have $\langle A,  \sigma \rangle  \xrightarrow{\alpha}\langle A', \alpha \otimes \sigma \rangle$
+  for any $\alpha \leq (\beta \otimes \sigma \otimes d) \odiv \sigma$.
+  % thus in particular 
+  %$\langle A,  \sigma \rangle  \xrightarrow{\beta \otimes \sigma}\langle A', \beta \otimes \sigma \otimes d \rangle$,
+  %thanks to cancellativeness).
+  %  
   Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
+  there exists $B'$ such that 
+  $\langle B, \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \alpha \otimes \sigma \rangle$,
+  and by taking $\alpha = (\beta \otimes \sigma \otimes d) \odiv \sigma$ we are done.
+\end{description}
+%
+\comment{  
+Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
   there exists $B'$ such that 
   $\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
   and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$.
@@ -2604,13 +2606,18 @@ An immediate consequence of the result above is that $\sim$ is a congruence.
 Let $A$, $B$ be agents and $C[\cdot]$ a context.
 If $A \sim B$
 then $C[A] \sim C[B]$.
-\end{proposition}
+}
+\end{proof}
 
-\section{On the equivalence between bisimulation semantics}
-
+%\section{On the equivalence between bisimulation semantics}
+%
 \begin{theorem}
-$\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is invertible, then the equality holds.
+$\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, then the equality holds.
 \end{theorem}
+\begin{proof} 
+
+TO DO (ma torna)
+\end{proof}
 
 %\begin{theorem}
 %$\approx_{\mathit{s}}  \subseteq \approx$. Moreover, if $\mathcal{C}$ is invertible, then the equality holds.
