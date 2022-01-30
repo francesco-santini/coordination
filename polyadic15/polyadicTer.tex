@@ -434,30 +434,35 @@ of constraints (see e.g.~\cite{ecai06}).
 	A residuated POM $\langle A, \leq, \monop, \odiv, \monid \rangle$ is
 	\begin{itemize}
 		\item
-		\emph{localised} if $\forall a \in A. a \odiv a = \1$;
+		\emph{localised} if $\forall a \in A. a \not \in \{\bot,\top\} \implies a \odiv a = \1$;
 		\item
 		\emph{invertible} if $\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) = a$;
 		\item
-		\emph{cancellative} if $\forall a, b, c \in A. a \otimes b = a  \otimes c \implies b = c$.
+		\emph{cancellative} if $\forall a, b, c \in A. a \not \in \{\bot,\top\} \wedge a \otimes b = a  \otimes c \implies b = c$.
 	\end{itemize}
 \end{definition}
 
 \begin{remark}
 When introduced in~\cite[Def.~2.4]{ipl17}, localisation was equivalently stated as 
-$\forall a, b \in A. a \leq b \implies a \odiv b \leq \1$.
+$\forall a, b \in A. \bot < a \leq b<\top \implies a \odiv b \leq \1$.
 Indeed, the latter implies $a \odiv a \leq \1$, while  $\1 \leq a \odiv a$
 by definition. Now, assuming $a \odiv a = \1$ and $a \leq b$, 
 by anti-monotonicity $a \odiv b \leq a \odiv a = \1$.
+Note the constraint on $a \not \in \{\bot,\top\}$: indeed, if a residuated POM 
+has a bottom element then it also has a top element and moreover 
+$a \odiv \bot = \top \odiv a = \top$ for any  $a$.
 
 Note that being cancellative is a strong requirement. It implies e.g. 
-that for any $a, b$ there exists at most a $c$ such that $a b \otimes c$.
+some uniqueness of invertibility, that is, for any $a, b$ there exists 
+at most a $c$ such that $b\otimes c = a$.
 It is moreover equivalent to what we could call strongly locality,
-that is, $\forall a, b \in A. (a \otimes b) \odiv a = b$. 
+that is, $\forall a, b \in A. a \not \in \{\bot,\top\} \implies (a \otimes b) \odiv a = b$. 
 Indeed, this property implies cancellativeness, since if $a \otimes b = a \otimes c$ 
 then $b = (a \otimes b) \odiv a = (a \otimes c) \odiv a = c$. On the other side,
-it is also implied, since 
+it is implied, since 
 $((a \otimes b) \odiv a)\otimes a = a \otimes b$ holds in residuated POMs.
 \end{remark}
+
 
 [CAPIRE COSA SALVARE DA QUA ALLA FINE DELLA SEZIONE]
 
@@ -603,21 +608,9 @@ that $c \leq \1 \odiv (\1 \odiv c)$, then $3$ implies $1$.
 \end{proof}
 }
 
-%\begin{remark}
-%In general, given an ReSL $\mathbb{M} = \langle A, \leq, \otimes, \odiv, \monid \rangle$, if $A \subseteq B$ such that $B(\otimes)$ is a group and $\odiv$
-% is the inverse of $\otimes$, then $\mathbb{M}$ is fully $%\odiv$-distributive, which follows from $\mathbb{M}$ is distributive for $\otimes$. \\
-%Consider, for istance, $\mathbb{M} = \langle \{0,...,5\},\geq,\oplus,\ominus,0 \rangle$, where $\oplus$ and $\ominus$ are the bounded sum and subtraction (e.g. $2 \oplus 4 = 5$, $2 \ominus 4 = 0$): 
-%it is clear that, in this case, distributivity holds for $\ominus$, as long as $a \geq b \implies b \ominus a = 0$. \\
-%\todo{un esempio dove $\odiv$ non distribuisce}
-%In the following example it is shown that distributivity for $\odiv$ could hold partially, since we choose a residuation operator which is not the inverse of $\otimes$.
-%\end{remark}
-
-%\begin{remark}\label{rmk:softUnit}
-%The proposition above provides an important characterisation for all absorptive ReSLs, including all those mentioned in Remark~\ref{rmk:soft}.
-%\end{remark}
-
 There are some important classes of residuated SLMs  such that $\odiv$ is easily proved to be distributive in the first argument,
-while it is not so with respect to the second argument, not even in the absorptive case.
+while it is not so with respect to the second one.
+%argument, not even in the absorptive case.
 
 \begin{lemma}
 	\label{distodiv2}
@@ -627,13 +620,11 @@ while it is not so with respect to the second argument, not even in the absorpti
 	\end{itemize}	
 \end{lemma}
 
-\shortNoProof{
 \begin{proof}
 If $\langle A, \leq \rangle$ is a total order and $X$ is finite and non-empty we have that $\bigvee X \in X$, and since $\odiv$ 
 is monotone on the first argument (see Lemma~\ref{mono}) the result follows.
 \qed
 \end{proof}
-}
 
 \begin{example}
 \label{nodist2}
@@ -654,6 +645,26 @@ $m \neq n$ and the set $\{m, m+1\}$:
 we then have that $(m+1) \ominus \bigvee\{m, m+1\} = 1$,
 while instead $\bigvee\{(m+1) \ominus m, (m+1) \ominus (m+1)\} = 0$.
 \end{example}
+
+\begin{remark}
+Note that distributivity implies that $c \otimes (a \odiv b) = (c \otimes a) \odiv (c \otimes b)$,
+from which cancellativity follows.
+\end{remark}
+
+
+%\begin{remark}
+%In general, given an ReSL $\mathbb{M} = \langle A, \leq, \otimes, \odiv, \monid \rangle$, if $A \subseteq B$ such that $B(\otimes)$ is a group and $\odiv$
+% is the inverse of $\otimes$, then $\mathbb{M}$ is fully $%\odiv$-distributive, which follows from $\mathbb{M}$ is distributive for $\otimes$. \\
+%Consider, for istance, $\mathbb{M} = \langle \{0,...,5\},\geq,\oplus,\ominus,0 \rangle$, where $\oplus$ and $\ominus$ are the bounded sum and subtraction (e.g. $2 \oplus 4 = 5$, $2 \ominus 4 = 0$): 
+%it is clear that, in this case, distributivity holds for $\ominus$, as long as $a \geq b \implies b \ominus a = 0$. \\
+%\todo{un esempio dove $\odiv$ non distribuisce}
+%In the following example it is shown that distributivity for $\odiv$ could hold partially, since we choose a residuation operator which is not the inverse of $\otimes$.
+%\end{remark}
+
+%\begin{remark}\label{rmk:softUnit}
+%The proposition above provides an important characterisation for all absorptive ReSLs, including all those mentioned in Remark~\ref{rmk:soft}.
+%\end{remark}
+
 
 \comment{
 \begin{example}
@@ -1696,7 +1707,7 @@ $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
 \item if $\langle A, \sigma \rangle \to \gamma_1$ then there is $\gamma_2$ such that $\langle B, \rho \rangle \to \gamma_2$ and $(\gamma_1, \gamma_2) \in R$;
-\item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d \in \mathcal{C}$.
+\item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d$.
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  saturated bisimilar ($\gamma_1  \sim_{\mathit{s}} \gamma_2$) if there exists a  saturated  bisimulation $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim_{\mathit{s}} \langle B, \monid \rangle$.
 \end{definition}
@@ -2083,6 +2094,7 @@ The theorem above can be easily reversed, saying that if a configuration $\langl
 then it is also l-reachable via a sequence of reductions labelled by $\monid$.
 
 \begin{lemma}
+\label{idred}
 If %$\langle A, \sigma \rangle$ be a reachable configuration and
 $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$
 then %$\langle A, \sigma \rangle$ is an l-reachable configuration and
@@ -2128,51 +2140,79 @@ and a series of applications of the rules {\bf LR1} and  {\bf LR2}.
 
 \begin{lemma}
 \label{LA2}
-Let $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$ be a reduction 
-using the axiom {\bf LA2}. If $\C$ is localised then $\tau' = \alpha \otimes \tau$
-and  $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
-for any $\sigma \leq \tau$.
+Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction 
+via the axiom {\bf LA2}. If $\C$ is localised then $\tau' = \beta \otimes \tau$
+and for every $\sigma$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
+$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
+%for any $\alpha \leq \xi$.
+%\begin{enumerate}
+%\item there exists $\alpha$ such that
+%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
+%and $(\beta \otimes \tau) \odiv \sigma \leq \alpha$;
+%\item for every $\alpha$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then 
+%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
+%\end{enumerate}
 %
 %Moreover, if  $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ then
 %$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$, 
 %with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 \end{lemma}
 \begin{proof}
-For the axiom {\bf LA2} it is obvious, since 
-$\alpha \leq c \odiv \tau \leq c \odiv \sigma$,
-as well as for the rule {\bf LR1}.
-For {\bf LR2} just note that
-since $\C$ is localised then for the local update 
-it holds $\rho = \sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma) = \1$.
+Let $\langle \hbox{\ask}(c) \mapsto B, \tau \rangle \xrightarrow{\beta} \langle A, c \otimes \tau \rangle$.
+Since $\beta \leq c \odiv \tau$ implies 
+%$\beta \otimes \tau \leq c$
+%, hence item $2$ holds.
+%As for item $1$,  $\beta \otimes \tau \leq c$ 
+%in turn implies 
+$(\beta \otimes \tau)\odiv \sigma \leq c \odiv \sigma$,
+%thus with $\xi = c \odiv \sigma$ 
+we are done.
+As for the inductive step, the proof for 
+{\bf LR1} is obvious. For {\bf LR2},
+it suffices to note that by hypothesis 
+$\tau_1 = \beta \otimes \tau$ and $\sigma_1 = \alpha \otimes \sigma$
+and by locality 
+$\tau_1 \odiv (\beta \otimes \pi_0 \otimes \tau) = \monid = \sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)$.
+%thus any $\alpha$ in the interval will do.
+\qed
 \end{proof}
 
-Now, note that if 
+Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible choice, even if 
+it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$,
+e.g. if $\sigma = \bot$, in which case $\alpha = \top$.
+%
+For the next lemma, note that if 
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ is a reduction 
-using the axiom {\bf LA1}, then $\alpha = \1$.
+via the axiom {\bf LA1}, then $\alpha = \1$.
 
 \begin{lemma}
 \label{LA1}
 Let $\langle A, \tau \rangle \xrightarrow{\monid} \langle B, \tau' \rangle$ be a reduction 
-using the axiom {\bf LA1}. 
-If $\C$ is cancellative then there exists $\xi$
-such that $\tau' = \xi \otimes \tau$
-and 
-$\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \xi \otimes \sigma \rangle$
-for any $\sigma$.
+via the axiom {\bf LA1}. 
+If $\C$ is cancellative then 
+%there exists $\xi$
+%such that $\tau' = \xi \otimes \tau$
+%and 
+for every $\sigma$
+$\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \sigma' \rangle$
+and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
 \end{lemma}
 \begin{proof}
 For the axiom {\bf LA1} it is obvious,
-as well as for the rule {\bf LR1}.
-For {\bf LR2} just note that
-since $\C$ is cancellative then for the local update 
-it holds $\xi = \exists_x (\sigma_1 \odiv (\pi_0 \otimes \sigma))$.
+thanks to cancellativeness.
+As for the inductive step, the proof for 
+{\bf LR1} is obvious. For {\bf LR2},
+just note that by hypothesis 
+$\rho = \tau_1 \odiv (\pi_0 \otimes \tau) = \sigma_1 \odiv (\pi_0 \otimes \sigma)$
+and by cancellativeness 
+$(\tau \otimes \exists_x \rho) \odiv \tau = (\sigma \otimes \exists_x \rho) \odiv \sigma$.
+\qed
 \end{proof}
 
+%The proof is immediate.
+%and we remark that such a $\xi$ is the same for all stores.
 
-
-We remark that such a $\xi$ is unique, i.e., it is the same for all stores.
-
-
+\comment{
 \begin{lemma}
 \label{riminor}
 Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ with $\alpha \leq \beta$. 
@@ -2189,21 +2229,27 @@ The lemma just states that the label in a reduction can always be strengthened,
 as long as rule  {\bf LA1} is not used in the reduction labelled by $\beta$.
 The proof exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono},
 and the condition $\beta \neq \monid$ is required in the inductive step for rule  {\bf LR2}.
+}
 
 \begin{theorem}[Completeness]
-Let $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$ be a reduction
-and $\sigma \leq \tau$.
+Let $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ be a reduction
+and $\tau \odiv \sigma \leq \monid$.
+%and $\sigma \leq \tau$.
 %
-If $\C$ is invertible and cancellative then 
+If $\C$ is cancellative then there exists $\xi$ such that
 %$\langle A, \tau \rangle$ is a l-reachable configuration and
-$\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \rangle$
-for some $\alpha$ such that $\sigma \odiv \tau \leq \alpha$
-and $\sigma' = \tau' \otimes (\sigma \odiv (\tau \otimes \alpha))$.
+for every $\sigma$ 
+there exists $\alpha$ such that 
+$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$,
+$\tau \odiv \sigma \leq \alpha$,
+$\tau' = \xi \otimes \tau$, and $\sigma' = \alpha \otimes \xi \otimes \sigma$.
 \end{theorem}
 
-Since $\sigma \leq \tau$, by invertibility $\sigma \odiv \tau \leq \alpha$ implies $\sigma \leq \alpha \otimes \tau$,
-%thus again by invertibility $\sigma = \tau \otimes \alpha \otimes (\sigma \odiv (\tau \otimes \alpha))$
-which in turn again by invertibility implies $(\sigma \odiv \tau) \odiv \alpha = \sigma \odiv (\tau \otimes \alpha)$. 
+%Since $\sigma \leq \tau$, by invertibility $\sigma \odiv \tau \leq \alpha$ implies $\sigma \leq \alpha \otimes \tau$,
+%%thus again by invertibility $\sigma = \tau \otimes \alpha \otimes (\sigma \odiv (\tau \otimes \alpha))$
+%which in turn again by invertibility implies $(\sigma \odiv \tau) \odiv \alpha = \sigma \odiv (\tau \otimes \alpha)$. 
+
+Note that a dual theorem holds for 
 
 \begin{proof}
 We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
@@ -2213,23 +2259,33 @@ up-to the obvious renaming (i.e., ${\bf A1}$ for ${\bf LA1}$, and so on).
 %First of all, note that by Lemma~\ref{minor} $\langle A, \sigma \rangle$ is reachable. So, 
 %we proceed by induction on the proof of
 Thus, consider the reduction $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$. 
+By Lemma~\ref{idred} we have that 
+$\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \sigma' \rangle$
+with the same proof and we can resort to the last two lemmata.
 
 The result is immediate for axiom ${\bf A3}$, with 
-$\alpha = \monid$, as well as for 
+$\alpha = \xi = \monid$, as well as for 
 ${\bf R1}$.
 
-Consider ${\bf A1}$ and 
-$\langle \hbox{\tell}(c) \mapsto A, \sigma \rangle \xrightarrow{} \langle A, c \otimes \sigma \rangle$.
-Again, $\alpha = \1$
-and by localisation $\sigma \odiv \tau \leq \1 \leq \alpha$.
-Since $\sigma' = c \otimes \sigma$ and $\tau' = c \otimes \tau$,
-by invertibility $\sigma' = \tau' \otimes (\sigma \odiv (\tau \otimes \alpha))$.
+Consider ${\bf A1}$. 
+%and $\langle \hbox{\tell}(c) \mapsto A, \tau \rangle \xrightarrow{} \langle A, c \otimes \tau \rangle$.
+Thanks to Lemma~\ref{LA1}
+the result follows with $\alpha = \1$,
+since 
+%$\sigma' = c \otimes \sigma$ and $\tau' = c \otimes \tau$ 
+$\beta = \monid$ and by hypothesis $\tau \odiv \sigma \leq \1 = \alpha$.
+%by invertibility $\sigma' = \tau' \otimes (\sigma \odiv (\tau \otimes \alpha))$.
 
-As for ${\bf A2}$, we have 
-$\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{} \langle A, \sigma \rangle$ 
-with $\sigma \leq c$ and thus
+Consider ${\bf A2}$.
+Thanks to Lemma~\ref{LA2} follows with $\xi = \1$,
+since $\beta = \monid$.
+
+\comment{
+ we have 
+$\langle \hbox{\ask}(c) \mapsto A, \tau \rangle \xrightarrow{} \langle A, \tau \rangle$ 
+with $\tau \leq c$ and thus
 $\langle \hbox{\ask}(c) \mapsto A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ 
-for any $\alpha \leq c\odiv \tau$.
+for some $\alpha \leq c\odiv \tau$.
 %
 Now $\sigma \leq c$
 implies $\sigma \odiv \tau \leq c \odiv \tau$,
@@ -2239,11 +2295,12 @@ Indeed, as noted above this implies that $\sigma \leq \alpha \otimes \tau$
 and by invertibility 
 $\sigma' = \sigma = \alpha \otimes \tau \otimes  (\sigma \odiv (\tau \otimes \alpha)) = \tau' \otimes  (\sigma \odiv (\tau \otimes \alpha))$.
 \marginpar{se localizzato, allora vale anche $\alpha \leq \1$}
+}
 
-Let us  move to ${\bf R2}$ and consider the configurations 
-$\langle \exists^\pi_x A, \sigma \rangle$  and
-$\langle \exists^\pi_x A, \tau \rangle$
-such that $x \not \in sv(\sigma) \cup sv(\tau)$.
+Let us  move to ${\bf R2}$ and consider 
+%the configurations 
+%$\langle \exists^\pi_x A, \tau \rangle$  and
+%$\langle \exists^\pi_x A, \sigma \rangle$
 %noting that they are both reachable, the former by Lemma~\ref{minor}.
 %we have that 
 %$\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$ and
@@ -2251,12 +2308,13 @@ such that $x \not \in sv(\sigma) \cup sv(\tau)$.
 %by Lemma~\ref{mono2}.
 %
 %Let us assume that for $x \not \in sv(\sigma)$: 
-Then we have the reduction
-    $$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle
-    \to \langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes}
-    {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
-    \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho
-    \rangle \text{ with } \rho = \sigma_1 \odiv (\pi_0 \otimes \sigma)} $$
+%Then we have 
+the reduction
+    $$\frac {\displaystyle \langle A, \pi_0 \otimes \tau \rangle
+    \to \langle B, \tau \rangle \text{ with } \pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes}
+    {\displaystyle\langle \exists^{\pi}_x A,\tau\rangle \to \langle 
+    \exists^{\pi \rho}_x B, \tau \otimes \exists_x \rho
+    \rangle \text{ with } \rho = \tau \odiv (\pi_0 \otimes \tau)} $$
 %$$\langle \exists^\pi_x A, \sigma \rangle \to
 %  \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
 %  with $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$ and $\rho = \sigma_1 \odiv (\pi_\otimes  \otimes \sigma_0)$.
@@ -2266,19 +2324,23 @@ Then we have the reduction
 %
 % such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
 % by Lemma~\ref{mono}.
+such that $x \not \in sv(\sigma) \cup sv(\tau)$.
 Now by induction hypothesis
-$$\langle A, \pi_0 \otimes \tau \rangle  \xrightarrow{\beta}
-  \langle B, \tau_1 \rangle $$  for $\beta$ such that 
-  $(\pi_0 \otimes \sigma) \odiv (\pi_ 0 \otimes \tau) \leq \beta$
-  and $\sigma_1 = \tau_1 \otimes ((\pi_0 \otimes \sigma) \odiv (\pi_0 \otimes \tau \otimes \beta))$.
-  If $x \not \in \beta$ we can derive
-  $${\displaystyle\langle \exists^{\pi}_x A,\tau\rangle \xrightarrow{\beta} 
-   \langle \exists^{\pi \chi}_x B, \beta \otimes  \tau \otimes \exists_x \chi
-    \rangle \text{ with } \chi = \tau_1 \odiv (\beta \otimes \pi_0 \otimes \tau)}$$
-and it suffices to prove that $\sigma \odiv \tau \leq \beta$ and $\chi = \rho$, 
-since from these properties and invertibility it follows that
- $\sigma' = \sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \chi \otimes (\sigma \odiv (\tau \otimes \beta))) = 
- \tau' \otimes (\sigma \odiv (\tau \otimes \beta))$.
+$$\langle A, \pi_0 \otimes \sigma \rangle  \xrightarrow{\alpha}
+  \langle B, \sigma_1 \rangle $$  for $\alpha$ such that 
+  $(\pi_0 \otimes \tau) \odiv (\pi_ 0 \otimes \tau) \leq \alpha$,
+$\tau_1 = \xi \otimes \pi_0 \otimes \tau$, and 
+$\sigma_1 = \alpha \otimes \xi \otimes \sigma$.
+Now, if $x \not \in \beta$ we can derive
+  $${\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \xrightarrow{\alpha} 
+   \langle \exists^{\pi \chi}_x B, \alpha \otimes  \sigma \otimes \exists_x \chi
+    \rangle \text{ with } \chi = \sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)}$$
+and it suffices to prove that $\tau \odiv \sigma \leq \alpha$ and $\chi = \rho$.
+%since from these properties and cancellativeness 
+%
+%invertibility it follows that
+% $\sigma' = \sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \chi \otimes (\sigma \odiv (\tau \otimes \beta))) = 
+% \tau' \otimes (\sigma \odiv (\tau \otimes \beta))$.
   
  % recalling that moreover
  % $\pi_\otimes \otimes \sigma_0 = \pi_\otimes \otimes \tau_0 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0))$.
@@ -2289,7 +2351,9 @@ since from these properties and invertibility it follows that
 %by Lemma~\ref{l-mono}.
 %
 %\noindent
-As for the first property, note that by invertibility $a \leq b$ implies $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$,
+As for the first property, note that by cancellativeness
+$a \odiv b = (a \otimes c) \odiv (a \otimes c)$, 
+% $a \leq b$ implies $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$,
 hence by inductive hypothesis we are done.
 %since $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$ in all residuated POMs.
 
@@ -2308,15 +2372,15 @@ $$\langle A, \pi_0 \otimes \sigma \rangle \to  \langle B, \sigma_1 \rangle$$
 
 If it is \mbox{\bf A2}, that is \mbox{\bf L2} for the labelled reduction,
 since $\C$ is localised by Lemma~\ref{LA2} we have that 
-$\sigma_1 = \pi_0 \otimes \sigma$ and $\tau_1 = \beta \otimes \pi_0 \otimes \tau$,
+$\tau_1 = \pi_0 \otimes \tau$ and $\sigma_1 = \alpha \otimes \pi_0 \otimes \sigma$,
 %strengthening what is already specified in Lemma~\ref{l-mono}.
 hence $\rho = \chi = \1$, and we are done.
 
 If it is \mbox{\bf A1}, that is \mbox{\bf L1} for the labelled reduction, we have that 
-$\beta = \1$. 
+$\alpha = \1$ and
 %
-We then have to show the equivalence of $\rho =  \sigma_1 \odiv (\pi_0 \otimes \sigma)$ and
-$\chi = \tau_1 \odiv (\pi_0 \otimes \tau)$.
+we must show the equivalence of $\rho =  \tau_1 \odiv (\pi_0 \otimes \tau)$ and
+$\chi = \sigma_1 \odiv (\pi_0 \otimes \sigma)$.
 %
 Since $\C$ is cancellative by Lemma~\ref{LA1}
 we have that $\sigma_1 = \chi \otimes \pi_0 \otimes \sigma$ 
@@ -2398,7 +2462,8 @@ $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \begin{enumerate}
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
 \item if $\langle A, \sigma \rangle \xrightarrow{\alpha} \gamma_1$ then there is $\gamma_2$ such that $\langle B, \alpha \otimes \rho \rangle \to \gamma_2$ 
-and $(\gamma_1, \gamma_2) \in R$.
+and $(\gamma_1, \gamma_2) \in R$;
+\item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d$ such that $\sigma \otimes d \not \leq \sigma$. 
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  strongly bisimilar ($\gamma_1  \sim \gamma_2$) if there exists a strong  bisimulation 
 $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim_{\mathit{s}} B$ if $\langle A, \monid \rangle \sim \langle B, \monid \rangle$.
@@ -2446,39 +2511,83 @@ then there exists  $\langle B', \rho'\rangle$ such that
 \end{proof}
 }
 %
-The feasibility of $\sim$ resides on the fact that it is not 
-upward closed by definition. Thanks to the correspondence results in Section~\ref{corres}, 
-it can be proved so, as well as a congruence.
+We improved on the feasibility of $\sim$ by requiring that the equivaence is upward closed 
+only whenever the store may be worsened. Note that in some cases, e.g. 
+when $\mathcal{C}$ is absorptive, the clause is vacuous. 
+%
+However, thanks to the correspondence results in Section~\ref{corres}, 
+it can be proved upward closed for all $d$, and thus also a congruence.
 %
 %Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
 \begin{proposition}
-Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be l-reachable configurations and $d \in \mathcal{C}$.
-If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
-then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
+%Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be l-reachable configurations and $d \in \mathcal{C}$.
+%If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
+%then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
+Let $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$ and $d \in \mathcal{C}$.
+If  $\mathcal{C}$ is cancellative then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
 \end{proposition}
 \begin{proof}
 We need to show that the relation 
 $R = \{ (\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle) \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
 is a labelled bisimulation. We then assume that 
-$\langle A, \sigma \otimes d \rangle  \xrightarrow{\alpha} \langle A', \sigma' \rangle$: 
+$\langle A, \sigma \otimes d \rangle  \xrightarrow{\beta} \langle A', \sigma' \rangle$: 
 we need to prove that there exists $B'$ such that
-$\langle B,\alpha \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
+$\langle B,\beta \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
   and $(\langle A', \sigma' \rangle, \langle B', \sigma' \rangle) \in R$.
+%  Note also that we need to prove it only for those
 
 %
 By soundness 
-$\langle A, \alpha \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$.
-  By completeness $\langle A,  \sigma \rangle  \xrightarrow{\beta}\langle A', \sigma'' \rangle$,
-  where $(\sigma \otimes \alpha \otimes d) \odiv \sigma\leq \beta$ and 
-  $\sigma'' = \sigma' \otimes (\sigma \odiv (\sigma \otimes \alpha \otimes d))$.
-  From the former it follows that 
-  $\sigma \otimes ((\sigma \otimes \alpha \otimes d) \odiv \sigma) = \sigma \otimes \alpha \otimes d\leq \sigma \otimes \beta$
+$\langle A, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$
+with the same proof.
+We then distinguish two cases on the 
+axiom used.
+
+\begin{description}
+\item{[{\bf LA1}]}
+  By Lemma~\ref{LA1} (completeness for {\bf LA1}) we have $\langle A,  \sigma \rangle  \xrightarrow{\monid}\langle A', \sigma'' \rangle$
+  and $\sigma' \odiv (\beta \otimes \sigma \otimes d) = \sigma'' \odiv \sigma$, and by Lemma~\ref{mono2} (monotonicity)
+  we have that $\sigma' = \sigma'' \otimes \beta \otimes d$.
+  Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
+  there exists $B'$ such that 
+  $\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
+  and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$,
+  and it suffices to look at the cases where $\beta \otimes d \leq \monid$.
+%
+Now $\langle B, \sigma \rangle \xrightarrow{\monid} \langle B', \sigma'' \rangle$, and we may now check the proof of
+such reduction.
+If it is  {\bf LA1}, we retrace the same steps as before and 
+$\langle B, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{\monid} \langle B', \sigma_1 \rangle$
+with $\sigma_1 = \sigma'' \otimes \beta \otimes d$
+and $\sigma_1 = \sigma'' \otimes \beta \otimes d$, and we are done.
+%
+If it is  {\bf LA2}, it suffices to note that $\beta \otimes \sigma \otimes d\leq \sigma$,
+hence $\langle B, \sigma \otimes \beta \otimes d \rangle \xrightarrow{\monid} \langle B', \sigma'' \otimes \beta \otimes d\rangle$
+and we are done.
+
+\item{[{\bf LA2}]}
+
+\end{description}
+\\  
+%  $(\sigma \otimes \alpha \otimes d) \odiv \sigma\leq \beta$ and 
+%  $\sigma'' = \sigma' \otimes (\sigma \odiv (\sigma \otimes \alpha \otimes d))$.
+
+ % \\
+ % 
+%  From the former it follows that 
+%  $\sigma \otimes ((\sigma \otimes \alpha \otimes d) \odiv \sigma) = \sigma \otimes \alpha \otimes d\leq \sigma \otimes \beta$
+%\\
 
   Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
   there exists $B'$ such that 
-  $\langle B, \beta \otimes \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
+  $\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
   and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$.
+  Since $((b \otimes d) \odiv \alpha) \leq \monid$ we have 
+  $\langle B, ((b \otimes d) \odiv \alpha) \otimes \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
+  and by invertibility we are done.
+  \\
+  
   Now, by localisation $(\sigma \otimes \alpha \otimes d) \odiv (\sigma \otimes \beta) \leq 1$ 
   and by Lemma~\ref{minor}
   we have 
