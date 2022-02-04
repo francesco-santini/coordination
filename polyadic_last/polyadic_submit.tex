@@ -132,7 +132,7 @@ The work is organised as  follows: in Sect.~\ref{sec:bg} we present the necessar
 Section~\ref{sec:detpolyadicCCP} presents the PSCCP language. 
 
 \section{Related Work}\label{sec:related}
-As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores, and information mobility.
+As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores, and information mobility.\todo{inserisci catuscia e pippo}
 
 In \cite{spatialvalencia} the authors describe a \emph{spatial} constraint systems with operators to
 specify information and processes moving from a space to another. Such a language provides for the specification of spatial mobility and epistemic concepts such as belief, utterance and lies: besides local stores for agents  (representing belief), it can express the epistemic notion of knowledge by means of a derived spatial operator that specifies global shared information. Differently from this work, our approach focuses on preferences, on the concurrent language on top of the system, and on process equivalences.
@@ -383,27 +383,7 @@ In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl17}).
 	If additionally it is a SLM, then it is distributive.
 \end{lemma}
 
-\shortNoProof{
-\begin{proof}
-	By definition $a \odiv b$ is an upper bound of 
-	$\{ c \mid b \monop c \leq a\}$ and $b \monop (a \odiv b) \leq a$.
-	%
-%	The latter property ensures the monotonicity of $\odiv$ on the first argument,
-%	since by definition $a \odiv c \leq b \odiv c$ iff $c \monop (a \odiv c) \leq b$.
-	%
-%	As for the  monotonicity of $\monop$, it suffices to note that by definition
-%	$a \leq (b \monop a) \odiv b$ and also by definition $c \monop a \leq c \monop b$ iff 
-%	$a \leq (c \monop b) \odiv c$.
-\qed
-\end{proof}
-}
 
-%Note that by commutativity, 
-%Thus $\monop$ is monotone (on both arguments), and
-%the underlying monoid is ordered.
-%while $\odiv$  is clearly anti-monotone on the second argument: 
-
-%Distributivity holds also for the empty set and for infinite sets, if the LUBs exist.
 
 In any residuated POM the $\odiv$ operator is also monote one the first argument and 
 anti-monotone on the second one, i.e., 
@@ -412,20 +392,6 @@ $\forall a, b, c \in A.\, a\leq b \implies  c\odiv b \leq c \odiv a$.
 Other easy to prove properties are
 $\forall a\in A. \monid \leq a \odiv a$ and
 $\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) \leq a$.
-% which in turn implies 
-%that $\forall a\in A. a \monop (a \odiv a) = a$ and
-%
-%, and \emph{iii)} $a \odiv (b \monop c) = (a \odiv b) \odiv c$.
-%should $\monop$ be idempotent, $b \leq a$ implies $a \odiv b = a$.
-%
-%$\forall a, b \in A. a < b \implies \monid \not \leq a \odiv b$, where
-%$a < b$ means $a \leq b$ and $a \neq b$.
-%
-%Residuation is monotone on the first argument:
-%$\forall a, b, c \in A. a \leq b \implies a \odiv c \leq b \odiv c$.
-%%falsa and if $b \leq a$, then $a \odiv b = \monid$. For more properties of residuation we refer to \cite[Table~4.1]{resbook}.
-%
-%
 These latter facts suggests the definition below, which identifies sub-classes 
 of residuated monoids that are suitable for an easier manipulation
 of constraints (see e.g.~\cite{ecai06}).
@@ -480,32 +446,6 @@ Let $\langle A, \leq, \monop, \monid \rangle$ be a POM  and
 \end{itemize}
 \end{lemma}
 
-\shortNoProof{
-\begin{proof} ($\Longrightarrow$)
-The first item is immediate. Now, let $a \leq b$. Since $b \leq (b \otimes c) \odiv c$ and 
-$c \otimes (a \odiv c) \leq a$, the second item follows.
-
-($\Longleftarrow$)
-Using the monotonicity of $\odiv$ from $b \monop c \leq a$ we get
- $(b \monop c) \odiv b \leq a \odiv b$, and by the first item
- $c \leq a \odiv b$.
- %
- From the latter by the monotonicity of $\otimes$ we get
- $b \otimes c \leq b \otimes (a \odiv b)$, and by the first item
- $b \monop c \leq a$.
- %
-%	Immediate: $a \odiv b$ is an upper bound of 
-%	$\{ c \mid b \monop c \leq a\}$ and $b \monop (a \odiv b) \leq a$.
-	%
-%	The latter property ensures the monotonicity of $\odiv$ on the first argument,
-%	since by definition $a \odiv c \leq b \odiv c$ iff $c \monop (a \odiv c) \leq b$.
-	%
-%	As for the  monotonicity of $\monop$, it suffices to note that by definition
-%	$a \leq (b \monop a) \odiv b$ and also by definition $c \monop a \leq c \monop b$ iff 
-%	$a \leq (c \monop b) \odiv c$.
-\qed
-\end{proof}
-}
 
 %\marginpar{all RePO are localized?}
 
@@ -529,21 +469,7 @@ Using the monotonicity of $\odiv$ from $b \monop c \leq a$ we get
 	(partially) relax constraints (see again~\cite{ecai06}).
 \end{remark}
 
-\shortNoProof{
-\begin{proof} Let $X \subseteq A$ be a finite non-empty set. 	
-	%\paragraph{$\bigvee \{a \monop x \mid x \in X\} \leq a \monop  \bigvee X$}
-	\[\forall x \in X.\, x \leq \bigvee X %\implies %\forall x \in X.\, x \leq (a \monop \bigvee X) \odiv a \implies\]
-	\implies \forall x \in X.\, a \monop x \leq a \monop \bigvee X \implies \bigvee \{a \monop x \mid x \in X\} \leq a \monop  \bigvee X .\]
 
-	%So, let us assume that $X$ is inhabited.
-	%\paragraph{$a \monop  \bigvee X \leq \bigvee \{a \monop x \mid x \in X\}$}
-	\[\forall y \in X.\, a \monop y \leq \bigvee \{a \monop x \mid x \in X\} \implies 
-	\forall y \in X.\, y \leq (\bigvee \{a \monop x \mid x \in X\}) \odiv a \implies\] 
-	\[ \implies \bigvee X \leq (\bigvee \{a \monop x \mid x \in X\}) \odiv a \implies 
-	a \monop \bigvee X \leq \bigvee \{a \monop x \mid x \in X\} .\] 
-\qed
-\end{proof}
-}
 
 \comment{
 %Note that the proof does not require that $\otimes$ is monotone, which is thus a derived property.
@@ -561,17 +487,6 @@ since it implies that $x \odiv a \leq \bigvee X \odiv a$ for all $x \in X$.
 	\end{itemize}	
 \end{lemma}
 
-\shortNoProof{
-\begin{proof}
-Straightforward, since by the monotonicity of $\odiv$ in the first argument (Lemma~\ref{mono}) we get
-% \[\forall x \in X.\,a \otimes (x \odiv a) \leq x \implies\]
- %\[\forall x \in X.\,a \otimes (x \odiv a) \leq \bigvee X \implies\]
- $\forall x \in X.\,x \odiv a \leq \bigvee X \odiv a$, which implies
- $\bigvee \{ x \odiv a \mid x \in X\} \leq \bigvee X \odiv a$.
-% \[\]
-\qed
-\end{proof}
-}
 
 %\begin{remark}
 Also this inequation holds for the empty set and for infinite sets, if the necessary LUBs exist.
@@ -589,24 +504,7 @@ Moreover, it also holds that $\bigvee \{ a \odiv x \mid x \in X \} \geq a \odiv 
 	\end{enumerate}	
 \end{proposition}
 
-\shortNoProof
-{
-\begin{proof}
-Note that $1$ immediately implies both $2$ and $3$, since by definition $a \leq b$ implies $\1 \leq b \odiv a$
-and $\1$ is the top of the partial order.
 
-For the second step, first note that both properties implies that $\1 \odiv a \leq \1$ for all $a \in A$. This is immediate
-for $2$. As for $3$, %let us assume that $b \odiv a \leq \1$, and
-consider $b = \bigvee \{\1, a \}$. By Lemma~\ref{distodiv} we have that
-$\bigvee \{\1 \odiv a, a \odiv a\} \leq \bigvee \{\1, a \} \odiv a$. 
-Hence, $\1 \odiv a \leq \1$ for all $a \in A$, and the result follows.
-
-Finally, note that $\1 \odiv a \leq \1$ for all $a \in A$ implies that $\1 \odiv (\1 \odiv c) \leq \1$ for all $c \in A$, 
-and since it always holds
-that $c \leq \1 \odiv (\1 \odiv c)$, then $3$ implies $1$.
-\qed
-\end{proof}
-}
 
 There are some important classes of residuated SLMs  such that $\odiv$ is easily proved to be distributive in the first argument,
 while it is not so with respect to the second one.
@@ -620,11 +518,6 @@ while it is not so with respect to the second one.
 	\end{itemize}	
 \end{lemma}
 
-\begin{proof}
-If $\langle A, \leq \rangle$ is a total order and $X$ is finite and non-empty we have that $\bigvee X \in X$, and since $\odiv$ 
-is monotone on the first argument (see Lemma~\ref{mono}) the result follows.
-\qed
-\end{proof}
 
 \begin{example}
 \label{nodist2}
@@ -711,71 +604,6 @@ Then $\mathbb{M}$ is an absorptive ReSL with $0$ the top of the partial order, s
 It's now easy to show that $\odiv$ is not distributive for the first argument: $\bigvee{b \odiv a, c \odiv a} = a$ and $\bigvee\{b,c\} \odiv a = a \odiv a = 0$.
 \end{example}
 
-%
-%We can proove $\bigvee X \odiv a = \bigvee \{ x \odiv a \mid x \in X \}$ under the following hypotesis.
-%
-%\begin{lemma}
-%	\label{distodiv2}
-%	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be an ReSL.
-%	If $a \otimes (x \odiv a) = x = (a \otimes x) \odiv a$, then $\bigvee X \odiv a = \bigvee \{ x \odiv a \mid x \in X \}$.
-%\end{lemma}
-%
-%\begin{proof}
-% \[\bigvee X = \bigvee \{ a \otimes (x \odiv a) \mid x \in X \} \implies\]
-% \[\bigvee X = a \otimes \bigvee \{ x \odiv a \mid x \in X \} \implies\]
-% \[\bigvee X \odiv a = (a \otimes \bigvee \{ x \odiv a \mid x \in X\}) \odiv a \implies\]
-% \[\bigvee X \odiv a = \bigvee \{ x \odiv a \mid x \in X\}.\]
-% \[\]
-%\end{proof}
-%
-%[Qui avevi fatto una correzione, mettendo nell'ipotesi una disuguaglianza al posto della seconda uguaglianza, ma in quel modo non potrei provare l'ultimo passaggio, quindi te la rispedisco cos\`{i}. 
-%Magari ne discutiamo quando ci vediamo.]
-%\\
-
-%Distributivity over $\bigvee$ implies that $\monop$ is
-%monotone in both arguments.
-%%as well as $\forall a \in A. a \monop \bot = \bot$.
-
-%%
-%In the following, we fix a BLIM ${\mathbb S} = \langle A, \leq, \monop \rangle$.
-%%
-%The next step is to provide a suitable notion of infinite composition. The definition below is taken from~\cite{CLIM}
-%(but see also~\cite[p.~42]{golan}).
-%
-%\begin{definition}[infinite composition]
-%Let $I$ be a (possibly countable) set of indexes. Then, the composition $\bigotimes_{i \in I} a_i$
-%is defined as $\bigvee_{J \subseteq I} \bigotimes_{j \in J} a_j$ for all finite subsets $J$.
-%\end{definition}
-
-%%\marginpar{distributivity wrt. $\vee$ or wrt. $\wedge$ coincide?}
-%Thanks to distributivity, we can show that
-%$\bigotimes$ is monotone, i.e., $\forall j \in I. a_j \leq b_j \implies
-%\bigotimes_{i \in I} a_i \leq \bigotimes_{i \in I} b_i$.
-
-%We now extends the notion of compactness.
-%
-%\begin{definition}[$\monop$-compact elements]\label{def:compactness}
-%An element $a \in A$ is $\monop$-compact (or $\monop$-finite) if whenever $a \leq \bigotimes_{i \in I} a_i$
-%then there exists a finite subset $J \subseteq I$ such that $a \leq \bigotimes_{j \in J} a_j$.
-%
-%Let $A^\monop \subseteq A$ be the set of $\monop$-compact elements of ${\mathbb S}$. Then ${\mathbb S}$ is
-%$\monop$-algebraic if $\forall c \in A. c = \bigotimes \{ d \in A^\monop \mid d \leq c\}$.
-%\marginpar{now $\monop$-algebraicity is incorrect}
-%\end{definition}
-
-%We let $A^\monop \subseteq A$ denote the set of $\monop$-compact elements of ${\mathbb S}$.
-%%
-%It is easy to show that a compact element is also $\monop$-compact.
-%%
-%Indeed, the latter notion is definitively more flexible.
-%%
-%Let us consider again the segment $[0, 1]$ of the reals, yet now with the inverse of the usual order (as used
-%in the probabilistic SCPs). Instead of the LUB, an alternative monoidal
-%product can be just the multiplication.
-%%
-%Since any infinite multiplication tends to $0$, then all the elements are
-%$\monop$-compact, except the top element itself, that is, precisely $0$.
-%\marginpar{is $\monop$-algebraicity needed?}
 }
 
 \comment{
@@ -1102,17 +930,7 @@ Then it holds
 	%\end{itemize}
 \end{lemma}
 
-\begin{proof}
-As for the inequality on the left, we have
- \[\exists_x b \otimes (a \odiv \exists_x b) \leq a \implies
-   \exists_x(\exists_x b \otimes (a \odiv \exists_x b)) \leq \exists_x a \implies\]
- \[\exists_x b \otimes \exists_x(a \odiv \exists_x b) \leq \exists_x a \implies
-   \exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b\]
 
-For the inequality on the right, note that $\odiv$ is anti-monotone on the second argument and $\exists$ 
-is increasing, so that $\exists_x a \odiv \exists_x b \leq \exists_x a \odiv b \leq \exists_x (\exists_x a \odiv b)$.
-\qed
-\end{proof}
 
 \begin{remark}
 \label{remdiv}
@@ -1126,13 +944,7 @@ We can show that $\odiv$ does not substantially alter the free variables of its 
 \begin{lemma}
 Let $a, b \in A$. Then it holds $sv(a \odiv b) \subseteq sv(a) \cup sv(b)$. 
 \end{lemma}
-\begin{proof}
-Let us assume that $x \not \in sv(a) \cup sv(b)$. Then
-\[\exists_x(a \odiv b) =  \exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b \leq
-  \exists_x(\exists_x a \odiv b) =\exists_x(a \odiv b)\]
- and since $\exists_x(a \odiv b) =  \exists_x a \odiv \exists_x b = a \odiv b$,
- the result follows.
-\end{proof}
+
 
 %\begin{remark}
 %\todo{un esempio dove $\odiv$ non distribuisce}
@@ -1157,22 +969,6 @@ Furthermore, if $\sigma$ is invertible, then the equality holds.
 %\end{itemize}
 \end{lemma}
 
-\begin{proof}
-As for the inequality, we have
-\[ a \otimes (b \odiv a) \leq b \implies s_\sigma [a \otimes (b \odiv a)] \leq s_\sigma b \implies \]
-\[ s_\sigma a \otimes s_\sigma(b \odiv a) \leq s_\sigma b \implies s_\sigma (b \odiv a) \leq s_\sigma b \odiv s_\sigma a \]
-
-As for the equality, $\sigma$ invertible implies $s_{\sigma^{-1}} s_{\sigma} a = a 
-= s_{\sigma} s_{\sigma^{-1}} a$. Then we have
-\[ s_\sigma b \otimes (s_\sigma a \odiv s_\sigma b) \leq s_\sigma a  \implies
-   s_{\sigma^{-1}} (s_\sigma b \otimes (s_\sigma a \odiv s_\sigma b))
-\leq s_{\sigma^{-1}} s_\sigma a  \implies \]
-\[ s_{\sigma^{-1}} s_\sigma b \otimes s_{\sigma^{-1}} (s_\sigma a \odiv s_\sigma b) \leq a \implies
-   b \otimes s_{\sigma^{-1}} (s_\sigma a \odiv s_\sigma b) \leq a \implies \]
-\[ s_{\sigma^{-1}} (s_\sigma a \odiv s_\sigma b) \leq a \odiv b \implies
-   s_\sigma (s_{\sigma^{-1}} (s_\sigma a \odiv s_\sigma b)) \leq s_\sigma (a \odiv b) \implies \]
-\[ s_\sigma a \odiv s_\sigma b \leq s_\sigma (a \odiv b) \]
-\end{proof}
 
 \subsection{Polyadic Soft Constraints}\label{sec:softconstraints}
 \label{subsec:inst} 
@@ -1230,50 +1026,6 @@ the variables of the original ones. The resulting constraint  associates with
 each tuple of domain values for such variables the element
 that is obtained by multiplying  those associated by the
 original constraints to the appropriate sub-tuples.
-%
-%Residuation works as expected (i.e., $(c_1\odiv c_2)\eta = c_1\eta\odiv c_2\eta$),
-%and 
-%Also, the bottom is the constant function mapping all $\eta$ to $\bot$.
-
-%\begin{example}[A simple CLIM]\label{execlim}
-%Let us consider a CLIM $\mathbb S$, 
-%and as $D$ a finite subset of the elements of the CLIM.
-%A polynomial with variables in $V$ 
-%and elements of the CLIM as coefficients
-%such as $ux \, \hat{+} \, vy \, \hat{+} \, z$
-%can be interpreted as the soft constraint associating 
-%with a function $\eta: V \rightarrow D$ the value 
-%$\bigvee \{u \monop \eta(x), v \monop \eta(y), z \}$.
-%The composition of such constraints is straightforward, while 
-%the ordering might not be the one induced by the coefficients, 
-%due to the presence of constants.
-%
-%More precisely, let us consider the CLIM of non-negative reals and
-%the polynomials $2x \, \hat{+} \, 1$ and $x \, \hat{+} \, 6$
-%and let us assume $D = \{1, 2, 3\}$.
-%The composition of such constraints is actually given just by coefficient 
-%addition, so that
-%$(2x \, \hat{+} \, 1) \monop (x \, \hat{+} \, 6) = 
-%(3x \, \hat{+} \, 7)$.
-%However, note that $2x \, \hat{+} \, 1 \leq x \, \hat{+} \, 6$.
-%
-%
-%Similarly for residuation, which is just bounded subtraction of coefficients.
-%Since $2x \, \hat{+} \, 1 \leq x \, \hat{+} \, 6$,
-%by construction ($2x \, \hat{+} \, 1) \odiv (x \, \hat{+} \, 6)$ is the bottom constraint,
-%mapping all variables to $0$.
-%Instead, $(x \, \hat{+} \, 6) \odiv (2x \, \hat{+} 1)$ could be described as $\hat{-}x \, \hat{+} \, 5$,
-%even if
-%the latter falls outside of the polynomials we considered since it has a negative coefficient:
-%it suffices to assume that if the actual result of the evaluation of the polynomial is negative 
-%then it is put to $0$.
-%
-%%
-%If $D$ is not the singleton, the support of a polynomial is precisely the set of variables occurring in it.
-%\end{example}
-
-%The ReSL of constraints also enjoys the cylindric properties, as shown by
-%the result below (for cylindric operators and diagonals in the idempotent case, see~\cite{scc}).
 
 \begin{lemma}[Cylindric and polyadic operators for (soft) constraints]
 	The ReSL of constraints $\mathbb{C}$ admits cylindric and polyadic operators, defined as
@@ -1295,53 +1047,6 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 	is called \emph{projection} in the soft framework,
 	and $\exists_x c$ is denoted $c\Downarrow_{V\setminus \{x\}}$.}
 
-\begin{proof}[TO BE REDONE]\todo{To be redone}
-%Let us consider a finite set $X$ and a constraint $c$. Recall that since $supp(c)$ is finite,
-%$c$ can be considered as a function $D^k \rightarrow A$ for $k = \# supp(c)$.
-%
-%Thus $(\exists_X c) \eta$ just boils down to consider the LUB of $\# supp(c) \setminus X$ 
-%sets of $k$-tuples, and t
-The properties of the pomonoid action (see Definition~\ref{pomo})
-are easily shown to hold for both operators. 
-%
-As for the cylindric laws (see Definition~\ref{cyli}), first note that the set of functions 
-$\rho$ such that $\eta\mid_{V \setminus \{x\}} = \rho\mid_{V \setminus \{x\}}$ is actually finite.
-Thus, we have that 
-\begin{eqnarray*}
-(\exists_x (c \otimes \exists_x d)) \eta & = & \bigvee_\rho \{(c \otimes \exists_x d) \rho \mid \eta\mid_{V \setminus \{x\}} = \rho\mid_{V \setminus \{x\}}\}\\
-& = & \bigvee_\rho \{c\rho \otimes (\exists_x d) \rho \mid \eta\mid_{V \setminus \{x\}} = \rho\mid_{V \setminus \{x\}}\} \\
-& = & \bigvee_\rho \{c\rho \otimes  (\bigvee_\xi \{d \xi \mid \rho\mid_{V \setminus \{x\}} = \xi\mid_{V \setminus \{x\}}\}) \mid \eta\mid_{V \setminus \{x\}} = \rho\mid_{V \setminus \{x\}}\} \\
-& = & \bigvee_\rho \{c\rho \mid \eta\mid_{V \setminus \{x\}} = \rho\mid_{V \setminus \{x\}}\} \otimes \bigvee_\xi \{d \xi \mid \eta\mid_{V \setminus \{x\}} = \xi\mid_{V \setminus \{x\}}\} \\
-& = & (\exists_x c) \eta \otimes (\exists_x d) \eta
-\end{eqnarray*}
-
-% = 
-% =\]
-%= \]
-% =\]
-% =
-%(\exists_X c) \eta \otimes (\exists_X d) \eta \]
-%%\[ (\exists_X d) \rho = \bigvee \{d \xi \mid \rho\mid_{V \setminus X} = \xi\mid_{V \setminus X}\}\]
-
-[da rivedere]
-Let us now move to the polyadic laws (see Definition~\ref{def:poly}).We just consider the third item, 
-and we assume that $\sigma \mid_{\sigma^c(X)}$ is injective, thus
-\begin{eqnarray*}
-(\exists_X s_\sigma c) \eta & = &\bigvee_\rho \{(s_\sigma c) \rho \mid \eta\mid_{V \setminus X} = \rho\mid_{V \setminus X}\} = \bigvee_\rho \{c (\rho \circ \sigma) \mid \eta\mid_{V \setminus X} =   \rho\mid_{V \setminus X}\} \\ 
-& = & \bigvee_\xi \{c\xi \mid (\eta \circ \sigma)\mid_{V \setminus \sigma^{c}(X)}  =  \xi\mid_{V \setminus \sigma^{c}(X)}\} \\
-& = & (\exists_{\sigma^c(X)} c) (\eta \circ \sigma) = (s_\sigma \exists_{\sigma^c(X)} c) \eta
-\end{eqnarray*}
-
-%  \bigvee \{c (\rho \circ \sigma) \mid (\eta\circ \sigma)\mid_{V \setminus \sigma^{c}(X)} = (\rho\circ \sigma)\mid_{V \setminus \sigma^{c}(X)}\}=^{*}\]
-\noindent
-where it always holds that $\eta\mid_{V \setminus X} = \rho\mid_{V \setminus X}$ implies $(\eta\circ \sigma)\mid_{V \setminus \sigma^{c}(X)} = (\rho\circ \sigma)\mid_{V \setminus \sigma^{c}(X)}$,
-while since $\sigma \mid_{\sigma^c(X)}$ is injective we have that
-a $\xi$ satisfying $(\eta \circ \sigma)\mid_{V \setminus \sigma^{c}(X)} = \xi\mid_{V \setminus \sigma^{c}(X)}$ can be decomposed as $\rho\circ \sigma$
-for a $\rho$ such that $\eta\mid_{V \setminus X} = \rho\mid_{V \setminus X}$
-(otherwise, it could happen that for some $\{x, y\} \subseteq \sigma^c(X)$ we have that $\sigma(x) =\sigma(y)$ and 
-$\xi(x) \neq \xi(y)$).
-\qed
-\end{proof}
 
 \section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detpolyadicCCP}
 This section introduces our language.
@@ -1655,23 +1360,7 @@ Then $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\o
 %\end{enumerate}
 \end{lemma}
 
-\begin{proof}[to be done better]
-We prove an equivalent property, namely, that there is $\sigma'$ such that 
-$\sigma = \sigma' \otimes (\exists_x \pi)_\otimes$. 
-%
-It holds for initial configurations, and since it is clearly preserved by reductions, 
-in particular by those obtained by axiom \mbox{\bf A1} and rule \mbox{\bf R2},
-then we are done.
-\qed
-%
-%As for \mbox{\bf A1}, it suffices to prove that $(\sigma \odiv a) \otimes a = \sigma$ implies  
-%$((\sigma \otimes c) \odiv a) \otimes a = \sigma \otimes c$. Now, 
-%$((\sigma \otimes c) \odiv a) \otimes a \leq \sigma \otimes c$ always holds. 
-%For the reverse, by hypothesis and monotonicity  
-%$(\sigma \odiv a) \otimes a \otimes c \geq \sigma \otimes c$, so it suffices to prove that 
-%$((\sigma \otimes c) \odiv a) \otimes a \geq (\sigma \odiv a) \otimes a \otimes c$.
-%This is in turn implied by $((\sigma \otimes c) \odiv a) \geq (\sigma \odiv a) \otimes c$.
-\end{proof}
+
 %As before, a witness of the equality in item $1$ is
 %$\sigma \odiv (\exists_x \pi)_\otimes$.
 
@@ -1953,23 +1642,6 @@ $fv(\langle B, \rho \rangle) \subseteq fv(\langle A, \sigma \rangle) \cup sv(\al
 %Moreover, if $\mathbb S$ is localised and $\alpha \neq \monid$ then $\rho \odiv (\alpha \otimes \sigma) = \monid$.
 \end{lemma}
 
-\begin {proof}
-Immediate as for Lemma~\ref{mono}.
-\comment{
-The first part is immediate as for Lemma~\ref{mono}.
-%
-For the latter part, note that $\alpha \neq 1$ means that the proof of the reduction 
-uses only the axiom {\bf LA2}, and the property holds because 
-$\mathbb S$ is localised and $\rho = \alpha \otimes \sigma$.
-%
-Let us check that the property 
-holds for {\bf LR2}. Inductively, we know that 
-$(\sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)) = \monid$, and
-$(\alpha \otimes \sigma \otimes \exists_x ( \sigma_1 \odiv (\alpha \otimes \pi_0  \otimes \sigma))) \odiv (\alpha \otimes \sigma) = \monid$
-immediately follows.
-}
-\qed
-\end{proof}
 
 \begin{remark}
 We will later prove that if $\mathbb S$ is localised and $\alpha \neq \monid$ then 
@@ -2011,15 +1683,6 @@ Then
 $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$.
 \end{lemma}
 
-\begin{proof}
-\todo{riguardare}
-As for unabelled reductions, it is easy to show that the equivalent property
-on the existence of $\sigma'$ such that 
-$\sigma = \sigma' \otimes (\exists_x \pi)_\otimes$ is preserved by 
-labelled reductions. 
-\qed
-\end{proof}
-
 
 \section{On the correspondence between reduction semantics}
 \label{corres}
@@ -2038,57 +1701,7 @@ then %$\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration an
 $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
 
-\begin{proof}
-We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
-have equivalent proofs, namely, they use axioms and rules in the same order,
-up-to the obvious renaming (i.e., ${\bf LA1}$ for ${\bf A1}$, and so on).
 
-The property holds for the axioms, since e.g. for {\bf LA2} we know that
-$\alpha \leq c \odiv \sigma$ implies $\alpha \otimes \sigma \leq c$ for residuated POMs.
-%
-We then proceed by induction on rule derivations,
-presenting only the proof for rule {\bf LR2}.
-%
-We have 
-  $$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle \xrightarrow{\alpha}
-  \langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \oodiv (\exists_x \pi)_\otimes }
-  {\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_0 \otimes \sigma)}$$
-%
- for $x \not \in sv(\sigma) \cup sv(\alpha)$.
-%
-By induction hypothesis $\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle$ is reachable and
-$$\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle \to
-  \langle B, \sigma_1 \rangle$$
-From this it follows by {\bf LR2} that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
-$$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \to
-  \langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
- and we are done.
- \qed
-\comment{Reachability is implied by $\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle$ being reachable,
-%and
-%$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \to
-%  \langle B, \widehat{\sigma_1} \rangle$$
- with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv (\exists_x \pi)_\otimes$.
-% and for suitable $\widehat{\sigma_1}$.
-% as long as $\alpha \otimes \sigma \otimes \exists_x \rho = \alpha \otimes \sigma \otimes \exists_x \widehat{\rho}$
-%with $\widehat{\rho} = \widehat{\sigma_1} \odiv (\alpha \otimes \bigotimes \pi  \otimes \widehat{\sigma_0})$.
-%
-Now we have that 
-$$\pi_\otimes \otimes \widehat{\sigma_0} = \pi_\otimes \otimes ((\alpha \otimes \sigma) \odiv (\exists_x \pi)_\otimes)$$ 
-$$=^1 \pi_\otimes \otimes ((\alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi )_\otimes) \odiv (\exists_x \pi)_\otimes)$$
-$$=^2  (\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes \otimes 
-((\alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes  (\exists_x \pi)_\otimes) \odiv (\exists_x \pi)_\otimes)$$
-$$ =^3 (\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes \alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$$
-$$= \alpha \otimes \pi_\otimes \otimes  (\sigma \odiv (\exists_x \pi))_\otimes 
-= \alpha \otimes \pi_\otimes \otimes  \sigma_0
-$$
-and by induction hypothesis reachability follows, as well as 
-$$\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle \to \langle B, \sigma_1 \rangle.$$
-and we are done. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
-and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\pi_\otimes \leq (\exists_x \pi)_\otimes$,
-for $3$ we used the equality $a \otimes ((a \otimes b) \odiv a) = a \otimes b$}
-\end{proof}
 
 The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
 then it is also l-reachable via a sequence of reductions labelled by $\monid$.
@@ -2100,12 +1713,7 @@ $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$
 then %$\langle A, \sigma \rangle$ is an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
 \end{lemma}
-\begin{proof}
-Only axiom  {\bf LA2} needs to be checked, and it is obvious, since $\sigma \leq c$ implies that 
-$\monid \leq c \odiv \sigma$ and thus 
-$\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{\monid}
-  	\langle A, \monid \otimes \sigma \rangle$.
-\end{proof}	
+
 	
 These results also ensure that a configuration is reachable iff it is l-reachable.
 %
@@ -2124,15 +1732,6 @@ $\langle A, \sigma \rangle \to \langle B', \sigma' \rangle$
 with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 Furthermore, if $\C$ is also cancellative then $B = B'$.
 \end{lemma}
-\begin{proof}
-%As for the first item, i
-%As for the first item, it 
-If
-$\langle B, \1 \rangle \to \langle A, \tau \rangle$,
-then $\langle A, \sigma \rangle$ is reachable from
- $\langle \hbox{\tell}(\sigma \odiv \tau) \parallel B, \1 \rangle$.
- %[DA FINIRE. MI PARE CHE SERVA LA LOCALIZATION]
-\end{proof}
 }
 %
 
@@ -2154,17 +1753,7 @@ for every $\sigma$
 $\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \sigma' \rangle$
 and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
 \end{lemma}
-\begin{proof}
-For the axiom {\bf LA1} it is obvious,
-thanks to cancellativeness.
-As for the inductive step, the proof for 
-{\bf LR1} is obvious. For {\bf LR2},
-just note that by hypothesis 
-$\rho = \tau_1 \odiv (\pi_0 \otimes \tau) = \sigma_1 \odiv (\pi_0 \otimes \sigma)$
-and by cancellativeness 
-$(\tau \otimes \exists_x \rho) \odiv \tau = (\sigma \otimes \exists_x \rho) \odiv \sigma$.
-\qed
-\end{proof}
+
 
 %The proof is immediate.
 %and we remark that such a $\xi$ is the same for all stores.
@@ -2207,25 +1796,7 @@ $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma
 %$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$, 
 %with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 \end{lemma}
-\begin{proof}
-Let $\langle \hbox{\ask}(c) \mapsto B, \tau \rangle \xrightarrow{\beta} \langle A, c \otimes \tau \rangle$.
-Since $\beta \leq c \odiv \tau$ implies 
-%$\beta \otimes \tau \leq c$
-%, hence item $2$ holds.
-%As for item $1$,  $\beta \otimes \tau \leq c$ 
-%in turn implies 
-$(\beta \otimes \tau)\odiv \sigma \leq c \odiv \sigma$,
-%thus with $\xi = c \odiv \sigma$ 
-we are done.
-As for the inductive step, the proof for 
-{\bf LR1} is obvious. For {\bf LR2},
-it suffices to note that by hypothesis 
-$\tau_1 = \beta \otimes \tau$ and $\sigma_1 = \alpha \otimes \sigma$
-and by locality 
-$\tau_1 \odiv (\beta \otimes \pi_0 \otimes \tau) = \monid = \sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)$.
-%thus any $\alpha$ in the interval will do.
-\qed
-\end{proof}
+
 
 Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible choice, even if 
 it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$,
@@ -2504,15 +2075,6 @@ If $\langle A,\sigma \rangle \approx \langle B,\rho \rangle$
 and $\langle A,\sigma \otimes d\rangle \downarrow_c$ then 
 then $\langle B, \rho \otimes d\rangle \Downarrow_c$.
 \end{proposition}
-\begin{proof}
-Let $\langle A,\sigma \otimes d\rangle \downarrow_c$, that is, \sigma \otimes d \leq c$.
-Since \langle A, \sigma \rangle \approx \langle B, \rho \rangle$ and $\langle A,\sigma \rangle \downarrow_\sigma$,
-then there exists  $\langle B', \rho'\rangle$ such that 
- $\langle B, \rho \rangle \D \Rightarrow \langle B', \rho' \rangle$ and 
- $\rho' \leq \sigma$.
- [DA FINIRE]
-\qed
-\end{proof}
 }
 %
 We improved on the feasibility of $\sim$ by requiring that the equivaence is upward closed 
@@ -2531,95 +2093,13 @@ it can be proved upward closed for all $d$, and thus also a congruence.
 Let $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$ and $d \in \mathcal{C}$.
 If  $\mathcal{C}$ is cancellative then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
 \end{proposition}
-\begin{proof}
-We need to show that the relation 
-$R = \{ (\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle) \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
-is a labelled bisimulation. We then assume that 
-$\langle A, \sigma \otimes d \rangle  \xrightarrow{\beta} \langle A', \sigma' \rangle$: 
-we need to prove that there exists $B'$ such that
-$\langle B,\beta \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
-  and $(\langle A', \sigma' \rangle, \langle B', \sigma' \rangle) \in R$.
-%  Note also that we need to prove it only for those
 
-%
-By soundness 
-$\langle A, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$
-with the same proof.
-We then distinguish two cases on the 
-axiom used.
-
-\begin{description}
-\item{[{\bf LA1}]}
-  By Lemma~\ref{LA1} (completeness for {\bf LA1}) we have $\langle A,  \sigma \rangle  \xrightarrow{\monid}\langle A', \sigma'' \rangle$
-  and $\sigma' \odiv (\beta \otimes \sigma \otimes d) = \sigma'' \odiv \sigma$, and by Lemma~\ref{mono2} (monotonicity)
-  we have that $\sigma' = \sigma'' \otimes \beta \otimes d$.
-  Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
-  there exists $B'$ such that 
-  $\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
-  and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$,
-  and it suffices to look at the cases where $\beta \otimes d \leq \monid$.
-%
-Now $\langle B, \sigma \rangle \xrightarrow{\monid} \langle B', \sigma'' \rangle$, and we may now check the proof of
-such reduction.
-If it is  {\bf LA1}, we retrace the same steps as before and 
-$\langle B, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{\monid} \langle B', \sigma' \rangle$
-with $\sigma' = \sigma'' \otimes \beta \otimes d$, and we are done.
-%
-If it is  {\bf LA2}, it suffices to note that $\beta \otimes \sigma \otimes d\leq \sigma$,
-hence $\langle B, \sigma \otimes \beta \otimes d \rangle \xrightarrow{\monid} \langle B', \sigma'' \otimes \beta \otimes d\rangle$
-and we are done.
-
-\item{[{\bf LA2}]}
- By Lemma~\ref{LA2} (completeness for {\bf LA2}) we have $\langle A,  \sigma \rangle  \xrightarrow{\alpha}\langle A', \alpha \otimes \sigma \rangle$
-  for any $\alpha \leq (\beta \otimes \sigma \otimes d) \odiv \sigma$.
-  % thus in particular 
-  %$\langle A,  \sigma \rangle  \xrightarrow{\beta \otimes \sigma}\langle A', \beta \otimes \sigma \otimes d \rangle$,
-  %thanks to cancellativeness).
-  %  
-  Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
-  there exists $B'$ such that 
-  $\langle B, \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \alpha \otimes \sigma \rangle$,
-  and by taking $\alpha = (\beta \otimes \sigma \otimes d) \odiv \sigma$ we are done.
-\end{description}
-%
-\comment{  
-Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
-  there exists $B'$ such that 
-  $\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
-  and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$.
-  Since $((b \otimes d) \odiv \alpha) \leq \monid$ we have 
-  $\langle B, ((b \otimes d) \odiv \alpha) \otimes \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
-  and by invertibility we are done.
-  \\
-  
-  Now, by localisation $(\sigma \otimes \alpha \otimes d) \odiv (\sigma \otimes \beta) \leq 1$ 
-  and by Lemma~\ref{minor}
-  we have 
-  %$(\alpha \otimes d) \odiv \beta) \otimes \beta \otimes \sigma = \alpha \otimes d \otimes \sigma$
-  $\langle B, \alpha \otimes d \otimes \sigma \rangle 
-  \xrightarrow{} \langle B', \sigma''' \rangle$
-  with 
-  $\sigma''' = \sigma'' \otimes ((\beta \otimes \sigma) \odiv (\alpha \otimes d \otimes \sigma))$
-\end{proof}
-
-An immediate consequence of the result above is that $\sim$ is a congruence.
-
-\begin{proposition}
-Let $A$, $B$ be agents and $C[\cdot]$ a context.
-If $A \sim B$
-then $C[A] \sim C[B]$.
-}
-\end{proof}
 
 %\section{On the equivalence between bisimulation semantics}
 %
 \begin{theorem}
 $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, then the equality holds.
 \end{theorem}
-\begin{proof} 
-
-TO DO (ma torna)
-\end{proof}
 
 %\begin{theorem}
 %$\approx_{\mathit{s}}  \subseteq \approx$. Moreover, if $\mathcal{C}$ is invertible, then the equality holds.
