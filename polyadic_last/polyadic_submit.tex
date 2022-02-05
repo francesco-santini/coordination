@@ -934,7 +934,7 @@ Then it holds
 
 \begin{remark}
 \label{remdiv}
-Looking at the proof above, it is clear that $\exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b$
+It is clear that $\exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b$
 is actually equivalent to state that
 $\exists_x(a \monop \exists_x b) \geq \exists_x a \monop \exists_x b$.
 \end{remark}
@@ -1117,36 +1117,6 @@ $\exists_w^\pi A = \exists_z^{(s_{[^z/_w]}\pi)} A[^z/_w]$ for $z \not \in fv(\ex
 Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.\todo{Gi\`a dimostrato}
 \end{lemma}
 
-%\begin{proof}
-%For $\ostop$, $\tell(c)$, $p(w)$ the statement is trivially true, as we have that
-%\begin{itemize}
-%	\item $\ostop[^y/_x] = \ostop$
-%	\item $\tell(c)[^y/_x] = \tell(s_{[^y/_x]}c) = \tell(c)$ by polyadic laws and $x \not
-%	\in fv(\tell(c)) = sv(c)$.
-%	\item $p(w)[^y/_x] = p(w)$ by $sv(p(w)) = {w} \wedge x \not \in sv(p(w)) \implies
-%	w \not = x$.
-%\end{itemize}
-%As for the other agents, the statement can be proved by inductive reasoning, assuming it to be true for subagents in 
-%$\ask(c) \rightarrow A$, $(A_1 || A_2)$ and $\exists^{\rho}_w A$. Indeed we obtain:
-%\begin{itemize}
-%	\item $(\ask(c) \rightarrow A)[^y/_x] =  
-%	\ask(s_{[^y/_x]}c) \rightarrow A[^y/_x] = \ask(c) \rightarrow A$
-%	by hypothesis and polyadic laws.
-%	\item $(A_1 || A_2)[^y/_x] = (A_1[^y/_x] \parallel A_2[^y/_x])) = (A_1 \parallel A_2)$
-%	by hypothesis.
-%\end{itemize}
-%As for $\exists^{\rho}_w A$, recall that $fv(\exists^{\rho}_w A) = (fv(A) \cup sv(\rho)) \setminus \{w\}$, thus 
-%$x \not = w \wedge x \not \in fv(\exists^{\rho}_w A) \implies x \not \in fv(A) \wedge x \not \in sv(\rho)$. 
-%Then we have two possible cases:
-%\begin{itemize}
-%	\item $w \not = x$. $(\exists^{\rho}_w A)[^y/_x] = \exists^{s_{[^y/_x]}\rho}_w A[^y/_x] = 
-%	\exists^{\rho}_w A[^y/_x]$ (by $x \not = w$) $= \exists^{\rho}_w A$ (by hypotheses).
-%	\item $w = x$. $(\exists^{\rho}_x A)[^y/_x] = ((\exists^{\rho}_z A)[^z/_x])[^y/_x] \ \ 
-%	\text{for $z \not \in sv(\rho) \cup fv(A)$} = (\exists^{s_{[^y/_x]}(s_{[^z/_x]}\rho)}_z 
-%	(A[^z/_x])[^y/_x]) = (\exists^(s_{[^z/_x]}\rho)_z A[^z/_x]) \text{by $x \not \in sv(c)
-%	 \cup fv(A[^z/_x])$} \equiv_\alpha \exists^{\rho}_x A$.   
-%\end{itemize}
-%\end{proof}
 
 \subsection{Reduction semantics}
 We now move to the reduction semantics of our calculus. 
@@ -1286,34 +1256,17 @@ Then $\rho = (\rho \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \rho \rangle
 %By the properties of residuation, a witness of the equality in item $1$ is
 %$\sigma' \odiv \sigma$.
 
-\begin{proof}
-Thanks to the equivalence $((a \otimes b) \odiv b) \otimes b = a \otimes b$, which holds in residuated POMs,
-it is easy to check that the first law is preserved by reductions,
-in particular by axiom \mbox{\bf A1} and rule \mbox{\bf R2}.
-The second law is proved by induction on rule application.
-\qed
-\end{proof}
 
 \begin{remark}
-[TO BE REDONE]
 \todo{TO BE REDONE}
 The choice for the resulting global store in rule {\bf R2} could have been 
 $\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
 Indeed, the expression has a nicer appearance,
-%Indeed, thanks to Lemma~\ref{rmono},
-%we know that $\sigma_1 = \sigma_0 \otimes (\sigma_1 \odiv \sigma_0)$. Now,
-%since it holds that $c \otimes ((c \otimes d) \odiv c) = c \otimes d$,
-%we have 
-%$$\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0) = 
-%\exists (\sigma_0 \otimes (\sigma_1 \odiv \sigma _0)) = 
-%\sigma_0 \otimes \exists_x (\sigma_1 \odiv \sigma_0)$$.
-%
 and $\sigma_1 \odiv \sigma_0$ seems to better represent the cumulative effect of the
 changes by the local agent.
 However, this is a misleading impression, since the composition of the single updates
 has to take into account the existential quantifications.
-%In fact, the last local update corresponds in our choice to
-%$\sigma_1 \odiv (\rho \otimes \sigma _0)$.
+
 
 Let us consider constraints $c$ and $d$ such that $\exists_x c = \exists_x d = \monid$ and $c \otimes d = \bot$.
 As far as our running example is concerned, it might be that $c = x \leq 1$ and $d = x \geq 5$. 
@@ -1323,7 +1276,6 @@ Assuming that $c$ is added to the store, with both choices we end up with the re
 $\gamma \to \langle \exists_x^{[ c ]} \hbox{\tell}(d), \monid \rangle$.
 With the alternative definition for the global store, we would then reach 
  $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \bot \rangle$,
- %since $\sigma_1 \odiv \sigma_0 = \bot \odiv \monid = \bot$,  
  thus lifting to the global store the unsatisfiability of the local one.
  Instead, with our choice we obtain 
  $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
@@ -1449,28 +1401,8 @@ can modify the behaviour of a configuration only by adding constraints to its st
 Let $A$, $B$ be agents and $C[\cdot]$ a context.
 If $A \sim_{\mathit{s}} B$
 then $C[A] \sim_{\mathit{s}} C[B]$.
-%%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
-%Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be configurations
-%and $C[\cdot]$ a context.
-%If $\langle A,\sigma \rangle \sim_{\mathit{s}} \langle B,\rho \rangle$
-%then $\langle C[A],\sigma \rangle \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
-%%and $\langle C[A],\sigma \rangle  \sim_{\mathit{s}} \langle C[B],\rho \rangle$.
-%%
-%%Moreover, the same property holds for $\approx_{\mathit{s}}$.
 \end{proposition}
 
-%Note that we are considering here also extended agents.
-%and that for the result it is pivotal to require 
-%the closure with respect to the addition of constraints.
-
-%\begin{proof}
-%By definition $\sim_{\mathit{s}}$ is upward closed, so we just need to check congruence.
-%We then proceed by induction on rule application.
-%[DA FINIRE. MA SERVIREBBE UNA CHIUSURA RISPETTO ALLE SOSTITUZIONI INVERTIBILI...]
-%\qed
-%\end{proof}
-%
-%\marginpar{to be proved for $\exists_x-$ (not needed for Prop.3)}
 
 
 \section{Labelled reduction semantics}
@@ -1735,7 +1667,7 @@ Furthermore, if $\C$ is also cancellative then $B = B'$.
 }
 %
 
-Now, note that he proof of every (labelled) reduction is given by the choice of an axiom 
+Now, note that the proof of every (labelled) reduction is given by the choice of an axiom 
 and a series of applications of the rules {\bf LR1} and  {\bf LR2}.
 Also, note that if 
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ is a reduction 
@@ -1754,9 +1686,6 @@ $\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \sigma' \rangle$
 and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
 \end{lemma}
 
-
-%The proof is immediate.
-%and we remark that such a $\xi$ is the same for all stores.
 
 \comment{
 \begin{lemma}
@@ -1783,18 +1712,6 @@ Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a 
 via the axiom {\bf LA2}. If $\C$ is localised then $\tau' = \beta \otimes \tau$
 and for every $\sigma$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
-%for any $\alpha \leq \xi$.
-%\begin{enumerate}
-%\item there exists $\alpha$ such that
-%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
-%and $(\beta \otimes \tau) \odiv \sigma \leq \alpha$;
-%\item for every $\alpha$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then 
-%$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
-%\end{enumerate}
-%
-%Moreover, if  $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ then
-%$\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$, 
-%with $\sigma' = \tau' \otimes (\sigma \odiv \tau)$.
 \end{lemma}
 
 
@@ -1804,223 +1721,8 @@ e.g. if $\sigma = \bot$, in which case $\alpha = \top$.
 
 
 %
-\comment{
-\begin{theorem}[Completeness]
-Let $\langle A, \tau \rangle \to \langle B, \tau' \rangle$ be a reduction
-and $\tau \odiv \sigma \leq \monid$.
-%and $\sigma \leq \tau$.
-%
-If $\C$ is cancellative then there exists $\xi$ such that
-%$\langle A, \tau \rangle$ is a l-reachable configuration and
-for every $\sigma$ 
-there exists $\alpha$ such that 
-$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$,
-$\tau \odiv \sigma \leq \alpha$,
-$\tau' = \xi \otimes \tau$, and $\sigma' = \alpha \otimes \xi \otimes \sigma$.
-\end{theorem}
-
-%Since $\sigma \leq \tau$, by invertibility $\sigma \odiv \tau \leq \alpha$ implies $\sigma \leq \alpha \otimes \tau$,
-%%thus again by invertibility $\sigma = \tau \otimes \alpha \otimes (\sigma \odiv (\tau \otimes \alpha))$
-%which in turn again by invertibility implies $(\sigma \odiv \tau) \odiv \alpha = \sigma \odiv (\tau \otimes \alpha)$. 
-
-Note that a dual theorem holds for 
-
-\begin{proof}
-We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
-have equivalent proofs, namely, they use axioms and rules in the same order,
-up-to the obvious renaming (i.e., ${\bf A1}$ for ${\bf LA1}$, and so on).
-
-%First of all, note that by Lemma~\ref{minor} $\langle A, \sigma \rangle$ is reachable. So, 
-%we proceed by induction on the proof of
-Thus, consider the reduction $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$. 
-By Lemma~\ref{idred} we have that 
-$\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \sigma' \rangle$
-with the same proof and we can resort to the last two lemmata.
-
-The result is immediate for axiom ${\bf A3}$, with 
-$\alpha = \xi = \monid$, as well as for 
-${\bf R1}$.
-
-Consider ${\bf A1}$. 
-%and $\langle \hbox{\tell}(c) \mapsto A, \tau \rangle \xrightarrow{} \langle A, c \otimes \tau \rangle$.
-Thanks to Lemma~\ref{LA1}
-the result follows with $\alpha = \1$,
-since 
-%$\sigma' = c \otimes \sigma$ and $\tau' = c \otimes \tau$ 
-$\beta = \monid$ and by hypothesis $\tau \odiv \sigma \leq \1 = \alpha$.
-%by invertibility $\sigma' = \tau' \otimes (\sigma \odiv (\tau \otimes \alpha))$.
-
-Consider ${\bf A2}$.
-Thanks to Lemma~\ref{LA2} follows with $\xi = \1$,
-since $\beta = \monid$.
-
-\comment{
- we have 
-$\langle \hbox{\ask}(c) \mapsto A, \tau \rangle \xrightarrow{} \langle A, \tau \rangle$ 
-with $\tau \leq c$ and thus
-$\langle \hbox{\ask}(c) \mapsto A, \tau \rangle \xrightarrow{\alpha} \langle A, \alpha \otimes \tau \rangle$ 
-for some $\alpha \leq c\odiv \tau$.
-%
-Now $\sigma \leq c$
-implies $\sigma \odiv \tau \leq c \odiv \tau$,
-so it suffices to consider any $\alpha$ such that
-$\sigma \odiv \tau \leq \alpha \leq c \odiv \tau$.
-Indeed, as noted above this implies that $\sigma \leq \alpha \otimes \tau$
-and by invertibility 
-$\sigma' = \sigma = \alpha \otimes \tau \otimes  (\sigma \odiv (\tau \otimes \alpha)) = \tau' \otimes  (\sigma \odiv (\tau \otimes \alpha))$.
-\marginpar{se localizzato, allora vale anche $\alpha \leq \1$}
-}
-
-Let us  move to ${\bf R2}$ and consider 
-%the configurations 
-%$\langle \exists^\pi_x A, \tau \rangle$  and
-%$\langle \exists^\pi_x A, \sigma \rangle$
-%noting that they are both reachable, the former by Lemma~\ref{minor}.
-%we have that 
-%$\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$ and
-%$\tau = (\tau \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$
-%by Lemma~\ref{mono2}.
-%
-%Let us assume that for $x \not \in sv(\sigma)$: 
-%Then we have 
-the reduction
-    $$\frac {\displaystyle \langle A, \pi_0 \otimes \tau \rangle
-    \to \langle B, \tau \rangle \text{ with } \pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes}
-    {\displaystyle\langle \exists^{\pi}_x A,\tau\rangle \to \langle 
-    \exists^{\pi \rho}_x B, \tau \otimes \exists_x \rho
-    \rangle \text{ with } \rho = \tau \odiv (\pi_0 \otimes \tau)} $$
-%$$\langle \exists^\pi_x A, \sigma \rangle \to
-%  \langle \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho \rangle$$
-%  with $\sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes$ and $\rho = \sigma_1 \odiv (\pi_\otimes  \otimes \sigma_0)$.
-%The premise tells us that $\langle A, \pi_\otimes \otimes \sigma_0 \rangle$ is reachable and
-%$$\langle A, \pi_\otimes \otimes \sigma_0 \rangle \to
-%  \langle B, \sigma_1 \rangle$$
-%
-% such that $\sigma_1 =  (\sigma_1 \odiv ( \bigotimes \pi \otimes \sigma_0)) \otimes  \bigotimes \pi \otimes \sigma_0$
-% by Lemma~\ref{mono}.
-such that $x \not \in sv(\sigma) \cup sv(\tau)$.
-Now by induction hypothesis
-$$\langle A, \pi_0 \otimes \sigma \rangle  \xrightarrow{\alpha}
-  \langle B, \sigma_1 \rangle $$  for $\alpha$ such that 
-  $(\pi_0 \otimes \tau) \odiv (\pi_ 0 \otimes \tau) \leq \alpha$,
-$\tau_1 = \xi \otimes \pi_0 \otimes \tau$, and 
-$\sigma_1 = \alpha \otimes \xi \otimes \sigma$.
-Now, if $x \not \in \beta$ we can derive
-  $${\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \xrightarrow{\alpha} 
-   \langle \exists^{\pi \chi}_x B, \alpha \otimes  \sigma \otimes \exists_x \chi
-    \rangle \text{ with } \chi = \sigma_1 \odiv (\alpha \otimes \pi_0 \otimes \sigma)}$$
-and it suffices to prove that $\tau \odiv \sigma \leq \alpha$ and $\chi = \rho$.
-%since from these properties and cancellativeness 
-%
-%invertibility it follows that
-% $\sigma' = \sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \chi \otimes (\sigma \odiv (\tau \otimes \beta))) = 
-% \tau' \otimes (\sigma \odiv (\tau \otimes \beta))$.
-  
- % recalling that moreover
- % $\pi_\otimes \otimes \sigma_0 = \pi_\otimes \otimes \tau_0 \otimes ((\pi_\otimes \otimes \sigma_0) \odiv (\pi_\otimes \otimes \tau_0))$.
 
 
-%Moreover, 
-%$\tau_1 = (\tau_0 \odiv (\beta \otimes \bigotimes \pi \otimes \tau_0 )) \otimes  \beta \otimes \bigotimes \pi \otimes \tau_0$
-%by Lemma~\ref{l-mono}.
-%
-%\noindent
-As for the first property, note that by cancellativeness
-$a \odiv b = (a \otimes c) \odiv (a \otimes c)$, 
-% $a \leq b$ implies $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$,
-hence by inductive hypothesis we are done.
-%since $a \odiv b \leq (a \otimes c) \odiv (b \otimes c)$ in all residuated POMs.
-
-\comment{
-Now, recall that by monotonicity 
-$\sigma_1 = (\sigma_1 \odiv ( \pi_0 \otimes \sigma)) \otimes  \pi_0 \otimes \sigma$ (Lemma~\ref{mono}) and
-$\tau_1 = (\tau_1 \odiv (\beta \otimes \pi_0 \otimes \tau)) \otimes \beta \otimes \pi_0 \otimes \tau$ 
-(Lemma~\ref{l-mono}). 
-}
-%Further, we already shown that $((a \otimes b) \odiv b) \otimes b = a \otimes b$, which implies
-%that  $((a \odiv b) \otimes b) \odiv b = a \odiv b$. From the latter is follows that
-%\xi = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau _0)}
-
-Let us now move to consider the axiom at the basis of the reduction
-$$\langle A, \pi_0 \otimes \sigma \rangle \to  \langle B, \sigma_1 \rangle$$
-
-If it is \mbox{\bf A2}, that is \mbox{\bf L2} for the labelled reduction,
-since $\C$ is localised by Lemma~\ref{LA2} we have that 
-$\tau_1 = \pi_0 \otimes \tau$ and $\sigma_1 = \alpha \otimes \pi_0 \otimes \sigma$,
-%strengthening what is already specified in Lemma~\ref{l-mono}.
-hence $\rho = \chi = \1$, and we are done.
-
-If it is \mbox{\bf A1}, that is \mbox{\bf L1} for the labelled reduction, we have that 
-$\alpha = \1$ and
-%
-we must show the equivalence of $\rho =  \tau_1 \odiv (\pi_0 \otimes \tau)$ and
-$\chi = \sigma_1 \odiv (\pi_0 \otimes \sigma)$.
-%
-Since $\C$ is cancellative by Lemma~\ref{LA1}
-we have that $\sigma_1 = \chi \otimes \pi_0 \otimes \sigma$ 
-and $\tau_1 = \chi \otimes \pi_0 \otimes \tau$,
-and we are done.
-}
-%
-\comment{
-By induction hypothesis 
-$\sigma_1 = \tau_1 \otimes ((\pi_0 \otimes \sigma) \odiv (\pi_0 \otimes \tau))
-=  (\tau_1 \odiv ( \pi_0 \otimes \tau)) \otimes \pi_0 \otimes \sigma$,
-the latter equality proved by invertibility and Lemma~\ref{l-mono}, and thus $\xi \leq \rho$.
-Instead, $\rho \leq \xi$ is equivalent to 
- $(\sigma_1 \odiv (\pi_0 \otimes \sigma)) \otimes (\pi_0 \otimes \tau) \leq \tau_1$,
- which by invertibility and Lemma~\ref{mono} is equivalent to 
-$\sigma_1 \otimes ((\pi_0 \otimes \tau) \odiv (\pi_0 \otimes \sigma))  \leq \tau_1$,
-}
-%
-\comment{
-Since  $x \not \in sv(\sigma) \cup sv(\tau)$ we can assume that $x \not \in sv(\beta)$. Then, we have to prove that 
-$$\sigma \otimes \exists_x \rho = \beta \otimes \tau \otimes \exists_x \xi \otimes ((\sigma \otimes \exists_x \rho) \odiv (\beta \otimes \tau \otimes \exists_x \xi))$$
-with $\xi = \tau_1 \odiv (\beta \otimes \pi_\otimes \otimes \tau_0)$, as well as $\rho = \xi$.
-%
-\noindent
-Now, if $\beta = \monid$ by Theorem~\ref{sound}
-and Lemma~\ref{riminor}
-we have $\sigma_1 =  \tau_1 \otimes 
-((\bigotimes \pi \otimes \sigma_0) \odiv (\bigotimes \pi \otimes \tau_0))$
-and by induction hypothesis
-$$\langle \exists^\pi_x A, \tau \rangle \xrightarrow{\monid}
-  \langle \exists^{\pi \mu}_x B, \tau \otimes \exists_x \mu \rangle$$
-with $\mu = \tau_1 \odiv (\bigotimes \pi \otimes \tau_0)$, and we have to prove that
-$\sigma = \tau \otimes \sigma''$ and $\sigma \otimes \exists_x \rho = \tau \otimes  \exists_x \mu \otimes \sigma''$
-for some $\sigma''$.
-
-Let us choose $\alpha = \sigma \odiv \tau$, noting that 
-$x \not \in sv(\alpha)$ by Remark~\ref{remdiv}
-and that $\alpha \odiv \beta$ is a witness for $\sigma_2$, since
-$$\bigotimes \pi \otimes \tau_0 \otimes \beta \otimes (\alpha \odiv \beta) = 
-(\bigotimes \pi \odiv \exists_x \pi)  \otimes  \exists_x \pi \otimes \tau_0 \otimes \alpha =
-(\bigotimes \pi \odiv \exists_x \pi) \otimes \sigma$$
-$$\sigma_1 = \tau_1 \otimes (\alpha \odiv \beta) ?????$$
-%
-By Lemma~\ref{riminor} we have that
-$$\langle A, \bigotimes \pi \otimes \tau_0 \rangle  \xrightarrow{\alpha}
-  \langle B, \tau_1 \otimes (\alpha \odiv \beta) \rangle$$
-which implies
-  $$\langle \exists^\pi_x A, \tau \rangle  \xrightarrow{\alpha}
-  \langle \exists^{\pi \mu}_x B, \alpha \otimes \tau \otimes \exists_x \mu \rangle$$
-with $\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \pi  \otimes \tau_0)$.
-
-\noindent
-We must prove that $\sigma = \tau \otimes \alpha \otimes \sigma''$ and 
-$\sigma \otimes \exists_x \rho = \alpha \otimes \tau \otimes \exists_x \mu \otimes \sigma''$ for some $\sigma''$.
-Since $\alpha = \sigma \odiv \tau$, a possible solution would be $\sigma'' = \monid$,
-as long as $\rho = \mu$,
-%We should then prove that
-%$$\sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0) = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv 
-%(\alpha \otimes \bigotimes \pi  \otimes \tau_0)$$
-and the latter holds since
-$$\rho = \sigma_1 \odiv (\bigotimes \pi  \otimes \sigma_0) = \tau_1 \otimes \sigma_2 \odiv ((\bigotimes \pi  \odiv \exists_x \pi) \otimes \sigma)$$
-$$\mu = (\tau_1 \otimes (\alpha \odiv \beta)) \odiv (\alpha \otimes \bigotimes \pi  \otimes \tau_0) = 
-(\tau_1 \otimes (\alpha \odiv \beta)) \odiv ((\sigma \odiv \tau) \otimes (\bigotimes \pi  \odiv \exists_x \pi)  \otimes \tau)$$
-}
-%\qed
-%\end{proof}
 
 
 \section{Labelled bisimulation}
