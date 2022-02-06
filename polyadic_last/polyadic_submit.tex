@@ -52,6 +52,7 @@
 \def\bigominus{ {\text{ \large $\mathbf\odiv\hspace{-9.3pt} -$}} }
 
 
+
 %\defodiv{{ \odiv\hspace{-7.5pt} \div}}
 \def\0{{\mathbf 0}}
 \def\1{{\mathbf 1}}
@@ -77,6 +78,7 @@
 \long\def\comment#1{}
 \def\monop{\otimes}
 \def\odiv{\, {\ominus\hspace{-7.7pt} \div} \,}
+\def\apexodiv{\, {\ominus\hspace{-5.7pt} \div} \,}
 \def\monid{\mathbf{1}}
 
 \newcommand{\SCCP}{\texttt{SCCP}\xspace}
@@ -110,7 +112,7 @@ Francesco Santini\inst{2}
 \maketitle
 
 \begin{abstract}
-We extend Soft Concurrent Constraint languages with the possibility to define both local and global knowledge, in the form of variables and constraints associated with them. Being constraints defined as soft, the underlying system of preferences consists in an ordered monoid where it is possible to represent, partially ordered and bipolar (positive/negative) preferences. Such a formalism is more general than previous literature and it allows for a \emph{polynomial}  representation of soft constraints. We provide labelled and unlabelled reduction semantics and their correspondence, together with bisimulation equivalences of such languages.
+We extend Soft Concurrent Constraint languages with the possibility to define both local and global knowledge, in the form of variables and constraints associated with them. Being constraints defined as soft, the underlying system of preferences consists in an ordered monoid where it is possible to natively represent, partially ordered and bipolar (i.e., positive/negative) preferences. Such a formalism is more general than previous literature, and it allows for a \emph{polynomial}  representation of soft constraints. We provide labelled and unlabelled reduction semantics and their correspondence, together with bisimulation equivalences of such languages.
 \end{abstract}
 
 \keywords{Soft concurrent constraint programming, local variables, observational semantics, polyadic algebras, residuated monoids.}
@@ -125,9 +127,12 @@ While polyadic algebras are the algebraic version of the pure first-order calcul
 
  While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (to perform parameters passing~\cite{popl91} and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the join semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
 
-\emph{Polyadic Soft Language} is \todo{to be introduced}
+The CCP language we present is a generalisation of what can be found in the literature (see also Sect.~\ref{sec:related}): first, it can naturally model bipolar (i.e., positive/negative) preferences within a single structure without joining two semirings together~\cite{posneg}, and secondly, the use of polyadic algebras can be exploited to model
+many problems by using a comfortable polynomial representation of constraints. In fact, polynomial constraints  play an important role in program analysis and verification (e.g. when synthesising program invariants), and they have been recently used in SAT modulo theories~\cite{smtpolynomial}.
+An agent expressed in this language may perform operations  on variables (in particular, adding constraints) that are visible only to such an agent: for this reason, the \emph{hiding} operator needs to consider the effect of local steps with respect to the global store, seen by all the agents.
+This paper is a continuation of \cite{festcatuscia} with a concurrent constraint language on top of its, and process-equivalence relations.
 
-This work originates from \cite{festcatuscia}, where a first implementation of polyadic constraints was ideated (together with a polynomial representation of soft constraints). However, this paper extends that first attempt with a concurrent constraint language on top of its, and process-equivalence relations.
+
 The work is organised as  follows: in Sect~\ref{sec:related} we summarise the most related work about CCP-based languages with the notion of local and global variables. Then, Sect.~\ref{sec:bg}  presents the necessary background on the algebraic structure needed to model polyadic constraints. Section~\ref{sec:newconstraint}
 The following sections are focused on the semantics we can give to a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on  equivalence relations among processes.
 Section~\ref{sec:detpolyadicCCP} presents the syntax and a  reduction semantics for the language, while Sect.~\ref{sec:labelled} presents a labelled reduction for the same language.
@@ -155,7 +160,7 @@ All the systems described in this section are based on hard constraints, and  th
 This section reports some results on residuated monoids,
 which are the algebraic structure adopted for modelling
 soft constraints in the following of the paper.
-Results are mostly drawn from~\cite{jlamp17}, where also proofs can be found.
+These background results are mostly drawn from~\cite{jlamp17}, where also proofs can be found.
 
 
 \subsection{Preliminaries on Ordered Monoids}\label{sec:lem}
@@ -231,8 +236,7 @@ We let $A^C \subseteq A$ denote the set of compact elements of ${\mathbb C}$. }
 	a commutative and associative function and $\1 \in A$ is its \emph{identity} element,
 	i.e., $\forall a \in A. a \monop \1 = a$.
 %	
-	A partially ordered monoid (POM) is a 4-tuple
-	$\langle A, \leq, \monop, \1 \rangle$ such that 	
+	A partially ordered monoid (POM) is a 4-tuple $\langle A, {\leq,} \monop, \1 \rangle$ such that 	
 	$\langle A, \leq \rangle$ is a PO and $\langle A, \monop, \1 \rangle$ a monoid.
 	%
 	A semi-lattice monoid (SLM) is a 
@@ -349,8 +353,7 @@ They introduce a new operator $\odiv$, which represents a ``weak'' (due to the p
 \begin{definition}[residuation]\label{def:repo}
 	A residuated POM is a 5-tuple $\langle A, \leq, \monop, \odiv, \monid \rangle$ such that
 	$\langle A, \leq, \monop, \monid \rangle$ is a partially ordered monoid and
-	$\odiv: A \times A \rightarrow A$ is a function satisfying $\forall a, b, c \in A. b \monop c \leq a \iff c \leq a \odiv b$.
-%	An ReSL is an RePO such that the underlying PO is a SL.
+	$\odiv: A \times A \rightarrow A$ is a function satisfying $\forall a, b, c \in A. b \monop c \leq a \iff c \leq a \odiv b$. An ReSL is an RePO such that the underlying PO is a SL.
 \end{definition}
 
 %In the following sections on oft CCP, we will often use absorptive RePOs, i.e., such that 
@@ -433,9 +436,6 @@ it is implied, since
 $((a \otimes b) \odiv a)\otimes a = a \otimes b$ holds in residuated POMs.
 \end{remark}
 
-
-[CAPIRE COSA SALVARE DA QUA ALLA FINE DELLA SEZIONE]
-
 In order to ease the verification of the algebraic structure, it is often needed
 a characterisation of residuation via simpler properties,
 as the ones given below.
@@ -443,7 +443,7 @@ as the ones given below.
 \begin{lemma}
 \label{mono}
 Let $\langle A, \leq, \monop, \monid \rangle$ be a POM  and
-	$\odiv: A \times A \rightarrow A$ a function. Then $\langle A, \leq, \monop, \odiv, \monid \rangle$ is a residuated POM if and only if
+	$\odiv: A \times A \rightarrow A$ a function. Then we have $\langle A, \leq, \monop, \odiv, \monid \rangle$ is a residuated POM if and only if
 	\begin{itemize}
 		\item $\forall a, b \in A. b \monop (a \odiv b) \leq a \leq (b \monop a) \odiv b$,
 		\item $\forall a, b, c \in A.\, a \leq b \implies a \otimes c \leq b \otimes c$ and $a\odiv c \leq b \odiv c$.
@@ -462,9 +462,9 @@ Let $\langle A, \leq, \monop, \monid \rangle$ be a POM  and
 %\end{remark}
 
 \begin{remark}\label{rmk:soft}
-	Some well-known structures used for soft constraints are the 
+	Some well-known structures used with soft constraints are the 
 	%\emph{Boolean} ($\langle \{\mathit{false},\mathit{true}\}, \mathit{false} \leq \mathit{true}, \wedge, \mathit{false}, \mathit{true}\rangle$), 
-	\emph{Fuzzy} ($\langle [0,1], \leq,$ $\min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], \leq, \allowbreak\times, 1 \rangle$), 
+	\emph{Fuzzy} ($\langle [0,1],$ $\leq, \min, 1 \rangle$), \emph{Probabilistic} ($\langle [0,1], {\leq,} \allowbreak\times, 1 \rangle$), 
 	and \emph{Tropical}   ($\langle \mathbb{R}^+, \geq, +, 0 \rangle$) semirings, for $\geq$ the inverse of the standard order 
 	(thus $0$ the top of the SL). In all these cases the underlying monoids 
 	are both invertible and localised, thus
@@ -509,7 +509,7 @@ Moreover, it also holds that $\bigvee \{ a \odiv x \mid x \in X \} \geq a \odiv 
 \end{proposition}
 
 
-
+\comment{
 There are some important classes of residuated SLMs  such that $\odiv$ is easily proved to be distributive in the first argument,
 while it is not so with respect to the second one.
 %argument, not even in the absorptive case.
@@ -547,7 +547,7 @@ while instead $\bigvee\{(m+1) \ominus m, (m+1) \ominus (m+1)\} = 0$.
 Note that distributivity implies that $c \otimes (a \odiv b) = (c \otimes a) \odiv (c \otimes b)$,
 from which cancellativity follows.
 \end{remark}
-
+}
 
 %\begin{remark}
 %In general, given an ReSL $\mathbb{M} = \langle A, \leq, \otimes, \odiv, \monid \rangle$, if $A \subseteq B$ such that $B(\otimes)$ is a group and $\odiv$
@@ -1051,6 +1051,27 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 	and $\exists_x c$ is denoted $c\Downarrow_{V\setminus \{x\}}$.}
 
 
+\begin{example}[A polynomial presentation]\label{execlim2}
+	Affine constraints can be represented as linear polynomials with coefficients in $\mathbb{N}$	
+	and constant term in $\mathbb{S}$.
+	Consider, for instance, as $\mathbb S$ the ReSL of non-negative reals, 
+	and as $D$ a finite subset of such reals.
+	An affine constraint with variables in $V = \{x,y\}$ 
+	is interpreted as the soft constraint associating 
+	with a function $\eta: V \rightarrow D$ the real 
+	obtained as $(a \, \times \, \eta(x)) \, + \, (b \, \times \, \eta(y)) \, + \, i$ (where $a=p(x)$ and $b=p(y)$ are coefficients in $\mathbb{N}$, and $i$ a constant in $\mathbb{S}$).
+	What is relevant is that the composition of such constraints is precisely 
+	the addition of polynomials. 
+	
+	As expected, the ordering depends both on the coefficients and the constant term.
+	%
+	For example, let us consider the polynomials $2x \, + \, 1$ and $x \, + \, 5$
+	and let us assume that $D = \{1, 2, 3\}$: It holds that
+	$(2x \, + \, 1)\monop (x \, + \, 5) = (3x + 6)$ and  
+	$2x \, + \, 1 \leq x \, + \, 5$.
+\end{example}
+
+
 \section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detpolyadicCCP}
 This section introduces our language.
 We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
@@ -1150,7 +1171,7 @@ Table~\ref{fig:operational} and Table~\ref{fig:operational2}.
 %\def\odiv{\; {\ominus\hspace{-6pt} \div} \;}
 %\def\odivvv{\; {\ominus\hspace{-6pt} \div} \;}
 
-\begin{table}  %\hfil5
+\begin{table}[t]  %\hfil5
   %\scalebox{0.9}{
    \begin{center}
    \begin{tabular}{lcll} 
@@ -1278,10 +1299,10 @@ $\langle \exists_x A, \monid \rangle$.
 Assuming that $c$ is added to the store, with both choices we end up with the reduction
 $\gamma \to \langle \exists_x^{[ c ]} \hbox{\tell}(d), \monid \rangle$.
 With the alternative definition for the global store, we would then reach 
- $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \bot \rangle$,
+ $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \apexodiv c]} \hbox{\ostop}, \bot \rangle$,
  thus lifting to the global store the unsatisfiability of the local one.
  Instead, with our choice we obtain 
- $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \odiv c]} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
+ $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \apexodiv c]} \hbox{\ostop}, \exists_x (\bot \odiv c) \rangle$, 
 % since $\sigma \otimes \exists_x(\sigma_1 \odiv (\rho \otimes \sigma _0)) 
 %= \monid \otimes \exists_x ( \bot \odiv (c \otimes \monid))$.
 Now, obviously $\bot \leq \bot \odiv c$: the equality may hold if e.g. the semiring does not have zero divisors, 
@@ -1524,9 +1545,9 @@ For the rules in Table~\ref{fig:ALTS}, as well as for rule {\bf  LR1}, we can re
 The difference concerns the axioms for the $\hbox{\ask}(c)$: if $c$ is not entailed from $\sigma$, then
 some additional information  is imported from the environment, ensuring that the state
 $\alpha \otimes \sigma \leq c$ allows the execution of $\hbox{\ask}(c)$.
-The requirement $\alpha \leq \1$ ensures that the received information strengthens the store, 
+\comment{The requirement $\alpha \leq \1$ ensures that the received information strengthens the store, 
 i.e., $\alpha \otimes \sigma \leq \sigma$.
-\todo{$\alpha \leq \1$ si pu\`o rimuovere}
+\todo{$\alpha \leq \1$ si pu\`o rimuovere}}
 %in order not to put forward future requests, as it might be otherwise needed for e.g. 
 %$\hbox{\ask}(c) \to \hbox{\ask}(c) \to \hbox{\ostop}$.
 
