@@ -128,8 +128,12 @@ While polyadic algebras are the algebraic version of the pure first-order calcul
 \emph{Polyadic Soft Language} is \todo{to be introduced}
 
 This work originates from \cite{festcatuscia}, where a first implementation of polyadic constraints was ideated (together with a polynomial representation of soft constraints). However, this paper extends that first attempt with a concurrent constraint language on top of its, and process-equivalence relations.
-The work is organised as  follows: in Sect.~\ref{sec:bg} we present the necessary background on the algebraic structure needed to model polyadic constraints. Then, Sect~\ref{}, 
-Section~\ref{sec:detpolyadicCCP} presents the PSCCP language. 
+The work is organised as  follows: in Sect~\ref{sec:related} we summarise the most related work about CCP-based languages with the notion of local and global variables. Then, Sect.~\ref{sec:bg}  presents the necessary background on the algebraic structure needed to model polyadic constraints. Section~\ref{sec:newconstraint}
+The following sections are focused on the semantics we can give to a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on  equivalence relations among processes.
+Section~\ref{sec:detpolyadicCCP} presents the syntax and a  reduction semantics for the language, while Sect.~\ref{sec:labelled} presents a labelled reduction for the same language.
+Section~\ref{sec:correspondancebis} shows further formal results on the correspondence between the two semantics, and a bisimilarity relation to compare processes with the labelled semantics. In Sect.~\ref{sec:conclusion} we finally wrap up the paper with conclusive thoughts and ideas about possible future work.
+
+
 
 \section{Related Work}\label{sec:related}
 As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores, and information mobility.\todo{inserisci catuscia e pippo}
@@ -736,8 +740,7 @@ $\bigvee \{p \odiv n, u \odiv n\}  = \bot < \bigvee \{p, u\} \odiv n = t \odiv n
 \end{example}
 }
 
-\section{An Alternative Proposal for Constraint Manipulation}
-\label{newpro}
+\section{An Alternative Proposal for Constraint Manipulation}\label{sec:newconstraint}
 
 This section presents our personal take on polyadic algebras for ordered monoids:
 the standard axiomatisation of e.g.~\cite{sagi2013} has been completely 
@@ -1405,7 +1408,7 @@ then $C[A] \sim_{\mathit{s}} C[B]$.
 
 
 
-\section{Labelled reduction semantics}
+\section{Labelled reduction semantics}\label{sec:labelled}
 The definition of $\sim_{\mathit{s}}$ 
 %and $\approx_{\mathit{s}}$ are fully abstract, they are somewhat 
 is unsatisfactory
@@ -1616,8 +1619,11 @@ $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes
 \end{lemma}
 
 
-\section{On the correspondence between reduction semantics}
-\label{corres}
+\section{Semantics correspondence and labelled bisimilarity}\label{sec:correspondancebis}
+We collect further formal results in two different subsections: Sect.~\ref{sec:corres} proves the correspondence between the two unlabelled and labelled semantics, while Sect.~\ref{sec:bisimilarity} propose a bisimilarity reduction for the labelled  semantics.
+
+\subsection{On the correspondence between reduction semantics}
+\label{sec:corres}
 This section shows the connection between labelled and unlabelled reduction semantics.
 %We say that a configuration $\gamma$ is reachable if there exists an initial agent $A$ such that
 %$\langle A, \sigma \rangle \to^\ast \gamma$, and it is l-reachable if 
@@ -1693,10 +1699,6 @@ and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
 Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ with $\alpha \leq \beta$. 
 %
 If $\beta \neq \monid$ then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B, \tau' \otimes (\alpha \odiv \beta) \rangle$.
-%\\
-%
-%Then $\langle A, \tau \rangle \xrightarrow{\alpha} \langle B', \tau'' \rangle$
-%and $\tau'' \leq \tau'$.
 \end{lemma}
 
 \todo{questo lemma ora serve?}
@@ -1725,7 +1727,7 @@ e.g. if $\sigma = \bot$, in which case $\alpha = \top$.
 
 
 
-\section{Labelled bisimulation}
+\subsection{Labelled bisimulation}\label{sec:bisimilarity}
 We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
 As it occurs with the crisp language~\cite{pippo} and the soft variant with global variables~\cite{festcatuscia}, 
 %and differently from most process calculi~\ref{xxx}, 
@@ -1809,6 +1811,7 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 
 
 \section{Concluding Remarks}\label{sec:conclusion}
+We have 
 
 \bibliographystyle{splncs03}%splncs
 \bibliography{main,softccp}
