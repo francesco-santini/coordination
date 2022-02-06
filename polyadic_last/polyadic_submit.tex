@@ -112,7 +112,7 @@ Francesco Santini\inst{2}
 \maketitle
 
 \begin{abstract}
-We extend Soft Concurrent Constraint languages with the possibility to define both local and global knowledge. Being constraints defined as soft, the underlying system of preferences consists in an ordered monoid where it is possible to natively represent partially ordered and bipolar (i.e., positive/negative) preferences. Such a formalism is more general than previous literature, and it also grants  a \emph{polynomial}  representation of soft constraints that can be exploited in  several applications. Variables, which support constraints, can either be private to a single agent, or in common with all of them, thus allowing  for different levels of visibility. We provide labelled and unlabelled reduction semantics and their correspondence, together with bisimulation equivalences.
+We extend Soft Concurrent Constraint languages with the possibility to define both local and global knowledge. Being constraints defined as soft, the underlying system of preferences consists in an ordered monoid where it is possible to natively represent partially ordered and bipolar (i.e., positive/negative) preferences. Such a formalism is more general than previous literature, and it also grants  a \emph{polynomial}  representation of soft constraints that can be exploited in  several applications. Variables, which support constraints, can either be private to a single agent, or in common with all of them, thus allowing  for different levels of visibility. We provide labelled and unlabelled reduction semantics and their correspondence, together with a labelled bisimulation equivalence.
 \end{abstract}
 
 \keywords{Soft concurrent constraint programming, local variables, observational semantics, polyadic algebras, residuated monoids.}
@@ -1805,7 +1805,7 @@ We improved on the feasibility of $\sim$ by requiring that the equivaence is upw
 only whenever the store may be worsened. Note that in some cases, e.g. 
 when $\mathcal{C}$ is absorptive, the clause is vacuous. 
 %
-However, thanks to the correspondence results in Section~\ref{corres}, 
+However, thanks to the correspondence results in Section~\ref{sec:corres}, 
 it can be proved upward closed for all $d$, and thus also a congruence.
 %
 %Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
@@ -1830,8 +1830,13 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 %\end{theorem}
 
 
-\section{Concluding Remarks}\label{sec:conclusion}
-We have 
+\section{Conclusion}\label{sec:conclusion}
+With the language we presented in this paper, our goal was to further extend and generalise  the family of CCP-based languages . In fact, \emph{i)}  with respect to crisp languages we can  represent preferences, and thus both hard and soft constraints. Then, \emph{ii)} polyadic operators make it possible  to have a compact – \emph{polynomial} – representation of soft constraints, which in turn can be used in several applications, as in hybrid systems, loop invariant generation, and parameter design of control.  Furthermore, \emph{iii)} the polyadic algebra we adopted takes advantage of a residuated POM which allows preference values to be partially ordered and bipolar, while $\odiv$ permits to easily compute barbs and remove one constraint (store) from another.
+
+For the future, we conceive more applicative extensions of the language we designed: while in this paper we focused on its formal definition, semantics, and process equivalence, we can think of applications fields concerning epistemic concepts or process migration from node to node, as some of the proposals in Sect.~\ref{sec:related} offer.
+
+Separately from the process algebra focus we developed in this paper, we can also think of defining the class of Polynomial \emph{Soft} Constraint Satisfaction Problems (PSCSPs), 
+as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Consequently, we can implement polynomial constraint satisfaction as a SMT module where agents can tell constraints and ask for their satisfaction.
 
 \bibliographystyle{splncs03}%splncs
 \bibliography{main,softccp}
