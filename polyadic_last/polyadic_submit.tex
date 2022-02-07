@@ -270,7 +270,7 @@ Conventionally, we denote $\bigotimes \emptyset = \bot$.
 In general, the partial order $\leq$ and the multiplication operator $\otimes$ can be unrelated.
 This is not the case for distributive SLMs.
 
-\begin{definition}[distributivity]
+\begin{definition}[Distributivity]
 \label{dist}
 Let $\langle A, \leq, \monop, \monid \rangle$ be an SLM.
 It is distributive if
@@ -349,7 +349,7 @@ The structure of our choice is given by residuated monoids~\cite{golanShort}.
 %
 They introduce a new operator $\odiv$, which represents a ``weak'' (due to the presence of partial orders) inverse of $\otimes$.
 
-\begin{definition}[residuation]\label{def:repo}
+\begin{definition}[Residuation]\label{def:repo}
 	A residuated POM is a 5-tuple $\langle A, \leq, \monop, \odiv, \monid \rangle$ such that
 	$\langle A, \leq, \monop, \monid \rangle$ is a partially ordered monoid and
 	$\odiv: A \times A \rightarrow A$ is a function satisfying $\forall a, b, c \in A. b \monop c \leq a \iff c \leq a \odiv b$. An ReSL is an RePO such that the underlying PO is a SL.
@@ -402,7 +402,7 @@ These latter facts suggests the definition below, which identifies sub-classes
 of residuated monoids that are suitable for an easier manipulation
 of constraints (see e.g.~\cite{ecai06}).
 
-\begin{definition}[families]
+\begin{definition}[Families]
 	A residuated POM $\langle A, \leq, \monop, \odiv, \monid \rangle$ is
 	\begin{itemize}
 		\item
@@ -790,7 +790,7 @@ that $\phi$ is a monoid action of $\mathbb{M}$ on $S$, while the latter states t
 We fix a POM $\mathbb{S} = \langle A, \leq, \monop, \monid \rangle$
 and a set $V$ of variables, and we define a family of cylindric operators axiomatising existential quantifiers.
 
-\begin{definition}[cylindrification]\label{cyli}
+\begin{definition}[Cylindrification]\label{cyli}
 	A cylindric operator $\exists$ over $\mathbb{S}$ and $V$ ia family of monotone functions
 	$\exists_x : A \rightarrow A$ indexed by elements in V such that for all 
 	$a, b \in A$ and $x, y \in V$
@@ -844,7 +844,7 @@ by $\sigma^{c}(X)$ the counter-image of $X$ along $\sigma$.
 %~\footnote{We are not going to need the other standard component proposed in the literature , i.e., \emph{diagonals}: a %family of elements $d_{x, y} \in A$ indexed by pairs of elements in $V$.}
 
 
-\begin{definition}[polyadification]
+\begin{definition}[Polyadification]
 	\label{def:poly}
 	A polyadic operator $s$ for a cylindric operator $\exists$ is a family of monotone functions 
 	$s_\sigma: A \rightarrow A$
@@ -977,7 +977,7 @@ Furthermore, if $\sigma$ is invertible, then the equality holds.
 We are now ready to advance our proposal of soft constraints: it follows yet generalises \cite{scc},
 whose underlying algebraic structure is the one of absorptive semirings.
 
-\begin{definition}[(soft) constraints]\label{def:softconstraints}
+\begin{definition}[(Soft) Constraints]\label{def:softconstraints}
 	Let $V$ be a set of variables, $D$ a finite domain of interpretation
 	and ${\mathbb S} = \langle A, \leq, \monop, \odiv, \monid \rangle$ a residuated SLM.
 	A \emph{(soft) constraint} $c: (V \rightarrow D) \rightarrow
@@ -1009,7 +1009,7 @@ c\eta_2$).
 The set of constraints forms a residuated SLM, with the structure
 lifted from ${\mathbb S}$.
 
-\begin{lemma}[the ReSL of constraints]\label{prop:soft}
+\begin{lemma}[The ReSL of constraints]\label{prop:soft}
 	The ReSL of constraints $\mathbb C$ is
 	defined as the tuple $\langle {\mathcal C}, \leq, \monop, \odiv, \monid \rangle$ such that
 	
@@ -1831,12 +1831,14 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 
 
 \section{Conclusion}\label{sec:conclusion}
-With the language we presented in this paper, our goal was to further extend and generalise  the family of CCP-based languages . In fact, \emph{i)}  with respect to crisp languages we can  represent preferences, and thus both hard and soft constraints. Then, \emph{ii)} polyadic operators make it possible  to have a compact – \emph{polynomial} – representation of soft constraints, which in turn can be used in several applications, as in hybrid systems, loop invariant generation, and parameter design of control.  Furthermore, \emph{iii)} the polyadic algebra we adopted takes advantage of a residuated POM which allows preference values to be partially ordered and bipolar, while $\odiv$ permits to easily compute barbs and remove one constraint (store) from another.
+With the language we presented in this paper, our goal was to further extend and generalise  the family of CCP-based languages . In fact, \emph{i)}  with respect to crisp languages we can  represent preferences, and thus both hard and soft constraints. Then, \emph{ii)} polyadic operators make it possible  to have a compact – \emph{polynomial} – representation of soft constraints, which in turn can be used in several applications, as in hybrid systems, loop invariant generation, and parameter design of control.  Furthermore, \emph{iii)} the polyadic algebra we adopted takes advantage of a residuated POM which allows preference values to be partially ordered and bipolar, while $\odiv$ permits to easily compute barbs and remove one constraint (store) from another. 
+
+In the case of ``soft languages'', the removal of constraints can also be partial, while in case of ``crisp  languages'', constraint tokens can only be entirely removed or left in the store. A \emph{retract} operation could also be directly included in the language syntax, in the style of \cite{fun11,buscemi}, even if it is not in the scope of this paper.
 
 For the future, we conceive more applicative extensions of the language we designed: while in this paper we focused on its formal definition, semantics, and process equivalence, we can think of applications fields concerning epistemic concepts or process migration from node to node, as some of the proposals in Sect.~\ref{sec:related} offer.
 
 Separately from the process algebra focus we developed in this paper, we can also think of defining the class of Polynomial \emph{Soft} Constraint Satisfaction Problems (PSCSPs), 
-as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Consequently, we can implement polynomial constraint satisfaction as a SMT module where agents can tell constraints and ask for their satisfaction.
+as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Hence, we can implement polynomial constraint satisfaction as a SMT module where agents can tell constraints and ask for their satisfaction.
 
 \bibliographystyle{splncs03}%splncs
 \bibliography{main,softccp}
