@@ -435,6 +435,7 @@ it is implied, since
 $((a \otimes b) \odiv a)\otimes a = a \otimes b$ holds in residuated POMs.
 \end{remark}
 
+\todo{mi sembra che le propriet\`a seguenti non servano}
 In order to ease the verification of the algebraic structure, it is often needed
 a characterisation of residuation via simpler properties,
 as the ones given below.
@@ -836,9 +837,10 @@ We now move to define a family of operators axiomatising substitutions.
 They interact with quantifiers, thus, beside a partially ordered monoid $\mathbb{S}$
 and a set $V$ of variables, we fix a cylindric operator $\exists$ over ${\mathbb S}$ and $V$.
 
-As for notation, we let $F(V)$ be the set of functions with domain and codomain $V$.
-For a function $\sigma: V \rightarrow V$ we let $supp(\sigma) = \{x \mid \sigma(x) \neq x\}$
-and, given a set $X \subseteq V$, we denote by 
+As for notation, $F(V)$ is the set of functions with domain and codomain $V$.
+For a function $\sigma$ %: V \rightarrow V$ 
+we define its support as $sv(\sigma) = \{x \mid \sigma(x) \neq x\}$
+and, for a set $X \subseteq V$, we denote by 
 $\sigma \mid_{X}: X \rightarrow V$ the restriction and
 by $\sigma^{c}(X)$ the counter-image of $X$ along $\sigma$.
 %~\footnote{We are not going to need the other standard component proposed in the literature , i.e., \emph{diagonals}: a %family of elements $d_{x, y} \in A$ indexed by pairs of elements in $V$.}
@@ -972,7 +974,7 @@ Furthermore, if $\sigma$ is invertible, then the equality holds.
 \end{lemma}
 
 
-\subsection{Polyadic Soft Constraints}\label{sec:softconstraints}
+\subsection{Polyadic Soft Constraints [serve tenerla?]}\label{sec:softconstraints}
 \label{subsec:inst} 
 We are now ready to advance our proposal of soft constraints: it follows yet generalises \cite{scc},
 whose underlying algebraic structure is the one of absorptive semirings.
@@ -1087,7 +1089,7 @@ p(x) \mid \exists_x A\]
 %for $\pi \in {\mathcal C}^\ast$ a (possibly empty) sequence of elements.
 \end{definition}
 
-In the following we will consider 
+In the following we consider 
 a set $\mathcal{E}$ of extended agents that uses the existential operator $\exists^{\pi}_x A$, 
 where $\pi \in {\mathcal C}^\ast$ is meant to represent the sequence of updates performed on the local store. 
 More precisely, the extended agent may carry some information about the hidden variable 
@@ -1435,8 +1437,11 @@ is unsatisfactory
 because of the store closure, i.e., the quantification in condition \emph{3} of 
 Definiton~\ref{def:strongsb}.
 % and Definition~\ref{def:weaksb}.
-This section presents a labelled version of the reduction semantics that will be used to 
-define a suitable bisimulation that avoids such drawback.
+This section presents a labelled version of the reduction semantics that 
+allow to partially 
+%will be used to 
+%define a suitable bisimulation that 
+avoid such drawback.
 
 \begin{definition}[Labelled reductions]
 	Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
