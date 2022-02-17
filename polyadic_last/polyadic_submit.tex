@@ -437,7 +437,7 @@ it is implied, since
 $((a \otimes b) \odiv a)\otimes a = a \otimes b$ holds in residuated POMs.
 \end{remark}
 
-\todo{mi sembra che le propriet\`a seguenti non servano}
+\comment{
 In order to ease the verification of the algebraic structure, it is often needed
 a characterisation of residuation via simpler properties,
 as the ones given below.
@@ -474,7 +474,7 @@ Let $\langle A, \leq, \monop, \monid \rangle$ be a POM  and
 	the $\odiv$ operator can be also used to
 	(partially) relax constraints (see again~\cite{ecai06}).
 \end{remark}
-
+}
 
 
 \comment{
@@ -501,6 +501,7 @@ Moreover, it also holds that $\bigvee \{ a \odiv x \mid x \in X \} \geq a \odiv 
 %\end{remark}
 }
 
+\comment{
 \begin{proposition}\label{reabs}
 	Let $\langle A, \leq, \monop, \odiv, \monid \rangle$ be a residuated SLM. The following are equivalent
 	\begin{enumerate}
@@ -509,7 +510,7 @@ Moreover, it also holds that $\bigvee \{ a \odiv x \mid x \in X \} \geq a \odiv 
 		\item $\forall a, b \in A.\, a \leq b \implies b \odiv a = \1$
 	\end{enumerate}	
 \end{proposition}
-
+}
 
 \comment{
 There are some important classes of residuated SLMs  such that $\odiv$ is easily proved to be distributive in the first argument,
@@ -976,103 +977,7 @@ Furthermore, if $\sigma$ is invertible, then the equality holds.
 \end{lemma}
 
 
-\subsection{Polyadic Soft Constraints [serve tenerla?]}\label{sec:softconstraints}
-\label{subsec:inst} 
-We are now ready to advance our proposal of soft constraints: it follows yet generalises \cite{scc},
-whose underlying algebraic structure is the one of absorptive semirings.
 
-\begin{definition}[(Soft) Constraints]\label{def:softconstraints}
-	Let $V$ be a set of variables, $D$ a finite domain of interpretation
-	and ${\mathbb S} = \langle A, \leq, \monop, \odiv, \monid \rangle$ a residuated SLM.
-	A \emph{(soft) constraint} $c: (V \rightarrow D) \rightarrow
-	A$ is a function associating a value in $A$ with each assignment
-	$\eta: V\rightarrow D$ of the variables.
-\end{definition}
-
-In this section and in the following one, we denote by $\mathcal{C}$ the set of constraints that can be
-built starting from chosen $\mathbb S$, $V$, and $D$. The application of a
-constraint function $c:(V \rightarrow D) \rightarrow A$ to a variable
-assignment $\eta:V\rightarrow D$ is denoted $c\eta$.  
-
-A constraint involves all the variables in $V$, yet it may depend on
-the assignment of a finite subset of them, called its support. For
-instance, a binary constraint $c$ with $supp(c)=\{x,y\}$ is a function
-$c: (V\rightarrow D)\rightarrow A$ that depends only on the
-assignment of variables $\{x,y\}\subseteq V$, meaning that two
-assignments $\eta_1, \eta_2: V \rightarrow D$ differing only for the
-image of variables $z \not \in \{x,y\}$ coincide (i.e., $c\eta_1 =
-c\eta_2$).
-%
-%The support corresponds to the classical notion of scope of a
-%constraint.  We often refer to a constraint with support $X$ as $c_X$.
-%Moreover, an assignment over a support $X$ of cardinality $k$ is concisely
-%represented by a tuple $t$ in $D^k$, and we often write $c_X(t)$
-%instead of $c_X\eta$.
-
-\smallskip
-The set of constraints forms a residuated SLM, with the structure
-lifted from ${\mathbb S}$.
-
-\begin{lemma}[The ReSL of constraints]\label{prop:soft}
-	The ReSL of constraints $\mathbb C$ is
-	defined as the tuple $\langle {\mathcal C}, \leq, \monop, \odiv, \monid \rangle$ such that
-	
-	\begin{itemize}
-		\item $c_1 \leq c_2$ if $c_1\eta\leq c_2\eta$ for all $\eta: V \rightarrow D$,
-		\item $(c_1\monop c_2)\eta = c_1\eta\monop c_2\eta$, %for $c_1, c_2\ \in {\mathcal C}$
-		\item $(c_1\odiv c_2)\eta = c_1\eta\odiv c_2\eta$, %for $c_1, c_2\ \in {\mathcal C}$
-		\item $\monid \eta = \monid$.
-	\end{itemize}
-\end{lemma}
-
-
-Combining constraints by the $\monop$ operator
-means building a new constraint whose support involves at most
-the variables of the original ones. The resulting constraint  associates with
-each tuple of domain values for such variables the element
-that is obtained by multiplying  those associated by the
-original constraints to the appropriate sub-tuples.
-
-\begin{lemma}[Cylindric and polyadic operators for (soft) constraints]
-	The ReSL of constraints $\mathbb{C}$ admits cylindric and polyadic operators, defined as
-	\begin{itemize}
-		\item  $(\exists_x c) \eta = \bigvee \{c \rho \mid \eta\mid_{V \setminus \{x\}} = 
-		\rho\mid_{V \setminus \{x\}}\}$ for all $c \in {\mathcal C}, x \in V$
-		%\item if $\sigma$ is an injective substitution, then $(s_{\sigma}c)\eta = c(\sigma \circ \eta)$ 
-		%for all $c \in \mathcal{C}$
-		\item  $(s_\sigma c) \eta = c (\eta \circ \sigma)$ for all $c \in {\mathcal C}, \sigma \in F(V)$	
-%		\item $\delta_{x,y}\eta = \left\{
-%		\begin{array}{rcl} \bot & & \text{if } \eta(x) = \eta(y); \\
-%		\top & & \text{otherwise.}
-%		\end{array} \right.$ for all $x, y \in V$
-	\end{itemize}
-\end{lemma}
-
-Hiding means eliminating variables from the support:
-$supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
-	is called \emph{projection} in the soft framework,
-	and $\exists_x c$ is denoted $c\Downarrow_{V\setminus \{x\}}$.}
-
-
-\begin{example}[A polynomial presentation]\label{execlim2}
-	Affine constraints can be represented as linear polynomials with coefficients in $\mathbb{N}$	
-	and constant term in $\mathbb{S}$.
-	Consider, for instance, as $\mathbb S$ the ReSL of non-negative reals, 
-	and as $D$ a finite subset of such reals.
-	An affine constraint with variables in $V = \{x,y\}$ 
-	is interpreted as the soft constraint associating 
-	with a function $\eta: V \rightarrow D$ the real 
-	obtained as $(a \, \times \, \eta(x)) \, + \, (b \, \times \, \eta(y)) \, + \, i$ (where $a=p(x)$ and $b=p(y)$ are coefficients in $\mathbb{N}$, and $i$ a constant in $\mathbb{S}$).
-	What is relevant is that the composition of such constraints is precisely 
-	the addition of polynomials. 
-	
-	As expected, the ordering depends both on the coefficients and the constant term.
-	%
-	For example, let us consider the polynomials $2x \, + \, 1$ and $x \, + \, 5$
-	and let us assume that $D = \{1, 2, 3\}$: It holds that
-	$(2x \, + \, 1)\monop (x \, + \, 5) = (3x + 6)$ and  
-	$2x \, + \, 1 \leq x \, + \, 5$.
-\end{example}
 
 
 \section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detpolyadicCCP}
@@ -1844,8 +1749,14 @@ In the case of ``soft languages'', the removal of constraints can also be partia
 
 For the future, we conceive more applicative extensions of the language we designed: while in this paper we focused on its formal definition, semantics, and process equivalence, we can think of applications fields concerning epistemic concepts or process migration from node to node, as some of the proposals in Sect.~\ref{sec:related} offer.
 
+Moreover, we plan to also describe weak bisimulations, which is the main reason why we introduced barbs in this paper. In weak semantics, reduction cannot be observed and all systems are equivalent, and barbs were introduced to address this kind of issues~\cite{sangiorgi}.
+
 Separately from the process algebra focus we developed in this paper, we can also think of defining the class of Polynomial \emph{Soft} Constraint Satisfaction Problems (PSCSPs), 
 as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Hence, we can implement polynomial constraint satisfaction as a SMT module where agents can tell constraints and ask for their satisfaction.
+
+
+
+
 
 \bibliographystyle{splncs03}%splncs
 \bibliography{main,softccp}
