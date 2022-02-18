@@ -393,7 +393,7 @@ In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl17}).
 
 
 
-In any residuated POM the $\odiv$ operator is also monote one the first argument and 
+In any residuated POM the $\odiv$ operator is also monotone on the first argument and 
 anti-monotone on the second one, i.e., 
 $\forall a, b, c \in A.\, a\leq b \implies  c\odiv b \leq c \odiv a$.
 %
@@ -743,14 +743,14 @@ $\bigvee \{p \odiv n, u \odiv n\}  = \bot < \bigvee \{p, u\} \odiv n = t \odiv n
 \end{example}
 }
 
-\section{An Alternative Proposal for Constraint Manipulation}\label{sec:newconstraint}
+\section{An Polyadic approach for Constraint Manipulation}\label{sec:newconstraint}
 
 This section presents our personal take on polyadic algebras for ordered monoids:
 the standard axiomatisation of e.g.~\cite{sagi2013} has been completely 
 reworked, in order to be adapted to the constraints formalism.
 %
-We close the section by offering some preliminary insights on 
-the laws for polyadic operators in residuated monoids.
+It extends our previous description in~\cite{festcatuscia} by 
+further elaborating on the laws for the polyadic operators in residuated monoids.
 
 \subsection{Cylindric and Polyadic Operators for Ordered Monoids}
 \label{cypo}
@@ -855,7 +855,7 @@ by $\sigma^{c}(X)$ the counter-image of $X$ along $\sigma$.
 	$s_\sigma: A \rightarrow A$
 	indexed by elements in $F(V)$ such that for all $a, b \in A$, $x \in V$, and $\sigma, \tau\in F(V)$
 	\begin{enumerate}
-		\item $sv(\sigma) \cap sv(a) = \emptyset \implies s_\sigma a = a$
+		\item $sv(\sigma) \cap sv(a) = \emptyset \implies s_\sigma a = a$,
 		\item $s_\sigma(a \monop b) = s_\sigma a \monop s_\sigma b$,
         \item $\sigma \mid_{sv(a)} = \tau \mid_{sv(a)} \implies s_\sigma a 
         = s_\tau a$,
@@ -923,7 +923,7 @@ We now consider
 the interaction of previous structures with residuation. 
 %
 To this end, in the following we assume that 
-$\mathbb{S}$ is a RePO (see Def.~\ref{def:repo}).
+$\mathbb{S}$ is a residuated POM (see Def.~\ref{def:repo}).
 
 
 \begin{lemma}
@@ -976,9 +976,152 @@ Furthermore, if $\sigma$ is invertible, then the equality holds.
 %\end{itemize}
 \end{lemma}
 
+\subsection{Polyadic Soft Constraints}\label{sec:softconstraints}
+\label{subsec:inst} 
+The key example of polyadic construction comes from soft constraints: 
+our presentaton generalises \cite{scc},
+whose underlying algebraic structure is the one of absorptive semirings.
+
+\begin{definition}[(soft) constraints]\label{def:softconstraints}
+	Let $V$ be a set of variables, $D$ a finite domain of interpretation
+	and ${\mathbb S} = \langle A, \leq, \monop, \odiv, \monid \rangle$ a residuated SLM.
+	A \emph{(soft) constraint} $c: (V \rightarrow D) \rightarrow
+	A$ is a function associating a value in $A$ with each assignment
+	$\eta: V\rightarrow D$ of the variables.
+\end{definition}
+
+The set of constraints forms a residuated SLM $\mathbb{C}$, with the structure
+lifted from ${\mathbb S}$. Denoting the application of a
+constraint function $c:(V \rightarrow D) \rightarrow A$ to a variable
+assignment $\eta:V\rightarrow D$ as $c\eta$, we e.g. have that 
+$c_1 \leq c_2$ if $c_1\eta\leq c_2\eta$ for all $\eta: V \rightarrow D$.
+
+\begin{lemma}[Cylindric and polyadic operators for (soft) constraints]
+	The residuated SLM of constraints $\mathbb{C}$ admits cylindric and polyadic operators, defined as
+	\begin{itemize}
+		\item  $(\exists_x c) \eta = \bigvee \{c \rho \mid \eta\mid_{V \setminus \{x\}} = 
+		\rho\mid_{V \setminus \{x\}}\}$ for all $x \in V$,
+		%\item if $\sigma$ is an injective substitution, then $(s_{\sigma}c)\eta = c(\sigma \circ \eta)$ 
+		%for all $c \in \mathcal{C}$
+		\item  $(s_\sigma c) \eta = c (\eta \circ \sigma)$ for all $\sigma \in F(V)$.
+%		\item $\delta_{x,y}\eta = \left\{
+%		\begin{array}{rcl} \bot & & \text{if } \eta(x) = \eta(y); \\
+%		\top & & \text{otherwise.}
+%		\end{array} \right.$ for all $x, y \in V$
+	\end{itemize}
+\end{lemma}
+
+\begin{remark}
+Note that $sv(c)$ coincides with the classical notion of support
+for soft constraints. Indeed, if $x\not \in sv(c)$, then two
+assignments $\eta_1, \eta_2: V \rightarrow D$ differing only for the
+image of $x$ coincide (i.e., $c\eta_1 =
+c\eta_2$).
+%
+The cylindric operator is called \emph{projection} 
+in the soft framework, and $\exists_x c$ is denoted 
+$c\Downarrow_{V\setminus \{x\}}$.
+\end{remark}
+
+\comment{
+Combining constraints by the $\monop$ operator
+means building a new constraint whose support involves at most
+the variables of the original ones. The resulting constraint  associates with
+each tuple of domain values for such variables the element
+that is obtained by multiplying  those associated by the
+original constraints to the appropriate sub-tuples.
+%
+%Residuation works as expected (i.e., $(c_1\odiv c_2)\eta = c_1\eta\odiv c_2\eta$),
+%and 
+%Also, the bottom is the constant function mapping all $\eta$ to $\bot$.
+
+%\begin{example}[A simple CLIM]\label{execlim}
+%Let us consider a CLIM $\mathbb S$, 
+%and as $D$ a finite subset of the elements of the CLIM.
+%A polynomial with variables in $V$ 
+%and elements of the CLIM as coefficients
+%such as $ux \, \hat{+} \, vy \, \hat{+} \, z$
+%can be interpreted as the soft constraint associating 
+%with a function $\eta: V \rightarrow D$ the value 
+%$\bigvee \{u \monop \eta(x), v \monop \eta(y), z \}$.
+%The composition of such constraints is straightforward, while 
+%the ordering might not be the one induced by the coefficients, 
+%due to the presence of constants.
+%
+%More precisely, let us consider the CLIM of non-negative reals and
+%the polynomials $2x \, \hat{+} \, 1$ and $x \, \hat{+} \, 6$
+%and let us assume $D = \{1, 2, 3\}$.
+%The composition of such constraints is actually given just by coefficient 
+%addition, so that
+%$(2x \, \hat{+} \, 1) \monop (x \, \hat{+} \, 6) = 
+%(3x \, \hat{+} \, 7)$.
+%However, note that $2x \, \hat{+} \, 1 \leq x \, \hat{+} \, 6$.
+%
+%
+%Similarly for residuation, which is just bounded subtraction of coefficients.
+%Since $2x \, \hat{+} \, 1 \leq x \, \hat{+} \, 6$,
+%by construction ($2x \, \hat{+} \, 1) \odiv (x \, \hat{+} \, 6)$ is the bottom constraint,
+%mapping all variables to $0$.
+%Instead, $(x \, \hat{+} \, 6) \odiv (2x \, \hat{+} 1)$ could be described as $\hat{-}x \, \hat{+} \, 5$,
+%even if
+%the latter falls outside of the polynomials we considered since it has a negative coefficient:
+%it suffices to assume that if the actual result of the evaluation of the polynomial is negative 
+%then it is put to $0$.
+%
+%%
+%If $D$ is not the singleton, the support of a polynomial is precisely the set of variables occurring in it.
+%\end{example}
+
+%The ReSL of constraints also enjoys the cylindric properties, as shown by
+%the result below (for cylindric operators and diagonals in the idempotent case, see~\cite{scc}).
+
+\begin{lemma}[Cylindric and polyadic operators for (soft) constraints]
+	The ReSL of constraints $\mathbb{C}$ admits cylindric and polyadic operators, defined as
+	\begin{itemize}
+		\item  $(\exists_x c) \eta = \bigvee \{c \rho \mid \eta\mid_{V \setminus \{x\}} = 
+		\rho\mid_{V \setminus \{x\}}\}$ for all $c \in {\mathcal C}, x \in V$
+		%\item if $\sigma$ is an injective substitution, then $(s_{\sigma}c)\eta = c(\sigma \circ \eta)$ 
+		%for all $c \in \mathcal{C}$
+		\item  $(s_\sigma c) \eta = c (\eta \circ \sigma)$ for all $c \in {\mathcal C}, \sigma \in F(V)$	
+%		\item $\delta_{x,y}\eta = \left\{
+%		\begin{array}{rcl} \bot & & \text{if } \eta(x) = \eta(y); \\
+%		\top & & \text{otherwise.}
+%		\end{array} \right.$ for all $x, y \in V$
+	\end{itemize}
+\end{lemma}
+
+%In this section and in the following one, we denote by $\mathcal{C}$ the set of constraints that can be
+%built starting from chosen $\mathbb S$, $V$, and $D$. 
+
+A constraint involves all the variables in $V$, yet it may depend on
+the assignment of a finite subset of them, called its support. For
+instance, a binary constraint $c$ with $supp(c)=\{x,y\}$ is a function
+$c: (V\rightarrow D)\rightarrow A$ that depends only on the
+assignment of variables $\{x,y\}\subseteq V$, meaning that two
+assignments $\eta_1, \eta_2: V \rightarrow D$ differing only for the
+image of variables $z \not \in \{x,y\}$ coincide (i.e., $c\eta_1 =
+c\eta_2$).
+%
+%The support corresponds to the classical notion of scope of a
+%constraint.  We often refer to a constraint with support $X$ as $c_X$.
+%Moreover, an assignment over a support $X$ of cardinality $k$ is concisely
+%represented by a tuple $t$ in $D^k$, and we often write $c_X(t)$
+%instead of $c_X\eta$.
 
 
+Hiding means eliminating variables from the support:
+$supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
+	is called \emph{projection} in the soft framework,
+	and $\exists_x c$ is denoted $c\Downarrow_{V\setminus \{x\}}$.}
+}
 
+For the sake of simplicity, we will use running examples 
+where 
+%the SLM $\mathbb{S}$ is the semiring of integers and 
+$D$ is a finite initial segment of the naturals. 
+A constraint can be sometimes simply expressed as an inequation $x \leq 1$, 
+intended as $c\eta = \monid$ if $\eta(x) \leq 1$, and $\bot$ otherwise.
+%and we will exploit this fact.
 
 \section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detpolyadicCCP}
 This section introduces our language.
@@ -1189,23 +1332,38 @@ Then $\rho = (\rho \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \rho \rangle
 %$\sigma' \odiv \sigma$.
 
 
+\comment{
 \begin{remark}
-\todo{TO BE REDONE}
-The choice for the resulting global store in rule {\bf R2} could have been 
-$\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
-Indeed, the expression has a nicer appearance,
-and $\sigma_1 \odiv \sigma_0$ seems to better represent the cumulative effect of the
-changes by the local agent.
-However, this is a misleading impression, since the composition of the single updates
-has to take into account the existential quantifications.
+%\todo{TO BE REDONE}
+%The choice for the resulting global store in rule {\bf R2} could have been 
+%$\sigma_0 \otimes \exists_x(\sigma_1 \odiv \sigma _0)$, 
+%Indeed, the expression has a nicer appearance,
+%and $\sigma_1 \odiv \sigma_0$ seems to better represent the cumulative effect of the
+%changes by the local agent.
+%However, this is a misleading impression, since the composition of the single updates
+%has to take into account the existential quantifications.
 
-
+The choice of labelling $\exists_x^\pi$ with a string of updates instead of just an element 
+can then be explained by the need to distinguish their effect on the local and the global stores.
+%
 Let us consider constraints $c$ and $d$ such that $\exists_x c = \exists_x d = \monid$ and $c \otimes d = \bot$.
-As far as our running example is concerned, it might be that $c = x \leq 1$ and $d = x \geq 5$. 
-Now, let $A$ be the agent $\hbox{\tell}(c) \parallel \hbox{\tell}(d)$ and $\gamma$ the configuration 
+As far as our running example is concerned, it might be that $c = x \leq 1$ and $d = x \geq 5$.
+Let $A$ be the agent $\hbox{\tell}(c) \parallel \hbox{\tell}(d) \parallel B$ and $\gamma$ the configuration 
 $\langle \exists_x A, \monid \rangle$.
-Assuming that $c$ is added to the store, with both choices we end up with the reduction
-$\gamma \to \langle \exists_x^{[ c ]} \hbox{\tell}(d), \monid \rangle$.
+If first $c$ and then $d$ are added to the store, we would end up with the reductions
+$\gamma \to \langle \exists_x^{[ c ]} \hbox{\tell}(d) \parallel B, \monid \rangle 
+\to \langle \exists_x^{[c,\bot \apexodiv c]} B, \exists_x (\bot \odiv c) \rangle$
+and 
+$\gamma \to \langle \exists_x^{ c } \hbox{\tell}(d) \parallel B, \monid \rangle 
+\to \langle \exists_x^{ \bot } B, \exists_x (\bot \odiv c) \rangle$.
+%
+Let us further assume that $\exists_x (\bot \odiv c) = \monid$, as it occurs in our example.
+Then, for any possibile move of $B$ we have that 
+$\langle \exists_x^{ \bot } B, \exists_x (\bot \odiv c) \rangle
+\to \langle \exists_x^{ \bot } C, \exists_x \top \rangle$.
+
+
+
 With the alternative definition for the global store, we would then reach 
  $\langle \exists_x^{[c]} \hbox{\tell}(d), \monid \rangle \to \langle \exists_x^{[c,\bot \apexodiv c]} \hbox{\ostop}, \bot \rangle$,
  thus lifting to the global store the unsatisfiability of the local one.
@@ -1221,6 +1379,25 @@ and thus $\exists_x (\bot \odiv c) = \monid$.
 Note also how the sequence in the local store is $[c,\bot \odiv c]$: $\bot \odiv c$ does not necessarily coincide with $d$.
 However, it is the minimal information collapsing the local store, and since the semiring is not 
 necessarily invertible, it is often the best result we can get.
+\end{remark}
+}
+
+\begin{remark}
+With respect to the crisp language with local variables introduced in \cite{pippo},
+which can be recasted in our framework as absorptive POMs
+where the monoidal operator is idempotent,
+our proposal differ mostly for the the structure of rule \mbox{\bf R2}, which would 
+be presented as below
+   $$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle
+    \to \langle B, \xi \otimes \pi_0 \otimes \sigma \rangle \text{ with } \pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes}
+    {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
+    \exists^{\pi \xi}_x B, \sigma \otimes \exists_x \xi
+    \rangle} \text{ for } x \not \in sv(\sigma)$$
+The result coincides for e.g. cancellative monoids, since inverses are unique.
+However, this is not so whenever the monoidal operator is idempotent, thus 
+the rule represents in fact a schema giving rise to a possibly infinite
+family of reductio departing from a given agent. Our choice of a unique witness 
+$\exists_x \sigma_1 \odiv (\pi_0 \otimes \sigma)$ avoids such non-determinism.
 \end{remark}
 
 Let $\gamma = \langle A, \sigma \rangle$ be a configuration.
