@@ -1755,7 +1755,34 @@ If $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$
 then %$\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
 $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
-
+\begin{proof}
+	We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
+	have equivalent proofs, namely, they use axioms and rules in the same order,
+	up-to the obvious renaming (i.e., ${\bf LA1}$ for ${\bf A1}$, and so on).
+	
+	The property holds for the axioms, since e.g. for {\bf LA2} we know that
+	$\alpha \leq c \odiv \sigma$ implies $\alpha \otimes \sigma \leq c$ for residuated POMs.
+	%
+	We then proceed by induction on rule derivations,
+	presenting only the proof for rule {\bf LR2}.
+	%
+	We have 
+	$$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle \xrightarrow{\alpha}
+		\langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \oodiv (\exists_x \pi)_\otimes }
+	{\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
+		\langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_0 \otimes \sigma)}$$
+	%
+	for $x \not \in sv(\sigma) \cup sv(\alpha)$.
+	%
+	By induction hypothesis $\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle$ is reachable and
+	$$\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle \to
+	\langle B, \sigma_1 \rangle$$
+	From this it follows by {\bf LR2} that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
+	$$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \to
+	\langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
+	and we are done.
+	\qed
+\end{proof}
 
 
 The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
@@ -1768,6 +1795,7 @@ $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$
 then %$\langle A, \sigma \rangle$ is an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
 \end{lemma}
+
 
 	
 These results also ensure that a configuration is reachable iff it is l-reachable.
@@ -1907,13 +1935,61 @@ it can be proved upward closed for all $d$, and thus also a congruence.
 %
 %Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
-\begin{proposition}
-%Let $\langle A,\sigma \rangle, \langle B,\rho \rangle$ be l-reachable configurations and $d \in \mathcal{C}$.
-%If $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$
-%then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
+\begin{theorem}
 Let $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$ and $d \in \mathcal{C}$.
 If  $\mathcal{C}$ is cancellative then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
-\end{proposition}
+\end{theorem}
+\begin{proof}
+	We need to show that the relation 
+	$R = \{ (\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle) \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
+	is a labelled bisimulation. We then assume that 
+	$\langle A, \sigma \otimes d \rangle  \xrightarrow{\beta} \langle A', \sigma' \rangle$: 
+	we need to prove that there exists $B'$ such that
+	$\langle B,\beta \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
+	and $(\langle A', \sigma' \rangle, \langle B', \sigma' \rangle) \in R$.
+	%  Note also that we need to prove it only for those
+	
+	%
+	By soundness 
+	$\langle A, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$
+	with the same proof.
+	We then distinguish two cases on the 
+	axiom used.
+	
+	\begin{description}
+		\item{[{\bf LA1}]}
+		By Lemma~\ref{LA1} (completeness for {\bf LA1}) we have $\langle A,  \sigma \rangle  \xrightarrow{\monid}\langle A', \sigma'' \rangle$
+		and $\sigma' \odiv (\beta \otimes \sigma \otimes d) = \sigma'' \odiv \sigma$, and by Lemma~\ref{mono2} (monotonicity)
+		we have that $\sigma' = \sigma'' \otimes \beta \otimes d$.
+		Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
+		there exists $B'$ such that 
+		$\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
+		and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$,
+		and it suffices to look at the cases where $\beta \otimes d \leq \monid$.
+		%
+		Now $\langle B, \sigma \rangle \xrightarrow{\monid} \langle B', \sigma'' \rangle$, and we may now check the proof of
+		such reduction.
+		If it is  {\bf LA1}, we retrace the same steps as before and 
+		$\langle B, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{\monid} \langle B', \sigma' \rangle$
+		with $\sigma' = \sigma'' \otimes \beta \otimes d$, and we are done.
+		%
+		If it is  {\bf LA2}, it suffices to note that $\beta \otimes \sigma \otimes d\leq \sigma$,
+		hence $\langle B, \sigma \otimes \beta \otimes d \rangle \xrightarrow{\monid} \langle B', \sigma'' \otimes \beta \otimes d\rangle$
+		and we are done.
+		
+		\item{[{\bf LA2}]}
+		By Lemma~\ref{LA2} (completeness for {\bf LA2}) we have $\langle A,  \sigma \rangle  \xrightarrow{\alpha}\langle A', \alpha \otimes \sigma \rangle$
+		for any $\alpha \leq (\beta \otimes \sigma \otimes d) \odiv \sigma$.
+		% thus in particular 
+		%$\langle A,  \sigma \rangle  \xrightarrow{\beta \otimes \sigma}\langle A', \beta \otimes \sigma \otimes d \rangle$,
+		%thanks to cancellativeness).
+		%  
+		Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
+		there exists $B'$ such that 
+		$\langle B, \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \alpha \otimes \sigma \rangle$,
+		and by taking $\alpha = (\beta \otimes \sigma \otimes d) \odiv \sigma$ we are done.
+	\end{description}
+\end{proof}
 
 
 %\section{On the equivalence between bisimulation semantics}
@@ -2087,29 +2163,6 @@ Immediate as for Lemma~\ref{mono}.
 	\langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
 	and we are done.
 	\qed
-	\comment{Reachability is implied by $\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle$ being reachable,
-		%and
-		%$$\langle A, \bigotimes \pi \otimes \widehat{\sigma_0} \rangle \to
-		%  \langle B, \widehat{\sigma_1} \rangle$$
-		with $\widehat{\sigma_0} = (\alpha \otimes \sigma) \odiv (\exists_x \pi)_\otimes$.
-		% and for suitable $\widehat{\sigma_1}$.
-		% as long as $\alpha \otimes \sigma \otimes \exists_x \rho = \alpha \otimes \sigma \otimes \exists_x \widehat{\rho}$
-		%with $\widehat{\rho} = \widehat{\sigma_1} \odiv (\alpha \otimes \bigotimes \pi  \otimes \widehat{\sigma_0})$.
-		%
-		Now we have that 
-		$$\pi_\otimes \otimes \widehat{\sigma_0} = \pi_\otimes \otimes ((\alpha \otimes \sigma) \odiv (\exists_x \pi)_\otimes)$$ 
-		$$=^1 \pi_\otimes \otimes ((\alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi )_\otimes) \odiv (\exists_x \pi)_\otimes)$$
-		$$=^2  (\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes \otimes 
-		((\alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes  (\exists_x \pi)_\otimes) \odiv (\exists_x \pi)_\otimes)$$
-		$$ =^3 (\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes \alpha \otimes (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes$$
-		$$= \alpha \otimes \pi_\otimes \otimes  (\sigma \odiv (\exists_x \pi))_\otimes 
-		= \alpha \otimes \pi_\otimes \otimes  \sigma_0
-		$$
-		and by induction hypothesis reachability follows, as well as 
-		$$\langle A, \pi_\otimes \otimes \widehat{\sigma_0} \rangle \to \langle B, \sigma_1 \rangle.$$
-		and we are done. For proving $1$ we used that $\langle \exists^\pi_x A, \sigma \rangle$ is a reachable configuration
-		and Lemma~\ref{l-mono2}, for $2$ we used that $\C$ is invertible and $\pi_\otimes \leq (\exists_x \pi)_\otimes$,
-		for $3$ we used the equality $a \otimes ((a \otimes b) \odiv a) = a \otimes b$}
 \end{proof}
 
 \setcounter{lemma}{11}
@@ -2246,34 +2299,6 @@ Immediate as for Lemma~\ref{mono}.
 		$\langle B, \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \alpha \otimes \sigma \rangle$,
 		and by taking $\alpha = (\beta \otimes \sigma \otimes d) \odiv \sigma$ we are done.
 	\end{description}
-	%
-	\comment{  
-		Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
-		there exists $B'$ such that 
-		$\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
-		and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$.
-		Since $((b \otimes d) \odiv \alpha) \leq \monid$ we have 
-		$\langle B, ((b \otimes d) \odiv \alpha) \otimes \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
-		and by invertibility we are done.
-		\\
-		
-		Now, by localisation $(\sigma \otimes \alpha \otimes d) \odiv (\sigma \otimes \beta) \leq 1$ 
-		and by Lemma~\ref{minor}
-		we have 
-		%$(\alpha \otimes d) \odiv \beta) \otimes \beta \otimes \sigma = \alpha \otimes d \otimes \sigma$
-		$\langle B, \alpha \otimes d \otimes \sigma \rangle 
-		\xrightarrow{} \langle B', \sigma''' \rangle$
-		with 
-		$\sigma''' = \sigma'' \otimes ((\beta \otimes \sigma) \odiv (\alpha \otimes d \otimes \sigma))$
-	\end{proof}
-	
-	An immediate consequence of the result above is that $\sim$ is a congruence.
-	
-	\begin{proposition}
-		Let $A$, $B$ be agents and $C[\cdot]$ a context.
-		If $A \sim B$
-		then $C[A] \sim C[B]$.
-	}
 \end{proof}
 
 
