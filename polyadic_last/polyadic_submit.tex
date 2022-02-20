@@ -1824,7 +1824,7 @@ Also, note that if
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ is a reduction 
 via the axiom {\bf LA1}, then $\alpha = \1$.
 
-\begin{lemma}
+\begin{lemma}[Completeness, I]
 \label{LA1}
 Let $\langle A, \tau \rangle \xrightarrow{\monid} \langle B, \tau' \rangle$ be a reduction 
 via the axiom {\bf LA1}. 
@@ -1853,12 +1853,12 @@ The proof exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono
 and the condition $\beta \neq \monid$ is required in the inductive step for rule  {\bf LR2}.
 }
 
-\begin{lemma}
+\begin{lemma}[Completeness, II]
 \label{LA2}
 Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction 
 via the axiom {\bf LA2}. If $\C$ is localised then $\tau' = \beta \otimes \tau$
 and for every $\sigma$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
-$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
+$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
 \end{lemma}
 
 
