@@ -1405,10 +1405,10 @@ be presented as below
     {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
     \exists^{\pi \xi}_x B, \sigma \otimes \exists_x \xi
     \rangle} \text{ for } x \not \in sv(\sigma)$$
-The result coincides for e.g. cancellative monoids, since inverses are unique.
-However, this is not so whenever the monoidal operator is idempotent, thus 
-the rule represents in fact a schema giving rise to a possibly infinite
-family of reductio departing from a given agent. Our choice of a unique witness 
+The proposals coincide for e.g. cancellative monoids, since inverses are unique.
+However, this is not so if the monoidal operator is idempotent, thus 
+the crisp rule represents in fact a schema, giving rise to a possibly infinite
+family of reductions departing from an agent. Our choice of a chosen witness 
 $\exists_x \sigma_1 \odiv (\pi_0 \otimes \sigma)$ avoids such non-determinism.
 \end{remark}
 
@@ -1432,6 +1432,23 @@ Then $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\o
 %\item $\exists \sigma'.\  \sigma = \sigma' \otimes (\exists_x \pi)_\otimes$
 %\end{enumerate}
 \end{lemma}
+
+\begin{remark}
+An alternative solution for the the structure of rule \mbox{\bf R2} would have been
+    $$\frac {\displaystyle \langle A, \pi_\otimes \otimes \sigma_0 \rangle
+    \to \langle B, \sigma_1 \rangle \text{ with } \sigma_0 = \sigma \odiv (\exists_x \pi)_\otimes}
+    {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
+    \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho
+    \rangle \text{ with } \rho = \sigma_1 \odiv (\pi_\otimes \otimes \sigma_0)} \text{ for } x \not \in sv(\sigma)$$
+Indeed, in the light of the Lemma~\ref{mono2}, the proposals coincide for 
+invertible semirings, since 
+$\pi_0 \otimes \sigma =
+(\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes
+\otimes (\sigma \odiv (\exists_x \pi)_\otimes) \leq
+\pi_\otimes \otimes (\sigma \odiv (\exists_x \pi)_\otimes)$, 
+and the equality holds for invertible semirings
+since $\pi_\otimes \leq (\exists_x \pi)_\otimes$.
+\end{remark}
 
 
 %As before, a witness of the equality in item $1$ is
