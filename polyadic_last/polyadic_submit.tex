@@ -91,8 +91,7 @@
 
 \begin{document}
 
-\title{Soft Concurrent Constraint Programming\\ with Local Variables
-	%~\thanks{Research partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''.}
+\title{Soft Concurrent Constraint Programming\\ with Local Variables~\thanks{Research partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''.}
 }
 
 
@@ -130,41 +129,25 @@ The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  t
 
 While polyadic algebras are the algebraic version of the pure first-order calculus, cylindric algebras yield an algebraisation of the first-order calculus with \emph{equality}. However, equality can be also achieved in polyadic algebras via additional axioms that specify which terms are to be considered equal under the abstract interpretation.
 
- While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (to perform parameters passing~\cite{popl91} and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the join semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
+ While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (to perform parameters passing~\cite{popl91} and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
 
-The CCP language we present in this paper is a further generalisation of what can be found in the literature (see also Section~\ref{sec:related}): first, it can naturally model bipolar (i.e., positive/negative) preferences within a single structure without joining two semirings together~\cite{posneg}, and secondly, the use of polyadic algebras can be exploited to model
-many problems by using a comfortable polynomial representation of constraints. In fact, polynomial constraints  play an important role in program analysis and verification (e.g. when synthesising program invariants and analysing the reachability of hybrid systems), and they have been recently used in SAT modulo theories~\cite{smtpolynomial}.
-Moreover, we designed the language to let an agent , or some of them, perform operations  on variables (in particular, adding and asking constraints) that are visible only to that agent: for this reason, the \emph{hiding} operator needs to consider the effect of local steps with respect to the global store, seen by all the agents participating to a concurrent computation instead. In this way, it is possible to distinguish between local and global knowledge of agents, in the form of a local and global store of constraints respectively.
+The CCP language we present in this paper is a further generalisation of what can be found in the literature (see also Section~\ref{sec:related}): first, it naturally models bipolar (i.e., positive/negative) preferences within a single structure without joining two monoids together~\cite{posneg}, and secondly, polyadic algebras can be exploited to model
+many problems using a polynomial representation of constraints. In fact, polynomial constraints  play an important role in program analysis and verification (e.g. when synthesising program invariants and analysing the reachability of hybrid systems), and they have been recently used in SAT modulo theories~\cite{smtpolynomial}.
+Moreover, we designed the language to let agents perform operations  on variables (in particular, adding and asking constraints) that are visible only to an agent: for this reason, the \emph{hiding} operator needs to consider the effect of local steps with respect to the global store, seen by all the agents participating to a concurrent computation. In this way, it is possible to distinguish between local and global knowledge of agents, in the form of a local and global store of constraints.
 
 Beside the syntax of the language to define agents, we provide a reduction semantics and a saturated bisimulation relation for  them. In order for two computation states to be \emph{saturated bisimilar}, it is required that \emph{i)} they should expose the same barbs, \emph{ii)} whenever one of them moves then the other should reply and arrive at an equivalent state, \emph{iii)} they should be equivalent under all the possible stores.
 Intuitively, barbs are basic observations (i.e., predicates) on the system states; in the case of CCP languages, barbs are represented by the constraint store. In addition, we show a labelled bisimulation to (partially) overcome the need to check the store closure (i.e., item \emph{iii} in the previous paragraph). As a final step, we show that the labelled and unlabelled reduction semantics correspond, and we advance a labelled bisimulation relation.
 
-This paper is a continuation of \cite{festcatuscia} with a concurrent constraint language on top of it, and process-equivalence relations.  We will report the proof of the most important theorems only, for the sake of space. The work is organised as  follows: in Section~\ref{sec:related} we summarise the most related work about CCP-based languages with the notion of local and global variables. Then, Section~\ref{sec:bg}  
+This paper is a continuation of \cite{festcatuscia} with a concurrent constraint language on top of it.
+%and process-equivalence relations.  
+We will report the proof of the most important results only, for the sake of space. The work is organised as  follows.
+Section~\ref{sec:bg}  
 and Section~\ref{sec:newconstraint} present the necessary background on the algebraic structure needed to model polyadic constraints. 
 The following sections are focused on the semantics we can give to a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on  equivalence relations among processes.
 Section~\ref{sec:detpolyadicCCP} presents the syntax and a  reduction semantics for the language, while Section~\ref{sec:labelled} presents a labelled reduction for the same language.
-Section~\ref{sec:correspondancebis} shows further formal results on the correspondence between the two semantics, and a bisimilarity relation to compare processes with the labelled semantics. In Section~\ref{sec:conclusion} we finally wrap up the paper with conclusive thoughts and ideas about possible future work.
-
-
-
-\section{Related works}\label{sec:related}
-As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores, and information mobility.
-
-One of the most related work is represented by \cite{pippo}. Anyhow, the differences are significant: in that work the underlying constraint systems is not soft, as it can only deal with hard constraints (which indeed we can do as well). For this reason, there is no need for defining a \emph{residuated} preference system, which allows us to use bipolar preferences. Furthermore, the authors of \cite{pippo} adopt a cylindric algebra instead of a polyadic one, as introduced in Section~\ref{sec:intro}. Finally, the concept of local store is different with respect to the approach we present in this paper: using our notation, in \cite{pippo} the semantics of the hiding operator  is $\langle 
-\exists^{e}_x A, \sigma \rangle \to \langle  \exists^{e'}_x B, \sigma \otimes \exists_x e' \rangle$ if $\langle 
-A, e \otimes \exists_x \sigma \rangle \to \langle  B, e' \otimes \exists_x \sigma \rangle$. Hence, the local store $e$ is used to fire a step that only changes the local store to $e'$, and this change is  visible in the global store except  for the effect on variable $x$. However, since our $\otimes$ is not idempotent as in \cite{pippo}, we have to add to the final store $ \exists_x \sigma$ only the ``difference'' between $e'$ and $e$ at each step. (See also Remark~\ref{crisp} in this paper.)
-
-In \cite{spatialvalencia} the authors describe a \emph{spatial} constraint systems with operators to
-specify information and processes moving from a space to another. Such a language provides for the specification of spatial mobility and epistemic concepts such as belief, utterance and lies: besides local stores for agents  (representing belief), it can express the epistemic notion of knowledge by means of a derived spatial operator that specifies global shared information. Differently from this work, our approach focuses on preferences, on the concurrent language on top of the system, and on process equivalences.
-
-The process calculi in \cite{parrowlics,buscemi} provide  to agents the use of assertions within $\pi$-like processes. A soft language is adopted in \cite{buscemi}: from a variant of $\pi$-calculus it inherits \emph{explicit fusions}, i.e. simple constraints expressing name equalities, in order to pass constraints from an agent to another.
- However the algebraic structure is neither residuated nor  polyadic; in addition, no process-equivalence relation is proposed.  In \cite{pi1,pi2}  processes can send constraints using communication channels much like in the $\pi$-calculus. 
- 
- A further language still using $\pi$-calculus features to exchange constraint between agents, but this time with a probabilistic semantics, is shown in \cite{bortolussi}. A congruence relation and a labelled transition system are also shown in the paper. 
-
-In \cite{catuscia} the authors propose an extension of the CCP language with the purpose to model process migration within a hierarchical network. Agents brings their local store when they migrate. In \cite{lubos} the authors enrich a CCP language with the possibility to share (read/write) the information in the global store, and communicate with other agents (via multi-party or handshake).
-
-All the systems described in this section are based on hard constraints, and  they do not consider preferences associated with constraints (except \cite{buscemi}, whose algebraic structure is however less general). In addition, a very few proposals formalise process equivalences by providing a deeper investigation of the semantics.
+Section~\ref{sec:correspondancebis} shows further formal results on the correspondence between the two semantics, and a bisimilarity relation to compare processes with the labelled semantics. 
+In Section~\ref{sec:related} we summarise the most related work about CCP-based languages with the notion of local and global variables.
+In Section~\ref{sec:conclusion} we finally wrap up the paper with conclusive thoughts and ideas about future works.
 
 \section{An introduction to Residuated Monoids}\label{sec:bg}
 
@@ -415,7 +398,7 @@ These latter facts suggests the definition below, which identifies sub-classes
 of residuated monoids that are suitable for an easier manipulation
 of constraints (see e.g.~\cite{ecai06}).
 
-\begin{definition}[Families]
+\begin{definition}[Families of POMs]
 	A residuated POM $\langle A, \leq, \monop, \odiv, \monid \rangle$ is
 	\begin{itemize}
 		\item
@@ -763,7 +746,7 @@ reworked, in order to be adapted to the constraints formalism.
 It extends our previous description in~\cite{festcatuscia} by 
 further elaborating on the laws for the polyadic operators in residuated monoids.
 
-\subsection{Cylindric and Polyadic Operators for Ordered Monoids}
+\subsection{Cylindric and Polyadic operators for Ordered Monoids}
 \label{cypo}
 We  introduce two families of operators 
 %(cylindric and polyadic ones) 
@@ -924,7 +907,7 @@ Since by definition we have $\exists (Y \setminus sv(a), a)) = a$, the result fo
 %\item $sv(\sigma) = \bigcap X \subseteq V \mid \sigma(X) \neq X$
 %\end{itemize}
 
-\subsection{Cylindric and Polyadic Operators for Residuated Monoids}
+\subsection{Cylindric and Polyadic operators for Residuated Monoids}
 \label{cyre}
 %Both algebraic structures introduced in the previous section are quite standard,
 %even if polyadic operators are less-known in the soft-constraints literature:
@@ -993,7 +976,7 @@ The key example of polyadic construction comes from soft constraints:
 our presentaton generalises \cite{scc},
 whose underlying algebraic structure is the one of absorptive semirings.
 
-\begin{definition}[(soft) constraints]\label{def:softconstraints}
+\begin{definition}[Soft constraints]\label{def:softconstraints}
 	Let $V$ be a set of variables, $D$ a finite domain of interpretation
 	and ${\mathbb S} = \langle A, \leq, \monop, \odiv, \monid \rangle$ a residuated SLM.
 	A \emph{(soft) constraint} $c: (V \rightarrow D) \rightarrow
@@ -1134,7 +1117,7 @@ A constraint can be sometimes simply expressed as an inequation $x \leq 1$,
 intended as $c\eta = \monid$ if $\eta(x) \leq 1$, and $\bot$ otherwise.
 %and we will exploit this fact.
 
-\section{Polyadic Soft CCP: syntax and reduction semantics}\label{sec:detpolyadicCCP}
+\section{Polyadic Soft CCP: Syntax and reduction semantics}\label{sec:detpolyadicCCP}
 This section introduces our language.
 We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
 a residuated POM $\mathbb S = \langle {\mathcal C}, \leq, \otimes, \odiv, \1\rangle$, 
@@ -1399,7 +1382,7 @@ necessarily invertible, it is often the best result we can get.
 With respect to the crisp language with local variables introduced in \cite{pippo},
 which can be recasted in our framework as absorptive POMs
 where the monoidal operator is idempotent,
-our proposal differ mostly for the the structure of rule \mbox{\bf R2}, which would 
+our proposal differ mostly for the the structure of rule \mbox{\bf R2}, which could 
 be presented as below
    $$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle
     \to \langle B, \xi \otimes \pi_0 \otimes \sigma \rangle \text{ with } \pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes}
@@ -1457,7 +1440,7 @@ since $\pi_\otimes \leq (\exists_x \pi)_\otimes$.
 %$\sigma \odiv (\exists_x \pi)_\otimes$.
 
 
-\subsection{Saturated Bisimulation}\label{sec:saturated}
+\subsection{Saturated bisimulation}\label{sec:saturated}
 As proposed in \cite{pippo} for crisp languages, we define a barbed equivalence between two agents~\cite{barbed}.  
 %
 Intuitively, barbs are basic observations (predicates) on the states of a system, and in our case they correspond 
@@ -1538,9 +1521,9 @@ Moreover, it is also a congruence. Indeed, a context $C[\cdot]$, i.e., an agent 
 can modify the behaviour of a configuration only by adding constraints to its store. 
 
 \begin{proposition}
-Let $A$, $B$ be agents and $C[\cdot]$ a context.
-If $A \sim_{\mathit{s}} B$
-then $C[A] \sim_{\mathit{s}} C[B]$.
+\label{cong1}
+Let $A \sim_{\mathit{s}} B$ and $C[\cdot]$ a context.
+Then $C[A] \sim_{\mathit{s}} C[B]$.
 \end{proposition}
 
 
@@ -1583,7 +1566,8 @@ avoid such drawback.
   \\ 
   &\mbox{   }&\mbox{   } &\mbox{   }
   \\
-  \mbox{\bf LA2}& $\frac{\displaystyle \alpha \leq  c  \odiv  \sigma \wedge \alpha \leq \1} {{\displaystyle
+  \mbox{\bf LA2}& $\frac{\displaystyle \alpha \leq  c  \odiv  \sigma} %\wedge \alpha \leq \1} 
+  {{\displaystyle
   	\begin{array}{l} \langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{\alpha}
   	\langle A, \alpha \otimes \sigma \rangle
   	\end{array}}}$
@@ -1682,17 +1666,20 @@ since $\alpha$ is added to the global store, it will not be necessary to receive
 \def\ooodiv{\; {\ominus\hspace{-5.7pt} \div} \;}
 
 \begin{remark}
-Concerning the rule ${\bf LA2}$, the requirement $\alpha \leq \1$ might have been replaced by $\alpha \leq \sigma \odiv \sigma$,
-still ensuring a strengthening of the store. In view of later results on localised POMs, this choice will be immaterial.
+Concerning the rule ${\bf LA2}$, 
+%the requirement $\alpha \leq \1$ might have been replaced by $\alpha \leq \sigma \odiv \sigma$,
+%still ensuring a strengthening of the store. In view of later results on localised POMs, this choice will be immaterial.
 %
-More importantly, an alternative solution for the rule would have been to restrict the possible reductions to the one with maximal label, 
+%More importantly, 
+an alternative solution %for the rule 
+would have been to restrict the possible reductions to the one with maximal label, 
 that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \ooodiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
 However, this might have been restrictive in combination with rule ${\bf LR2}$.
 Consider  our running example and the configuration 
 $\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, \monid \rangle$. The initial configuration in the premise is
 $\langle \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, x > 1 \rangle$ and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
 Selecting $\alpha = (x \leq 1) \vee (y > 2)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y > 2)$,
-or any other value such as $y > 3$,$ y > 4$, $\ldots$, fits well with the intuition of some information  from the environment 
+or any other value such as $y > 3$, $y > 4$, $\ldots$, fits well with the intuition of information  from the environment 
 triggering the reduction.
 
 Note instead that the choice of removing the requirement $x \not \in sv(\alpha)$ and put $\exists_x \alpha$ as label in the 
@@ -1811,13 +1798,13 @@ $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
 then it is also l-reachable via a sequence of reductions labelled by $\monid$.
 
-\begin{lemma}
+\begin{proposition}
 \label{idred}
 If %$\langle A, \sigma \rangle$ be a reachable configuration and
 $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$
 then %$\langle A, \sigma \rangle$ is an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
-\end{lemma}
+\end{proposition}
 
 
 	
@@ -1885,7 +1872,7 @@ $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma
 \end{lemma}
 
 
-Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible choice, even if 
+Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible witness. Note however that 
 it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$,
 e.g. if $\sigma = \bot$, in which case $\alpha = \top$.
 
@@ -1951,17 +1938,17 @@ then $\langle B, \rho \otimes d\rangle \Downarrow_c$.
 %
 We improved on the feasibility of $\sim$ by requiring that the equivalence is upward closed 
 only whenever the store may be worsened. Note that in some cases, e.g. 
-when $\mathcal{C}$ is absorptive, the clause is vacuous. 
+when $\mathcal{C}$ is absorptive (as in  \cite{pippo}), the clause is vacuous. 
 %
 However, thanks to the correspondence results in Section~\ref{sec:corres}, 
 it can be proved upward closed for all $d$, and thus also a congruence.
 %
 %Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
-\begin{theorem}
+\begin{proposition}
 Let $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$ and $d \in \mathcal{C}$.
 If  $\mathcal{C}$ is cancellative then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
-\end{theorem}
+\end{proposition}
 \begin{proof}
 	We need to show that the relation 
 	$R = \{ (\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle) \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
@@ -2014,9 +2001,18 @@ If  $\mathcal{C}$ is cancellative then $\langle A,\sigma \otimes d\rangle \sim \
 	\end{description}
 \end{proof}
 
+As for the unlabelled case (Proposition~\ref{cong1}), strong bisimilarity is a congruence.
+
+\begin{proposition}
+Let $A \sim B$ and $C[\cdot]$ a context.
+If $\mathcal{C}$ is cancellative 
+then $C[A] \sim C[B]$.
+\end{proposition}
 
 %\section{On the equivalence between bisimulation semantics}
 %
+Finally, we can state the correspondence between our bisimilarity semantics.
+
 \begin{theorem}
 $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, then the equality holds.
 \end{theorem}
@@ -2025,6 +2021,30 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 %$\approx_{\mathit{s}}  \subseteq \approx$. Moreover, if $\mathcal{C}$ is invertible, then the equality holds.
 %\end{theorem}
 
+
+\section{Related works}\label{sec:related}
+As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores, and information mobility.
+
+One of the most related work is represented by \cite{pippo}. Anyhow, the differences are significant: in that work the underlying constraint systems is crisp, as it can only deal with hard constraints (which indeed we can do as well). For this reason, there is no need for defining a \emph{residuated} preference system, which allows us to use bipolar preferences. Furthermore, the authors of \cite{pippo} adopt a cylindric algebra instead of a polyadic one, as introduced in Section~\ref{sec:intro}. Finally, as already noted in Remark~\ref{crisp} in this paper, the use of the local store is different with respect to our approach.
+Since the monoidal operator is idempotent, in \cite{pippo} the semantics 
+of the hiding operator is simply presented as $\langle 
+\exists^{e}_x A, \sigma \rangle \to \langle  \exists^{e'}_x B, \sigma \otimes \exists_x e' \rangle$ if $\langle 
+A, e \otimes \exists_x \sigma \rangle \to \langle  B, e' \otimes \exists_x \sigma \rangle$. 
+Since we have introduced polyadic operators, with their simpler representation of substitutions, and thus we consider agents up-to $\alpha$-conversion,
+we can replace $\exists_x \sigma$ with $\sigma$ by requiring that $x \not \in sv(\sigma)$.
+Most importantly, in \cite{pippo} the local store $e$ is used to fire a step that only changes the local store to $e'$, and this change is  visible in the global store except  for the effect on variable $x$. However, this rule is intrinsically non-deterministic, since many such $e'$ can exist. Moreover, since we are not idempotent we cannot add the whole $e'$ to both the local and the global stores, but only the ``difference'' between $e'$ and $e$ at each step. 
+
+In \cite{spatialvalencia} the authors describe a \emph{spatial} constraint systems with operators to
+specify information and processes moving from a space to another. Such a language provides for the specification of spatial mobility and epistemic concepts such as belief, utterance and lies: besides local stores for agents  (representing belief), it can express the epistemic notion of knowledge by means of a derived spatial operator that specifies global shared information. Differently from this work, our approach focuses on preferences, on the concurrent language on top of the system, and on process equivalences.
+
+The process calculi in \cite{parrowlics,buscemi} provide  to agents the use of assertions within $\pi$-like processes. A soft language is adopted in \cite{buscemi}: from a variant of $\pi$-calculus it inherits \emph{explicit fusions}, i.e. simple constraints expressing name equalities, in order to pass constraints from an agent to another.
+ However the algebraic structure is neither residuated nor  polyadic; in addition, no process-equivalence relation is proposed.  In \cite{pi1,pi2}  processes can send constraints using communication channels much like in the $\pi$-calculus. 
+ 
+ A further language still using $\pi$-calculus features to exchange constraint between agents, but this time with a probabilistic semantics, is shown in \cite{bortolussi}. A congruence relation and a labelled transition system are also shown in the paper. 
+
+In \cite{catuscia} the authors propose an extension of the CCP language with the purpose to model process migration within a hierarchical network. Agents brings their local store when they migrate. In \cite{lubos} the authors enrich a CCP language with the possibility to share (read/write) the information in the global store, and communicate with other agents (via multi-party or handshake).
+
+All the systems described in this section are based on hard constraints, and  they do not consider preferences associated with constraints (except \cite{buscemi}, whose algebraic structure is however less general). In addition, a very few proposals formalise process equivalences by providing a deeper investigation of the semantics.
 
 \section{Conclusions and further works}\label{sec:conclusion}
 With the language we presented in this paper, our goal was to further extend and generalise  the family of CCP-based languages . In fact, \emph{i)}  with respect to crisp languages we can  represent preferences, and thus both hard and soft constraints. Then, \emph{ii)} polyadic operators make it possible  to have a compact – \emph{polynomial} – representation of soft constraints (about this, we point the interested reader to \cite{festcatuscia}), which in turn can be used in several applications, as in hybrid systems, loop invariant generation, and parameter design of control~\cite{smtpolynomial}.  Furthermore, \emph{iii)} the polyadic algebra we adopted takes advantage of a residuated POM which allows preference values to be partially ordered and bipolar, while $\odiv$ permits to easily compute barbs and remove one constraint (store) from another. The use of a non-idempotent constraint combination-operator (i.e., $\otimes$) leaded us to redesign the local stores proposed in \cite{pippo}, in order to add to the global store the information added at each computation step only.
