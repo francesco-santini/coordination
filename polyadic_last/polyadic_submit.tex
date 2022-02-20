@@ -125,7 +125,7 @@ We provide the language with labelled and unlabelled reduction semantics, as wel
 \emph{Concurrent Constraint Programming} (CCP) is a declarative model for concurrency where agents interact on a common store of information by telling and asking constraints~\cite{emerging}.  In its general meaning, a constraint is defined as a relationship on a set of variables: an assignment of (some of) the variables in the store needs to be found in order to satisfy a given goal.  A constraint system provides a signature from which the constraints can be constructed;  it can be formalised as an algebraic structure with operators to express conjunction of constraints, absence and inconsistent information, hiding of information and parameter passing.
 
 
-The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  the first-order calculus~\cite{cylalgebraic}, which have been widely  adopted in the literature to provide the semantics of constraint formulas~\cite{fgcs92,popl91}. A cylindric algebra is formed by enhancing a Boolean algebra by means of a family of unary operations called \emph{cylindrications}. Technically, the cylindrification operation $\exists_S(c)$ is used to project out the information about a set of variables $S$ from a constraint $c$: it is important to focus only on  the variables that appear in the goal of a constraint logic program, for example.
+The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  the first-order calculus~\cite{cylalgebraic}, which have been widely  adopted in the literature to provide the semantics of constraint formulas~\cite{fgcs92,popl91}. A cylindric algebra is formed by enhancing a Boolean algebra by means of a family of unary operations called \emph{cylindrifications}. Technically, the cylindrification operation $\exists_S(c)$ is used to project out the information about a set of variables $S$ from a constraint $c$: it is important to focus only on  the variables that appear in the goal of a constraint logic program, for example.
 
 While polyadic algebras are the algebraic version of the pure first-order calculus, cylindric algebras yield an algebraisation of the first-order calculus with \emph{equality}. However, equality can be also achieved in polyadic algebras via additional axioms that specify which terms are to be considered equal under the abstract interpretation.
 
@@ -138,9 +138,9 @@ Moreover, we designed the language to let agents perform operations  on variable
 Beside the syntax of the language to define agents, we provide a reduction semantics and a saturated bisimulation relation for  them. In order for two computation states to be \emph{saturated bisimilar}, it is required that \emph{i)} they should expose the same barbs, \emph{ii)} whenever one of them moves then the other should reply and arrive at an equivalent state, \emph{iii)} they should be equivalent under all the possible stores.
 Intuitively, barbs are basic observations (i.e., predicates) on the system states; in the case of CCP languages, barbs are represented by the constraint store. In addition, we show a labelled bisimulation to (partially) overcome the need to check the store closure (i.e., item \emph{iii} in the previous paragraph). As a final step, we show that the labelled and unlabelled reduction semantics correspond, and we advance a labelled bisimulation relation.
 
-This paper is a continuation of \cite{festcatuscia} with a concurrent constraint language on top of it.
+This paper is a continuation of \cite{festcatuscia}, refining the polyadic formalism in order to define a concurrent constraint language.
 %and process-equivalence relations.  
-We will report the proof of the most important results only, for the sake of space. The work is organised as  follows.
+For the sake of space, the work reports the proof of a few results only, and it is organised as  follows.
 Section~\ref{sec:bg}  
 and Section~\ref{sec:newconstraint} present the necessary background on the algebraic structure needed to model polyadic constraints. 
 The following sections are focused on the semantics we can give to a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on  equivalence relations among processes.
@@ -542,7 +542,7 @@ while instead $\bigvee\{(m+1) \ominus m, (m+1) \ominus (m+1)\} = 0$.
 
 \begin{remark}
 Note that distributivity implies that $c \otimes (a \odiv b) = (c \otimes a) \odiv (c \otimes b)$,
-from which cancellativity follows.
+from which cancellativeness follows.
 \end{remark}
 }
 
@@ -789,7 +789,7 @@ We fix a POM $\mathbb{S} = \langle A, \leq, \monop, \monid \rangle$
 and a set $V$ of variables, and we define a family of cylindric operators axiomatising existential quantifiers.
 
 \begin{definition}[Cylindrification]\label{cyli}
-	A cylindric operator $\exists$ over $\mathbb{S}$ and $V$ ia family of monotone functions
+	A cylindric operator $\exists$ over $\mathbb{S}$ and $V$ is a family of monotone functions
 	$\exists_x : A \rightarrow A$ indexed by elements in V such that for all 
 	$a, b \in A$ and $x, y \in V$
 	%\todo{$2_f^V$ non e' stato definito prima e/o f non si sa cosa e' qui}
@@ -973,7 +973,7 @@ Furthermore, if $\sigma$ is invertible, then the equality holds.
 \subsection{Polyadic Soft Constraints}\label{sec:softconstraints}
 \label{subsec:inst} 
 The key example of polyadic construction comes from soft constraints: 
-our presentaton generalises \cite{scc},
+our presentation generalises \cite{scc},
 whose underlying algebraic structure is the one of absorptive semirings.
 
 \begin{definition}[Soft constraints]\label{def:softconstraints}
@@ -1447,8 +1447,7 @@ Intuitively, barbs are basic observations (predicates) on the states of a system
 to the constraints in $\mathcal{C}$.
 
 \begin{definition} [Barbs]
-Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$
-and we say that $\langle A, \sigma \rangle$ verifies $c$, or that $\langle A, \sigma \rangle \downarrow_c$ holds, if  $\sigma \leq c$.
+Let $\langle A, \sigma \rangle$ be a configuration and $c \in \mathcal{C}$. We say that $\langle A, \sigma \rangle$ verifies $c$, or that $\langle A, \sigma \rangle \downarrow_c$ holds, if  $\sigma \leq c$.
 \end{definition}
 
 In other terms, satisfying a barb $c$ means that $\hbox{\ask}(c)$ must be enabled in $\langle A, \sigma \rangle$.
@@ -1512,7 +1511,7 @@ obtained from Definition~\ref{def:strongsb} by replacing $\to$ with $\Rightarrow
 
 
 Since $\sim_{\mathit{s}}$ and $\approx_{\mathit{s}}$ are saturated bisimulations, they are clearly upward closed 
-and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an (extended) sagent with an placeholder $\cdot$,
+and they are also congruences. Indeed, a context $C[\cdot]$, i.e., an (extended) agent with an placeholder $\cdot$,
  can modify the behaviour of a configuration only by adding constraints to its store. 
 }
 %Since $\sim_{\mathit{s}}$ is a saturated bisimulation, it is clearly closed with respect
@@ -1639,7 +1638,7 @@ avoid such drawback.
 
 In Table~\ref{fig:ALTS} and Table~\ref{fig:CRLTS} we refine the notion of transition (respectively given in Table~\ref{fig:operational} and Table~\ref{fig:operational2})
 by adding a label that carries additional information about the constraints that cause the reduction.
-Indeed, rules in Table~\ref{fig:ALTS} and Table~\ref{fig:CRLTS} mimick those in Table~\ref{fig:operational} and Table~\ref{fig:operational2}, except for a constraint $\alpha$ that
+Indeed, rules in Table~\ref{fig:ALTS} and Table~\ref{fig:CRLTS} mimic those in Table~\ref{fig:operational} and Table~\ref{fig:operational2}, except for a constraint $\alpha$ that
 represents the additional information that must be combined with $\sigma$ in order to fire an action
 from $\langle A, \sigma\rangle$  to $\langle A', \sigma' \rangle$.
 % i.e., $\langle A, \sigma \otimes \alpha\rangle \longrightarrow \langle A' , \sigma' \rangle$.
@@ -2040,7 +2039,7 @@ specify information and processes moving from a space to another. Such a languag
 The process calculi in \cite{parrowlics,buscemi} provide  to agents the use of assertions within $\pi$-like processes. A soft language is adopted in \cite{buscemi}: from a variant of $\pi$-calculus it inherits \emph{explicit fusions}, i.e. simple constraints expressing name equalities, in order to pass constraints from an agent to another.
  However the algebraic structure is neither residuated nor  polyadic; in addition, no process-equivalence relation is proposed.  In \cite{pi1,pi2}  processes can send constraints using communication channels much like in the $\pi$-calculus. 
  
- A further language still using $\pi$-calculus features to exchange constraint between agents, but this time with a probabilistic semantics, is shown in \cite{bortolussi}. A congruence relation and a labelled transition system are also shown in the paper. 
+ A further language that uses $\pi$-calculus features to exchange constraints between agents, but this time with a probabilistic semantics, is shown in \cite{bortolussi}. A congruence relation and a labelled transition system are also shown in the paper. 
 
 In \cite{catuscia} the authors propose an extension of the CCP language with the purpose to model process migration within a hierarchical network. Agents brings their local store when they migrate. In \cite{lubos} the authors enrich a CCP language with the possibility to share (read/write) the information in the global store, and communicate with other agents (via multi-party or handshake).
 
