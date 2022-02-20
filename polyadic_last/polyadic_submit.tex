@@ -112,14 +112,14 @@ Francesco Santini\inst{2}
 
 \begin{abstract}
 We extend Soft Concurrent Constraint languages with the possibility to manage variables that are local (i.e., private) to some of the agents. Being  constraints soft,  it is possible to  represent partially ordered and bipolar preferences, that is, preferences that are positive or negative. 
-%Moreover,  the language allows for a \emph{polynomial}  representation of  constraints.  
-Besides its syntax, for the language we provide labelled and unlabelled reduction semantics and the proof of their correspondence, together with a labelled bisimulation equivalence.
+%Moreover,  the language allows for a \emph{polynomial}  representation of  constraints.   
+We provide the language with labelled and unlabelled reduction semantics, as well as the associated bisimulation equivalences, and the proof of their correspondence.
 \end{abstract}
 
 
 %We extend Soft Concurrent Constraint languages with the possibility to manage both local (and global) knowledge of agents. Being constraints defined as soft, the underlying system of preferences consists in an ordered monoid where it is possible to natively represent partially ordered and bipolar (i.e., positive/negative) preferences. Such a formalism further generalise the previous literature, while it also grants  a \emph{polynomial}  representation of soft constraints that can be exploited in  several applications. Variables, which support constraints, can either be private to a single agent, or in common with all of them, thus allowing  for different levels of visibility. We provide labelled and unlabelled reduction semantics and their correspondence, together with a labelled bisimulation equivalence.
 
-\keywords{Soft concurrent constraint programming, local variables, observational semantics,  residuated monoids.}
+\keywords{Soft concurrent constraint programming, residuated monoids, local variables, bisimulation equivalences.}
 
 \section{Introduction}\label{sec:intro}
 \emph{Concurrent Constraint Programming} (CCP) is a declarative model for concurrency where agents interact on a common store of information by telling and asking constraints~\cite{emerging}.  In its general meaning, a constraint is defined as a relationship on a set of variables: an assignment of (some of) the variables in the store needs to be found in order to satisfy a given goal.  A constraint system provides a signature from which the constraints can be constructed;  it can be formalised as an algebraic structure with operators to express conjunction of constraints, absence and inconsistent information, hiding of information and parameter passing.
