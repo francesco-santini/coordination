@@ -147,12 +147,12 @@ Section~\ref{sec:correspondancebis} shows further formal results on the correspo
 
 
 
-\section{Related Work}\label{sec:related}
+\section{Related works}\label{sec:related}
 As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores, and information mobility.
 
-One of the most related work is represented by \cite{pippo}. Anyhow, the differences are significant: in that work the underlying constraint systems is not soft, as it can only deal with hard constraints (which indeed we can do as well). For this reason, there is no need for defining a \emph{residuated} preference system, which allows us to use bipolar preferences. Furthermore, the authors of \cite{pippo} adopt a cylindric algebra instead of a polyadic one, as introduced in Section~\ref{sec:intro}. Finally, the concept of local store is different with respect to the approach we present in this paper: by using using our notation, in \cite{pippo} the semantics of the hiding operator  is $\langle 
-\exists^{e}_x B, \sigma \rangle \to \langle  \exists^{e'}_x B', \sigma \otimes \exists_x e' \rangle$ if $\langle 
-B, e \otimes \exists_x \sigma \rangle \to \langle  B', e' \otimes \exists_x \sigma \rangle$. Hence, the local store $e$ is used to fire a step that only changes the local store to $e'$, and this change is  visible in the global store except  for the effect on variable $x$. However, since our $\otimes$ is not idempotent as in \cite{pippo}, we have to add to the final store $ \exists_x \sigma$ only the ``difference'' between $e'$ and $e$ at each step.
+One of the most related work is represented by \cite{pippo}. Anyhow, the differences are significant: in that work the underlying constraint systems is not soft, as it can only deal with hard constraints (which indeed we can do as well). For this reason, there is no need for defining a \emph{residuated} preference system, which allows us to use bipolar preferences. Furthermore, the authors of \cite{pippo} adopt a cylindric algebra instead of a polyadic one, as introduced in Section~\ref{sec:intro}. Finally, the concept of local store is different with respect to the approach we present in this paper: using our notation, in \cite{pippo} the semantics of the hiding operator  is $\langle 
+\exists^{e}_x A, \sigma \rangle \to \langle  \exists^{e'}_x B, \sigma \otimes \exists_x e' \rangle$ if $\langle 
+A, e \otimes \exists_x \sigma \rangle \to \langle  B, e' \otimes \exists_x \sigma \rangle$. Hence, the local store $e$ is used to fire a step that only changes the local store to $e'$, and this change is  visible in the global store except  for the effect on variable $x$. However, since our $\otimes$ is not idempotent as in \cite{pippo}, we have to add to the final store $ \exists_x \sigma$ only the ``difference'' between $e'$ and $e$ at each step. (See also Remark~\ref{crisp} in this paper.)
 
 In \cite{spatialvalencia} the authors describe a \emph{spatial} constraint systems with operators to
 specify information and processes moving from a space to another. Such a language provides for the specification of spatial mobility and epistemic concepts such as belief, utterance and lies: besides local stores for agents  (representing belief), it can express the epistemic notion of knowledge by means of a derived spatial operator that specifies global shared information. Differently from this work, our approach focuses on preferences, on the concurrent language on top of the system, and on process equivalences.
@@ -166,7 +166,7 @@ In \cite{catuscia} the authors propose an extension of the CCP language with the
 
 All the systems described in this section are based on hard constraints, and  they do not consider preferences associated with constraints (except \cite{buscemi}, whose algebraic structure is however less general). In addition, a very few proposals formalise process equivalences by providing a deeper investigation of the semantics.
 
-\section{An Introduction to Residuated Monoids}\label{sec:bg}
+\section{An introduction to Residuated Monoids}\label{sec:bg}
 
 This section reports some results on residuated monoids,
 which are the algebraic structure adopted for modelling
@@ -352,7 +352,7 @@ Note that distributivity implies that $\otimes$ is monotone with respect to $\le
 %
 %We now move our attention to the domain of values we are going to consider.
 
-\subsection{Remarks on Residuation}\label{sec:ror}
+\subsection{Remarks on residuation}\label{sec:ror}
 It is often needed to be able to ``remove'' part of a preference, due e.g. 
 to the non-monotone nature of the language at hand
 for manipulating constraints. 
@@ -754,7 +754,7 @@ $\bigvee \{p \odiv n, u \odiv n\}  = \bot < \bigvee \{p, u\} \odiv n = t \odiv n
 \end{example}
 }
 
-\section{An Polyadic approach for Constraint Manipulation}\label{sec:newconstraint}
+\section{A polyadic approach to constraint manipulation}\label{sec:newconstraint}
 
 This section presents our personal take on polyadic algebras for ordered monoids:
 the standard axiomatisation of e.g.~\cite{sagi2013} has been completely 
@@ -1395,6 +1395,7 @@ necessarily invertible, it is often the best result we can get.
 }
 
 \begin{remark}
+\label{crisp}
 With respect to the crisp language with local variables introduced in \cite{pippo},
 which can be recasted in our framework as absorptive POMs
 where the monoidal operator is idempotent,
@@ -1440,12 +1441,13 @@ An alternative solution for the the structure of rule \mbox{\bf R2} would have b
     {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
     \exists^{\pi \rho}_x B, \sigma \otimes \exists_x \rho
     \rangle \text{ with } \rho = \sigma_1 \odiv (\pi_\otimes \otimes \sigma_0)} \text{ for } x \not \in sv(\sigma)$$
-Indeed, in the light of the Lemma~\ref{mono2}, the proposals coincide for 
+Indeed, in the light of Lemma~\ref{mono2}, the proposals coincide for 
 invertible semirings, since 
-$\pi_0 \otimes \sigma =
-(\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes
-\otimes (\sigma \odiv (\exists_x \pi)_\otimes) \leq
-\pi_\otimes \otimes (\sigma \odiv (\exists_x \pi)_\otimes)$, 
+$\pi_0 \otimes \sigma
+=
+(\pi_\otimes \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes \otimes (\sigma \odiv (\exists_x \pi)_\otimes)
+\leq
+\pi_\otimes \otimes (\sigma \odiv (\exists_x \pi)_\otimes)$,
 and the equality holds for invertible semirings
 since $\pi_\otimes \leq (\exists_x \pi)_\otimes$.
 \end{remark}
@@ -2024,7 +2026,7 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 %\end{theorem}
 
 
-\section{Conclusion}\label{sec:conclusion}
+\section{Conclusions and further works}\label{sec:conclusion}
 With the language we presented in this paper, our goal was to further extend and generalise  the family of CCP-based languages . In fact, \emph{i)}  with respect to crisp languages we can  represent preferences, and thus both hard and soft constraints. Then, \emph{ii)} polyadic operators make it possible  to have a compact – \emph{polynomial} – representation of soft constraints (about this, we point the interested reader to \cite{festcatuscia}), which in turn can be used in several applications, as in hybrid systems, loop invariant generation, and parameter design of control~\cite{smtpolynomial}.  Furthermore, \emph{iii)} the polyadic algebra we adopted takes advantage of a residuated POM which allows preference values to be partially ordered and bipolar, while $\odiv$ permits to easily compute barbs and remove one constraint (store) from another. The use of a non-idempotent constraint combination-operator (i.e., $\otimes$) leaded us to redesign the local stores proposed in \cite{pippo}, in order to add to the global store the information added at each computation step only.
 
 In the case of ``soft languages'', the removal of constraints can also be partial, while in case of ``crisp  languages'', constraint tokens can only be entirely removed or left in the store. A \emph{retract} operation could also be directly included in the language syntax, in the style of \cite{fun11,buscemi}, even if it is not in the scope of this paper.
