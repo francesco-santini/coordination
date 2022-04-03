@@ -98,10 +98,10 @@
 \author{Laura Bussi\inst{1}, Fabio Gadducci\inst{1}, 
 Francesco Santini\inst{2}
 } 
-	\institute{Dipartimento di Informatica, University of Pisa, Italy \\
+	\institute{Dipartimento di Informatica, Universit{\`a} degli Studi di Pisa, Pisa, Italy \\
 		\email{laura.bussi@phd.unipi.it} \qquad
 		\email{fabio.gadducci@unipi.it}
-		\and Dipartimento di Matematica e Informatica, University of Perugia, Italy\\
+		\and Dipartimento di Matematica e Informatica, Universit{\`a} degli Studi di Perugia, Perugia, Italy\\
 		\email{francesco.santini@unipg.it}
 		}
 	
@@ -146,6 +146,7 @@ and Section~\ref{sec:newconstraint} present the necessary background on the alge
 The following sections are focused on the semantics we can give to a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on  equivalence relations among processes.
 Section~\ref{sec:detpolyadicCCP} presents the syntax and a  reduction semantics for the language, while Section~\ref{sec:labelled} presents a labelled reduction for the same language.
 Section~\ref{sec:correspondancebis} shows further formal results on the correspondence between the two semantics, and a bisimilarity relation to compare processes with the labelled semantics. 
+Section~\ref{sec:example} shows a an example of an agent computation related to.\todo{Da finire}
 In Section~\ref{sec:related} we summarise the most related work about CCP-based languages with the notion of local and global variables.
 In Section~\ref{sec:conclusion} we finally wrap up the paper with conclusive thoughts and ideas about future works.
 
@@ -1764,34 +1765,34 @@ If $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$
 then %$\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
 $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 \end{theorem}
-\begin{proof}
-	We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
-	have equivalent proofs, namely, they use axioms and rules in the same order,
-	up-to the obvious renaming (i.e., ${\bf LA1}$ for ${\bf A1}$, and so on).
-	
-	The property holds for the axioms, since e.g. for {\bf LA2} we know that
-	$\alpha \leq c \odiv \sigma$ implies $\alpha \otimes \sigma \leq c$ for residuated POMs.
-	%
-	We then proceed by induction on rule derivations,
-	presenting only the proof for rule {\bf LR2}.
-	%
-	We have 
-	$$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle \xrightarrow{\alpha}
-		\langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \oodiv (\exists_x \pi)_\otimes }
-	{\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
-		\langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_0 \otimes \sigma)}$$
-	%
-	for $x \not \in sv(\sigma) \cup sv(\alpha)$.
-	%
-	By induction hypothesis $\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle$ is reachable and
-	$$\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle \to
-	\langle B, \sigma_1 \rangle$$
-	From this it follows by {\bf LR2} that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
-	$$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \to
-	\langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
-	and we are done.
-	\qed
-\end{proof}
+%\begin{proof}
+%	We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
+%	have equivalent proofs, namely, they use axioms and rules in the same order,
+%	up-to the obvious renaming (i.e., ${\bf LA1}$ for ${\bf A1}$, and so on).
+%	
+%	The property holds for the axioms, since e.g. for {\bf LA2} we know that
+%	$\alpha \leq c \odiv \sigma$ implies $\alpha \otimes \sigma \leq c$ for residuated POMs.
+%	%
+%	We then proceed by induction on rule derivations,
+%	presenting only the proof for rule {\bf LR2}.
+%	%
+%	We have 
+%	$$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle \xrightarrow{\alpha}
+%		\langle B, \sigma_1 \rangle \text{ with } \pi_0 = \pi_\otimes \oodiv (\exists_x \pi)_\otimes }
+%	{\displaystyle \langle \exists^\pi_x A, \sigma \rangle \xrightarrow{\alpha}
+%		\langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle  \text{ with } \rho = \sigma_1 \oodiv (\alpha \otimes \pi_0 \otimes \sigma)}$$
+%	%
+%	for $x \not \in sv(\sigma) \cup sv(\alpha)$.
+%	%
+%	By induction hypothesis $\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle$ is reachable and
+%	$$\langle A, \alpha \otimes \pi_0 \otimes \sigma \rangle \to
+%	\langle B, \sigma_1 \rangle$$
+%	From this it follows by {\bf LR2} that $\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle$ is reachable and
+%	$$\langle \exists^\pi_x A, \alpha \otimes \sigma \rangle \to
+%	\langle \exists^{\pi \rho}_x B, \alpha \otimes \sigma \otimes \exists_x \rho \rangle$$
+%	and we are done.
+%	\qed
+%\end{proof}
 
 
 The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
@@ -1948,57 +1949,57 @@ it can be proved upward closed for all $d$, and thus also a congruence.
 Let $\langle A,\sigma \rangle \sim \langle B,\rho \rangle$ and $d \in \mathcal{C}$.
 If  $\mathcal{C}$ is cancellative then $\langle A,\sigma \otimes d\rangle \sim \langle B,\rho \otimes d \rangle$.
 \end{proposition}
-\begin{proof}
-	We need to show that the relation 
-	$R = \{ (\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle) \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
-	is a labelled bisimulation. We then assume that 
-	$\langle A, \sigma \otimes d \rangle  \xrightarrow{\beta} \langle A', \sigma' \rangle$: 
-	we need to prove that there exists $B'$ such that
-	$\langle B,\beta \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
-	and $(\langle A', \sigma' \rangle, \langle B', \sigma' \rangle) \in R$.
-	%  Note also that we need to prove it only for those
-	
-	%
-	By soundness 
-	$\langle A, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$
-	with the same proof.
-	We then distinguish two cases on the 
-	axiom used.
-	
-	\begin{description}
-		\item{[{\bf LA1}]}
-		By Lemma~\ref{LA1} (completeness for {\bf LA1}) we have $\langle A,  \sigma \rangle  \xrightarrow{\monid}\langle A', \sigma'' \rangle$
-		and $\sigma' \odiv (\beta \otimes \sigma \otimes d) = \sigma'' \odiv \sigma$, and by Lemma~\ref{mono2} (monotonicity)
-		we have that $\sigma' = \sigma'' \otimes \beta \otimes d$.
-		Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
-		there exists $B'$ such that 
-		$\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
-		and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$,
-		and it suffices to look at the cases where $\beta \otimes d \leq \monid$.
-		%
-		Now $\langle B, \sigma \rangle \xrightarrow{\monid} \langle B', \sigma'' \rangle$, and we may now check the proof of
-		such reduction.
-		If it is  {\bf LA1}, we retrace the same steps as before and 
-		$\langle B, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{\monid} \langle B', \sigma' \rangle$
-		with $\sigma' = \sigma'' \otimes \beta \otimes d$, and we are done.
-		%
-		If it is  {\bf LA2}, it suffices to note that $\beta \otimes \sigma \otimes d\leq \sigma$,
-		hence $\langle B, \sigma \otimes \beta \otimes d \rangle \xrightarrow{\monid} \langle B', \sigma'' \otimes \beta \otimes d\rangle$
-		and we are done.
-		
-		\item{[{\bf LA2}]}
-		By Lemma~\ref{LA2} (completeness for {\bf LA2}) we have $\langle A,  \sigma \rangle  \xrightarrow{\alpha}\langle A', \alpha \otimes \sigma \rangle$
-		for any $\alpha \leq (\beta \otimes \sigma \otimes d) \odiv \sigma$.
-		% thus in particular 
-		%$\langle A,  \sigma \rangle  \xrightarrow{\beta \otimes \sigma}\langle A', \beta \otimes \sigma \otimes d \rangle$,
-		%thanks to cancellativeness).
-		%  
-		Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
-		there exists $B'$ such that 
-		$\langle B, \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \alpha \otimes \sigma \rangle$,
-		and by taking $\alpha = (\beta \otimes \sigma \otimes d) \odiv \sigma$ we are done.
-	\end{description}
-\end{proof}
+%\begin{proof}
+%	We need to show that the relation 
+%	$R = \{ (\langle A,\sigma \otimes d \rangle, \langle B,\sigma \otimes d \rangle) \mid \langle A,\sigma \rangle \sim \langle B,\sigma \rangle\}$
+%	is a labelled bisimulation. We then assume that 
+%	$\langle A, \sigma \otimes d \rangle  \xrightarrow{\beta} \langle A', \sigma' \rangle$: 
+%	we need to prove that there exists $B'$ such that
+%	$\langle B,\beta \otimes  \sigma \otimes d \rangle  \xrightarrow{} \langle B', \sigma' \rangle$ 
+%	and $(\langle A', \sigma' \rangle, \langle B', \sigma' \rangle) \in R$.
+%	%  Note also that we need to prove it only for those
+%	
+%	%
+%	By soundness 
+%	$\langle A, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{}\langle A', \sigma' \rangle$
+%	with the same proof.
+%	We then distinguish two cases on the 
+%	axiom used.
+%	
+%	\begin{description}
+%		\item{[{\bf LA1}]}
+%		By Lemma~\ref{LA1} (completeness for {\bf LA1}) we have $\langle A,  \sigma \rangle  \xrightarrow{\monid}\langle A', \sigma'' \rangle$
+%		and $\sigma' \odiv (\beta \otimes \sigma \otimes d) = \sigma'' \odiv \sigma$, and by Lemma~\ref{mono2} (monotonicity)
+%		we have that $\sigma' = \sigma'' \otimes \beta \otimes d$.
+%		Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
+%		there exists $B'$ such that 
+%		$\langle B, \sigma \rangle \xrightarrow{} \langle B', \sigma'' \rangle$
+%		and $\langle A', \sigma'' \rangle \sim \langle B', \sigma'' \rangle$,
+%		and it suffices to look at the cases where $\beta \otimes d \leq \monid$.
+%		%
+%		Now $\langle B, \sigma \rangle \xrightarrow{\monid} \langle B', \sigma'' \rangle$, and we may now check the proof of
+%		such reduction.
+%		If it is  {\bf LA1}, we retrace the same steps as before and 
+%		$\langle B, \beta \otimes  \sigma \otimes d \rangle  \xrightarrow{\monid} \langle B', \sigma' \rangle$
+%		with $\sigma' = \sigma'' \otimes \beta \otimes d$, and we are done.
+%		%
+%		If it is  {\bf LA2}, it suffices to note that $\beta \otimes \sigma \otimes d\leq \sigma$,
+%		hence $\langle B, \sigma \otimes \beta \otimes d \rangle \xrightarrow{\monid} \langle B', \sigma'' \otimes \beta \otimes d\rangle$
+%		and we are done.
+%		
+%		\item{[{\bf LA2}]}
+%		By Lemma~\ref{LA2} (completeness for {\bf LA2}) we have $\langle A,  \sigma \rangle  \xrightarrow{\alpha}\langle A', \alpha \otimes \sigma \rangle$
+%		for any $\alpha \leq (\beta \otimes \sigma \otimes d) \odiv \sigma$.
+%		% thus in particular 
+%		%$\langle A,  \sigma \rangle  \xrightarrow{\beta \otimes \sigma}\langle A', \beta \otimes \sigma \otimes d \rangle$,
+%		%thanks to cancellativeness).
+%		%  
+%		Since $\langle A,\sigma \rangle \sim \langle B,\sigma \rangle$, 
+%		there exists $B'$ such that 
+%		$\langle B, \alpha \otimes \sigma \rangle \xrightarrow{} \langle B', \alpha \otimes \sigma \rangle$,
+%		and by taking $\alpha = (\beta \otimes \sigma \otimes d) \odiv \sigma$ we are done.
+%	\end{description}
+%\end{proof}
 
 As for the unlabelled case (Proposition~\ref{cong1}), strong bisimilarity is a congruence.
 
@@ -2019,6 +2020,9 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 %\begin{theorem}
 %$\approx_{\mathit{s}}  \subseteq \approx$. Moreover, if $\mathcal{C}$ is invertible, then the equality holds.
 %\end{theorem}
+
+
+\section{Example}\label{sec:example}
 
 
 \section{Related works}\label{sec:related}
