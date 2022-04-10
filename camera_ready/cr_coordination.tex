@@ -91,7 +91,8 @@
 
 \begin{document}
 
-\title{Soft Concurrent Constraint Programming\\ with Local Variables\thanks{Research partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''.}
+\title{Soft Concurrent Constraint Programming\\ with Local Variables\thanks{Research partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''
+and by GNCS-INdAM (``Gruppo Nazionale per il Calcolo Scientifico'').}
 }
 
 
@@ -111,7 +112,8 @@ Francesco Santini\inst{2}
 \maketitle
 
 \begin{abstract}
-We extend Soft Concurrent Constraint languages with the possibility to manage variables that are local (i.e., private) to some of the agents. Being  constraints soft,  it is possible to  represent partially ordered and bipolar preferences, that is, preference values that are either positive or negative. 
+We extend Soft Concurrent Constraint languages with the possibility to manage variables that are local (i.e., private) to some of the agents. Being  constraints soft,  it is possible to represent preferences as a partially ordered set.
+%and bipolar preferences, that is, preference values that are either positive or negative. 
 With respect to the related literature using an idempotent constraint-composition operator, a soft language requires a revision of the hiding operator, which is used to locally keep the computation effect on a variable, and conceal it from the  global store.
 We provide the language with labelled and unlabelled reduction semantics, as well as the associated bisimulation equivalences and  their correspondence.
 \end{abstract}
@@ -122,7 +124,7 @@ We provide the language with labelled and unlabelled reduction semantics, as wel
 \keywords{Soft concurrent constraint programming, residuated monoids, local variables, bisimulation equivalences.}
 
 \section{Introduction}\label{sec:intro}
-\emph{Concurrent Constraint Programming} (CCP) is a declarative model for concurrency where agents interact on a common store of information by telling and asking constraints~\cite{emerging}.  In its general meaning, a constraint is defined as a relationship on a set of variables: an assignment of (some of) the variables in the store needs to be found in order to satisfy a given goal.  A constraint system provides a signature from which the constraints can be constructed;  it can be formalised as an algebraic structure with operators to express conjunction of constraints, absence and inconsistent information, hiding of information and parameter passing.
+\emph{Concurrent Constraint Programming} (CCP) is a declarative model for concurrency where agents interact on a common store of information by telling and asking constraints~\cite{emerging}.  In general terms, a constraint is a relationship on a set of variables: an assignment of (some of) the variables in the store needs to be found so to satisfy a given goal.  A constraint system provides a signature from which the constraints are built;  it is formalised as an algebra with operators to express conjunction of constraints, absent and inconsistent information, hiding of information and parameter passing.
 
 
 The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  the first-order calculus~\cite{cylalgebraic}, which have been widely  adopted in the literature to provide the semantics of constraint formulas~\cite{fgcs92,popl91}. A cylindric algebra is formed by enhancing a Boolean algebra by means of a family of unary operations called \emph{cylindrifications}. Technically, the cylindrification operation $\exists_S(c)$ is used to project out the information about a set of variables $S$ from a constraint $c$: it is important to focus only on  the variables that appear in the goal of a constraint logic program, for example.
@@ -131,23 +133,24 @@ While polyadic algebras are the algebraic version of the pure first-order calcul
 
  While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (to perform parameters passing~\cite{popl91} and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
 
-The CCP language we present in this paper is a further generalisation of what can be found in the literature (see also Section~\ref{sec:related}): first, it naturally models bipolar (i.e., positive/negative) preferences within a single structure without joining two monoids together~\cite{posneg}, and secondly, polyadic algebras can be exploited to model
-many problems using a polynomial representation of constraints. In fact, polynomial constraints  play an important role in program analysis and verification (e.g. when synthesising program invariants and analysing the reachability of hybrid systems), and they have been recently used in SAT modulo theories~\cite{smtpolynomial}.
-Moreover, we designed the language to let agents perform operations  on variables (in particular, adding and asking constraints) that are visible only to an agent: for this reason, the \emph{hiding} operator needs to consider the effect of local steps with respect to the global store, seen by all the agents participating to a concurrent computation. In this way, it is possible to distinguish between local and global knowledge of agents, in the form of a local and global store of constraints.
+The soft CCP language we present in this paper is a further generalisation of what can be found in the literature, in particular~\cite{pippo} (see also Section~\ref{sec:related}). In particular, it allows for a more general algebraic structure than the absorptive and idempotent monoid used there, and it covers 
+also bipolar (i.e., positive/negative) preferences, thus generalising~\cite{posneg}; secondly, polyadic algebras can %be exploited to 
+model many problems using a polynomial representation of constraints. In fact, polynomial constraints  play an important role in program analysis and verification (e.g. when synthesising program invariants and analysing the reachability of hybrid systems), and they have been recently used in SAT modulo theories~\cite{smtpolynomial}.
+Moreover, the language allows an agent to perform operations  on variables (in particular, adding and asking constraints) that are local, i.e., visible only to the agent itself: for this reason, the \emph{hiding} operator needs to consider the effect of local steps with respect to the global store, which is seen by all the agents participating to a concurrent computation. In this way, it is possible to distinguish between local and global knowledge of agents, in the form of a local and a global store of constraints.
 
-Beside the language syntax to define agents, we provide a reduction semantics and a saturated bisimulation relation for  them. In order for two computation states to be \emph{saturated bisimilar}, it is required that \emph{i)} they should expose the same barbs, \emph{ii)} whenever one of them moves then the other should reply and arrive at an equivalent state, \emph{iii)} they should be equivalent under all the possible stores.
+Beside the language syntax, we provide a reduction semantics and a saturated bisimulation relation, again taking inspiration from and generalising~\cite{pippo}. In order for two computation states to be \emph{saturated bisimilar}, it is required that \emph{i)} they should expose the same barbs, \emph{ii)} whenever one of them moves then the other should reply and arrive at an equivalent state, \emph{iii)} they should be equivalent under all the possible stores.
 Intuitively, barbs are basic observations (i.e., predicates) on the system states; in the case of CCP languages, barbs are represented by the constraint store. In addition, we show a labelled bisimulation to (partially) overcome the need to check the store closure (i.e., item \emph{iii} in the previous paragraph). As a final step, we show that the labelled and unlabelled reduction semantics correspond, and we advance a labelled bisimulation relation.
 
-This paper is a continuation of \cite{festcatuscia}, refining the polyadic formalism in order to define a concurrent constraint language.
+This paper is a continuation of \cite{festcatuscia}, exploiting the polyadic formalism to define a concurrent constraint language.
 %and process-equivalence relations.  
 %For the sake of space, the work reports the proof of a few results only, and it is organised as  follows.
-The work is organised as follows:
+%The work is organised as follows:
 Section~\ref{sec:bg}  
 and Section~\ref{sec:newconstraint} present the necessary background on the algebraic structure needed to model polyadic constraints. 
 The following sections are focused on the semantics we can give to a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on  equivalence relations among processes.
 Section~\ref{sec:detpolyadicCCP} presents the syntax and a  reduction semantics for the language, while Section~\ref{sec:labelled} presents a labelled reduction for the same language.
 Section~\ref{sec:correspondancebis} shows further formal results on the correspondence between the two semantics, and a bisimilarity relation to compare processes with the labelled semantics. 
-Section~\ref{sec:example} shows a an example of an agent computation related to.\todo{Da finire}
+%Section~\ref{sec:example} shows a an example of an agent computation related to.\todo{Da finire}
 In Section~\ref{sec:related} we summarise the most related work about CCP-based languages with the notion of local and global variables.
 In Section~\ref{sec:conclusion} we finally wrap up the paper with conclusive thoughts and ideas about future works.
 
@@ -180,12 +183,12 @@ a comparison with other proposals.
 	%$\forall a \in A. \bot \leq a$.
 	%
 	A semi-lattice (SL) is a PO
-	such that any non-empty finite subset of $A$ has a least upper bound (LUB).
+	such that any finite subset of $A$ has a least upper bound (LUB).
 \end{definition}
 
-The LUB of a (possibly infinite or empty) subset $X \subseteq A$ is denoted $\bigvee X$, and it is clearly unique.
-Should  they exist, $\bigvee A$ and $\bigvee \emptyset$ correspond respectively to the top, denoted as 
-$\top$, and to the bottom, denoted as $\bot$, of the PO.
+The LUB of a (possibly infinite) subset $X \subseteq A$ is denoted $\bigvee X$, and it is clearly unique.
+Note that $\bigvee \emptyset$ is the bottom, denoted as $\bot$, of the PO.
+Should it exist, $\bigvee A$ is the top, denoted as $\top$, of the PO.
 
 \comment{\begin{definition}[Compact elements]
 An element $a \in A$ is compact 
@@ -251,25 +254,27 @@ Conventionally, we denote $\bigotimes \emptyset = \bot$.
 }
 
 \begin{example}[Power set]\label{ex:powerset}
-	Given a (possibly infinite) set $V$ of variables, we consider
-	the monoid $\langle 2^V, \cup, \emptyset \rangle$
-	of (finite, possibly empty) subsets of $V$, with union as the monoidal operator.
-	Since the operator is idempotent (i.e., $\forall a\in A.\, a \monop a = a$), 
-	the natural order ($\forall a, b \in A.\, a \leq b$ iff $a \monop b = b$) 
-	is a partial order, and 
-	it coincides with subset inclusion:
-	in fact, $\langle 2^V, \subseteq, \cup, \emptyset \rangle$
-	is an SLM.
+	Given a (possibly infinite) set $V$ of variables, a key example
+	is represented by the POM $\mathbb{P}(V) = \langle 2^V, \subseteq, \cap, V \rangle$
+	of subsets of $V$, with the partial order given by subset inclusion
+	and the monoidal operator by intersection. 
+	In fact, $P(V)$ is a continuous lattice, since all LUBSs exists.
+%	Since the operator is idempotent (i.e., $\forall a\in A.\, a \monop a = a$), 
+%	the natural order ($\forall a, b \in A.\, a \leq b$ iff $a \monop b = b$) 
+%	is a partial order, and 
+%	it coincides with subset inclusion:
+%	in fact, $\langle 2^V, \subseteq, \cup, \emptyset \rangle$
+%	is an SLM.
 \end{example}
 
 In general, the partial order $\leq$ and the multiplication operator $\otimes$ can be unrelated.
-This is not the case for distributive SLMs.
+This is not the case for distributive SLMs (such as $\mathbb{P}(V)$ above).
 
 \begin{definition}[Distributivity]
 \label{dist}
 Let $\langle A, \leq, \monop, \monid \rangle$ be an SLM.
 It is distributive if
-	for  any  non-empty finite  $X \subseteq A$
+	for  any finite  $X \subseteq A$
 %	\begin{itemize}
 		it holds $\forall a \in A.\,  a \monop  \bigvee X = \bigvee \{a \monop x \mid x \in X\}$.
 %	\end{itemize}
@@ -370,7 +375,7 @@ an approximated form of subtraction.
 %We can give an order characterisation of the residuation operator.
 
 \begin{lemma}\label{rclm1}
-	Let $\langle A,$ $\leq, \otimes,  \odiv, \1 \rangle$ be a residuated POM with bottom.
+	Let $\langle A,$ $\leq, \otimes,  \odiv, \1 \rangle$ be a residuated POM.
 	Then $a \odiv b = \bigvee \{c \mid b \otimes c \leq a\}$ for all $a, b \in A$.
 \end{lemma}
 
@@ -385,16 +390,23 @@ In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl17}).
 	If additionally it is a SLM, then it is distributive.
 \end{lemma}
 
-
+\begin{example}
+Consider again the SLM $\mathbb{P}(V)$ from Example~\ref{ex:powerset}. 
+It is clearly residuated, with $X \odiv Y = (V \setminus Y) \cup X$. In fact, the 
+residuated operator plays the role of classical logical implication $Y \implies X$.
+Note also that $V \setminus Y = \emptyset \odiv Y$, so algebraically we have 
+that $X \odiv Y = X \vee (\bot \odiv Y)$ holds in $\mathbb{P}(V)$.
+\end{example}
 
 In any residuated POM the $\odiv$ operator is also monotone on the first argument and 
 anti-monotone on the second one, i.e., 
 $\forall a, b, c \in A.\, a\leq b \implies  c\odiv b \leq c \odiv a$.
 %
-Other easy to prove properties are
-$\forall a\in A. \monid \leq a \odiv a$ and
-$\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) \leq a$.
-These latter facts suggest the definition below, which identifies sub-classes 
+%Other easy to prove properties are
+%$\forall a\in A. \monid \leq a \odiv a$ and
+%$\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) \leq a$.
+%These latter facts suggest 
+The definition below identifies sub-classes 
 of residuated monoids that are suitable for an easier manipulation
 of constraints (see e.g.~\cite{ecai06}).
 
@@ -404,7 +416,7 @@ of constraints (see e.g.~\cite{ecai06}).
 		\item
 		\emph{localised} if $\forall a \in A. a \not \in \{\bot,\top\} \implies a \odiv a = \1$;
 		\item
-		\emph{invertible} if $\forall a, b \in A. a \leq b \implies b \monop (a \odiv b) = a$;
+		\emph{invertible} if $\forall a, b \in A. a \leq b < \top \implies b \monop (a \odiv b) = a$;
 		\item
 		\emph{cancellative} if $\forall a, b, c \in A. a \not \in \{\bot,\top\} \wedge a \otimes b = a  \otimes c \implies b = c$.
 	\end{itemize}
@@ -416,8 +428,8 @@ $\forall a, b \in A. \bot < a \leq b<\top \implies a \odiv b \leq \1$.
 Indeed, the latter implies $a \odiv a \leq \1$, while  $\1 \leq a \odiv a$
 by definition. Now, assuming $a \odiv a = \1$ and $a \leq b$, 
 by anti-monotonicity $a \odiv b \leq a \odiv a = \1$.
-Note the constraint on $a \not \in \{\bot,\top\}$: indeed, if a residuated POM 
-has a bottom element then it also has a top element and moreover 
+Note the constraint on $a \not \in \{\bot,\top\}$: indeed, a residuated POM 
+always has a top element and moreover 
 $a \odiv \bot = \top \odiv a = \top$ for any  $a$.
 
 Note that being cancellative is a strong requirement. It implies e.g. 
@@ -2031,13 +2043,13 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 %\end{theorem}
 
 
-\section{Example}\label{sec:example}
-
-In this section we present an example where we show an application of the language to a bipolar example.
-
-Bipolarity is a hot topic in a variety of fields, including psychology, multi-criteria decision making, database queries, argumentation, and qualitative reasoning, to name a few. Positive and negative statements are frequently used to express preferences on a range of options. In fact, in many real-life situations, agents express both their likes and dislikes, resulting in bipolar preferences. Positive and negative preferences may appear to be two distinct criteria to reason with, and so techniques like multi-criteria optimisation may appear to be appropriate for dealing with both. However, this explanation obscures the essential character of bipolar preferences, namely, that positive and negative desires are inherently opposed. For example, the advantages and disadvantages of a decision, which may be viewed as positive and negative preferences, are diametrically opposed aspects, thus it would be unreasonable to analyse them individually, as is typically done in a multi-criteria approach.
-
-One of the basic components of decision-making processes is comparing positive and negative aspects and compensating for their strength, and it is definitely a method generally used to address many real challenges.
+%\section{Example}\label{sec:example}
+%
+%In this section we present an example where we show an application of the language to a bipolar example.
+%
+%Bipolarity is a hot topic in a variety of fields, including psychology, multi-criteria decision making, database queries, argumentation, and qualitative reasoning, to name a few. Positive and negative statements are frequently used to express preferences on a range of options. In fact, in many real-life situations, agents express both their likes and dislikes, resulting in bipolar preferences. Positive and negative preferences may appear to be two distinct criteria to reason with, and so techniques like multi-criteria optimisation may appear to be appropriate for dealing with both. However, this explanation obscures the essential character of bipolar preferences, namely, that positive and negative desires are inherently opposed. For example, the advantages and disadvantages of a decision, which may be viewed as positive and negative preferences, are diametrically opposed aspects, thus it would be unreasonable to analyse them individually, as is typically done in a multi-criteria approach.
+%
+%One of the basic components of decision-making processes is comparing positive and negative aspects and compensating for their strength, and it is definitely a method generally used to address many real challenges.
 
 
 \section{Related works}\label{sec:related}
