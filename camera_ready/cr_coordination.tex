@@ -111,7 +111,7 @@ Francesco Santini\inst{2}
 \maketitle
 
 \begin{abstract}
-We extend Soft Concurrent Constraint languages with the possibility to manage variables that are local (i.e., private) to some of the agents. Being  constraints soft,  it is possible to  represent partially ordered and bipolar preferences, that is, preferences that are positive or negative. 
+We extend Soft Concurrent Constraint languages with the possibility to manage variables that are local (i.e., private) to some of the agents. Being  constraints soft,  it is possible to  represent partially ordered and bipolar preferences, that is, preference values that are either positive or negative. 
 With respect to the related literature using an idempotent constraint-composition operator, a soft language requires a revision of the hiding operator, which is used to locally keep the computation effect on a variable, and conceal it from the  global store.
 We provide the language with labelled and unlabelled reduction semantics, as well as the associated bisimulation equivalences and  their correspondence.
 \end{abstract}
@@ -135,7 +135,7 @@ The CCP language we present in this paper is a further generalisation of what ca
 many problems using a polynomial representation of constraints. In fact, polynomial constraints  play an important role in program analysis and verification (e.g. when synthesising program invariants and analysing the reachability of hybrid systems), and they have been recently used in SAT modulo theories~\cite{smtpolynomial}.
 Moreover, we designed the language to let agents perform operations  on variables (in particular, adding and asking constraints) that are visible only to an agent: for this reason, the \emph{hiding} operator needs to consider the effect of local steps with respect to the global store, seen by all the agents participating to a concurrent computation. In this way, it is possible to distinguish between local and global knowledge of agents, in the form of a local and global store of constraints.
 
-Beside the syntax of the language to define agents, we provide a reduction semantics and a saturated bisimulation relation for  them. In order for two computation states to be \emph{saturated bisimilar}, it is required that \emph{i)} they should expose the same barbs, \emph{ii)} whenever one of them moves then the other should reply and arrive at an equivalent state, \emph{iii)} they should be equivalent under all the possible stores.
+Beside the language syntax to define agents, we provide a reduction semantics and a saturated bisimulation relation for  them. In order for two computation states to be \emph{saturated bisimilar}, it is required that \emph{i)} they should expose the same barbs, \emph{ii)} whenever one of them moves then the other should reply and arrive at an equivalent state, \emph{iii)} they should be equivalent under all the possible stores.
 Intuitively, barbs are basic observations (i.e., predicates) on the system states; in the case of CCP languages, barbs are represented by the constraint store. In addition, we show a labelled bisimulation to (partially) overcome the need to check the store closure (i.e., item \emph{iii} in the previous paragraph). As a final step, we show that the labelled and unlabelled reduction semantics correspond, and we advance a labelled bisimulation relation.
 
 This paper is a continuation of \cite{festcatuscia}, refining the polyadic formalism in order to define a concurrent constraint language.
@@ -183,14 +183,12 @@ a comparison with other proposals.
 	such that any non-empty finite subset of $A$ has a least upper bound (LUB).
 \end{definition}
 
-%We write 
 The LUB of a (possibly infinite or empty) subset $X \subseteq A$ is denoted $\bigvee X$, and it is clearly unique.
 Should  they exist, $\bigvee A$ and $\bigvee \emptyset$ correspond respectively to the top, denoted as 
 $\top$, and to the bottom, denoted as $\bot$, of the PO.
 
 \comment{\begin{definition}[Compact elements]
 An element $a \in A$ is compact 
-%(or finite) 
 if whenever $a \leq \bigvee Y$ for some $Y \subseteq A$
 there exists a finite subset
 $X \subseteq Y$ such that $a \leq \bigvee X$.
@@ -1364,7 +1362,7 @@ $\gamma \to \langle \exists_x^{ c } \hbox{\tell}(d) \parallel B, \monid \rangle
 \to \langle \exists_x^{ \bot } B, \exists_x (\bot \odiv c) \rangle$.
 %
 Let us further assume that $\exists_x (\bot \odiv c) = \monid$, as it occurs in our example.
-Then, for any possibile move of $B$ we have that 
+Then, for any possible move of $B$ we have that 
 $\langle \exists_x^{ \bot } B, \exists_x (\bot \odiv c) \rangle
 \to \langle \exists_x^{ \bot } C, \exists_x \top \rangle$.
 
