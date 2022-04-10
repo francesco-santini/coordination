@@ -91,7 +91,7 @@
 
 \begin{document}
 
-\title{Soft Concurrent Constraint Programming\\ with Local Variables~\thanks{Research partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''.}
+\title{Soft Concurrent Constraint Programming\\ with Local Variables\thanks{Research partially supported by the MIUR PRIN 2017FTXR7S ``IT-MaTTerS''.}
 }
 
 
@@ -1181,7 +1181,8 @@ It induces an operator $[^y/_x]: \mathcal{E} \rarrow \mathcal{E}$ on extended ag
              (\exists^{(s_{[^z/_w]} \pi)}_z A[^z/_w])[^y/_x] & \text{for } z \not \in fv(\exists^{\pi}_w A) \text{ otherwise}
         \end{cases}$$
 %\end{itemize}
-with $s_{[^y/_x]} [ \pi_1, \ldots, \pi_n ]$ a shorthand for $[s_{[^y/_x]} \pi_1, \ldots, s_{[^y/_x]} \pi_n]$.
+where $s_{[^y/_x]}: {\mathcal C} \rightarrow {\mathcal C}$ is the function associated to $[^y/_x]$ and 
+  $s_{[^y/_x]} [ \pi_1, \ldots, \pi_n ]$ is a shorthand for $[s_{[^y/_x]} \pi_1, \ldots, s_{[^y/_x]} \pi_n]$.
 \end{definition}
 
 Note that the choice of $z$ in the rule above is immaterial, since for the polyadic operator it holds
@@ -1393,7 +1394,7 @@ With respect to the crisp language with local variables introduced in \cite{pipp
 which can be recasted in our framework as absorptive POMs
 where the monoidal operator is idempotent,
 our proposal differs mostly for the structure of rule \mbox{\bf R2}, which could 
-be presented as below
+be presented as shown below
    $$\frac {\displaystyle \langle A, \pi_0 \otimes \sigma \rangle
     \to \langle B, \xi \otimes \pi_0 \otimes \sigma \rangle \text{ with } \pi_0 = \pi_\otimes \odiv (\exists_x \pi)_\otimes}
     {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
@@ -1402,7 +1403,7 @@ be presented as below
 The proposals coincide for e.g. cancellative monoids, since inverses are unique.
 However, this is not so if the monoidal operator is idempotent, thus 
 the crisp rule represents in fact a schema, giving rise to a possibly infinite
-family of reductions departing from an agent. Our choice of a chosen witness 
+family of reductions departing from an agent. Our choice of the witness 
 $\exists_x \sigma_1 \odiv (\pi_0 \otimes \sigma)$ avoids such non-determinism.
 \end{remark}
 
