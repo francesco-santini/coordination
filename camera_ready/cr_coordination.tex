@@ -254,11 +254,11 @@ Conventionally, we denote $\bigotimes \emptyset = \bot$.
 }
 
 \begin{example}[Power set]\label{ex:powerset}
-	Given a (possibly infinite) set $V$ of variables, a key example
-	is represented by the POM $\mathbb{P}(V) = \langle 2^V, \subseteq, \cap, V \rangle$
-	of subsets of $V$, with the partial order given by subset inclusion
+	Given a (possibly infinite) set $S$, a key example
+	is represented by the POM $\mathbb{P}(S) = \langle 2^S, \subseteq, \cap, S \rangle$
+	of subsets of $S$, with the partial order given by subset inclusion
 	and the monoidal operator by intersection. 
-	In fact, $P(V)$ is a continuous lattice, since all LUBSs exists.
+	In fact, $\mathbb{P}(S)$ is a continuous lattice, since all LUBSs exists.
 %	Since the operator is idempotent (i.e., $\forall a\in A.\, a \monop a = a$), 
 %	the natural order ($\forall a, b \in A.\, a \leq b$ iff $a \monop b = b$) 
 %	is a partial order, and 
@@ -391,11 +391,11 @@ In fact, residuation implies distributivity (see~\cite[Lemma 2.2]{ipl17}).
 \end{lemma}
 
 \begin{example}
-Consider again the SLM $\mathbb{P}(V)$ from Example~\ref{ex:powerset}. 
-It is clearly residuated, with $X \odiv Y = (V \setminus Y) \cup X$. In fact, the 
+Consider again the SLM $\mathbb{P}(S)$ from Example~\ref{ex:powerset}. 
+It is clearly residuated, with $X \odiv Y = (S \setminus Y) \cup X$. In fact, the 
 residuated operator plays the role of classical logical implication $Y \implies X$.
-Note also that $V \setminus Y = \emptyset \odiv Y$, so algebraically we have 
-that $X \odiv Y = X \vee (\bot \odiv Y)$ holds in $\mathbb{P}(V)$.
+Note also that $S \setminus Y = \emptyset \odiv Y$, so algebraically we have 
+that $X \odiv Y = X \vee (\bot \odiv Y)$ holds in $\mathbb{P}(S)$.
 \end{example}
 
 In any residuated POM the $\odiv$ operator is also monotone on the first argument and 
@@ -441,6 +441,8 @@ Indeed, this property implies cancellativeness, since if $a \otimes b = a \otime
 then $b = (a \otimes b) \odiv a = (a \otimes c) \odiv a = c$. On the other side,
 it is implied, since 
 $((a \otimes b) \odiv a)\otimes a = a \otimes b$ holds in residuated POMs.
+
+As a final remark, note that $\mathbb{P}(S)$ is localised and invertible, yet it is not cancellative.
 \end{remark}
 
 \comment{
@@ -800,8 +802,8 @@ that $\phi$ is a monoid action of $\mathbb{M}$ on $S$, while the latter states t
 We fix a POM $\mathbb{S} = \langle A, \leq, \monop, \monid \rangle$
 and a set $V$ of variables, and we define a family of cylindric operators axiomatising existential quantifiers.
 
-\begin{definition}[Cylindrification]\label{cyli}
-	A cylindric operator $\exists$ over $\mathbb{S}$ and $V$ is a family of monotone functions
+\begin{definition}[Cylindric ops]\label{cyli}
+	A cylindric operator $\exists$ for $\mathbb{S}$ and $V$ is a family of monotone functions
 	$\exists_x : A \rightarrow A$ indexed by elements in V such that for all 
 	$a, b \in A$ and $x, y \in V$
 	%\todo{$2_f^V$ non e' stato definito prima e/o f non si sa cosa e' qui}
@@ -819,7 +821,7 @@ and a set $V$ of variables, and we define a family of cylindric operators axioma
 \end{definition}
 
 In other words, $\exists$ fixes a monoid action which is monotone and increasing.
-
+%
 %Note that, since by Definition~\ref{pomo} we have $\exists(\emptyset, a) = a$, the requirements of Definition~\ref{cyli} trivially hold 
 %whenever $X$ is the empty set.
 %
@@ -837,7 +839,7 @@ In other words, $\exists$ fixes a monoid action which is monotone and increasing
 %should $\monid$ be the top element. Also, the support is not necessarily finite.
 %Finally, and importantly, note that 
 %$X \cap sv(\exists(X, a)) = \emptyset$.
-
+%
 %\smallskip
 %In the following, we often use $\exists_X a$ for $\exists(X, a)$, and $\exists_x a$ whenever $X = \{x\}$.
 
@@ -846,17 +848,17 @@ We now move to define a family of operators axiomatising substitutions.
 They interact with quantifiers, thus, beside a partially ordered monoid $\mathbb{S}$
 and a set $V$ of variables, we fix a cylindric operator $\exists$ over ${\mathbb S}$ and $V$.
 
-As for notation, $F(V)$ is the set of functions with domain and codomain $V$.
+Let $F(V)$ be the set of functions with domain and codomain $V$.
 For a function $\sigma$ %: V \rightarrow V$ 
-we define its support as $sv(\sigma) = \{x \mid \sigma(x) \neq x\}$
-and, for a set $X \subseteq V$, we denote by 
-$\sigma \mid_{X}: X \rightarrow V$ the restriction of $\sigma$ to $X$
-and by $\sigma^{c}(X) = \{ y \mid \sigma(y) \in X\}$ the counter-image 
+its support is $sv(\sigma) = \{x \mid \sigma(x) \neq x\}$
+and, for a set $X \subseteq V$,
+$\sigma \mid_{X}: X \rightarrow V$ denotes the restriction of $\sigma$ to $X$
+and $\sigma^{c}(X) = \{ y \mid \sigma(y) \in X\}$ the counter-image 
 of $X$ along $\sigma$.
 %~\footnote{We are not going to need the other standard component proposed in the literature , 
 %i.e., \emph{diagonals}: a %family of elements $d_{x, y} \in A$ indexed by pairs of elements in $V$.}
 
-\begin{definition}[Polyadification]
+\begin{definition}[Polyadic ops]
 	\label{def:poly}
 	A polyadic operator $s$ for a cylindric operator $\exists$ is a family of monotone functions 
 	$s_\sigma: A \rightarrow A$
@@ -985,9 +987,9 @@ Furthermore, if $\sigma$ is invertible, then the equality holds.
 
 \subsection{Polyadic Soft Constraints}\label{sec:softconstraints}
 \label{subsec:inst} 
-The key example of polyadic construction comes from soft constraints: 
+Our key example comes from the soft constraints literature: 
 our presentation generalises \cite{scc},
-whose underlying algebraic structure is the one of absorptive semirings.
+whose underlying algebraic structure is of absorptive and idempotent semirings.
 
 \begin{definition}[Soft constraints]\label{def:softconstraints}
 	Let $V$ be a set of variables, $D$ a finite domain of interpretation
@@ -1122,13 +1124,25 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 	and $\exists_x c$ is denoted $c\Downarrow_{V\setminus \{x\}}$.}
 }
 
-For the sake of simplicity, we will use running examples 
-where 
+\begin{example}
+For the sake of simplicity, and to better illustrate the differences of our proposal from~\cite{pippo},
+we will use as a running example
+the SLM of soft constraints where 
 %the SLM $\mathbb{S}$ is the semiring of integers and 
-$D$ is a finite initial segment of the naturals. 
-A constraint can be sometimes simply expressed as an inequation $x \leq 1$, 
-intended as $c\eta = \monid$ if $\eta(x) \leq 1$, and $\bot$ otherwise.
+$D$ is a finite initial segment of the naturals and
+$\mathbb{S}$ is the boolean SLM $\langle \{\bot, \top\}, \implies, \wedge, \top \rangle$,
+which is residuated and invertible.
+Such a SLM coincides with the SLM $\mathbb{P}(F)$, for $F$ the family of functions 
+$V \rightarrow D$.
+%
+We will then usually express one of these constraints as a SAT formula with disequations such as $x \leq 1$, 
+intended as $(x \leq 1)\eta = \top$ if $\eta(x) \leq 1$ and $\bot$ otherwise. The support of $x \leq 1$ is of course $\{x\}$.
+As expected, $\exists_X$ behaves as an existential quantifier, so that 
+$\exists_x (x \leq 1) = \top$ and $\exists_x ((x \leq 1) \wedge  (y \leq 5)) = y \leq 5$.
+Similarly, for a substitution $\sigma$ we have that $s_\sigma(x \leq 1) = \sigma(x) \leq 1$. 
+
 %and we will exploit this fact.
+\end{example}
 
 \section{Polyadic Soft CCP: Syntax and reduction semantics}\label{sec:detpolyadicCCP}
 This section introduces our language.
