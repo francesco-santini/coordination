@@ -257,8 +257,9 @@ Conventionally, we denote $\bigotimes \emptyset = \bot$.
 	Given a (possibly infinite) set $S$, a key example
 	is represented by the POM $\mathbb{P}(S) = \langle 2^S, \subseteq, \cap, S \rangle$
 	of subsets of $S$, with the partial order given by subset inclusion
-	and the monoidal operator by intersection. 
-	In fact, $\mathbb{P}(S)$ is a continuous lattice, since all LUBSs exists.
+	and the (idempotent) monoidal operator by intersection. 
+	In fact, $\mathbb{P}(S)$ is a continuous lattice, since all LUBSs exist,
+	and $S$ is both the top and the identity element.
 %	Since the operator is idempotent (i.e., $\forall a\in A.\, a \monop a = a$), 
 %	the natural order ($\forall a, b \in A.\, a \leq b$ iff $a \monop b = b$) 
 %	is a partial order, and 
@@ -435,7 +436,7 @@ $a \odiv \bot = \top \odiv a = \top$ for any  $a$.
 Note that being cancellative is a strong requirement. It implies e.g. 
 some uniqueness of invertibility, that is, for any $a, b$ there exists 
 at most a $c$ such that $b\otimes c = a$.
-It is moreover equivalent to what we could call strongly locality,
+It is moreover equivalent to what we could call strong locality,
 that is, $\forall a, b \in A. a \not \in \{\bot,\top\} \implies (a \otimes b) \odiv a = b$. 
 Indeed, this property implies cancellativeness, since if $a \otimes b = a \otimes c$ 
 then $b = (a \otimes b) \odiv a = (a \otimes c) \odiv a = c$. On the other side,
@@ -1125,20 +1126,22 @@ $supp(\exists_x c) \subseteq supp({c}) \setminus {x}$.\footnote{The operator
 }
 
 \begin{example}
-For the sake of simplicity, and to better illustrate the differences of our proposal from~\cite{pippo},
-we will use as a running example
+\label{running}
+For the sake of simplicity, and to better illustrate the differences of our proposal with respect to~\cite{pippo},
+our running example will be
 the SLM of soft constraints where 
 %the SLM $\mathbb{S}$ is the semiring of integers and 
 $D$ is a finite initial segment of the naturals and
 $\mathbb{S}$ is the residuated SLM $\langle \{\bot, \top\}, \implies, \wedge, \top \rangle$
-of booleans, which is localised and invertible.
-Such a SLM coincides with the SLM $\mathbb{P}(F)$, for $F$ the family of functions 
-$V \rightarrow D$.
+of booleans,.
+That SLM coincide with the SLM $\mathbb{P}(F)$, for $F$ the family of functions 
+$V \rightarrow D$: it is localised and invertible, and the top and the identity element coincides with $F$, i.e., 
+the constraint $c$ such that $c\eta = \top$ for all $\eta$.
 %
-We will then usually express one of these constraints as a SAT formula with disequations such as $x \leq 1$, 
+We will then usually express a constraint in $\mathbb{P}(F)$ as a SAT formula with inequations like $x \leq 1$, 
 intended as $(x \leq 1)\eta = \top$ if $\eta(x) \leq 1$ and $\bot$ otherwise. The support of $x \leq 1$ is of course $\{x\}$.
 As expected, $\exists_X$ behaves as an existential quantifier, so that 
-$\exists_x (x \leq 1) = \top$ and $\exists_x ((x \leq 1) \wedge  (y \leq 5)) = y \leq 5$.
+$\exists_x (x \leq 1) = \top$ and $\exists_x ((x \leq 1) \wedge  (y \leq 3)) = y \leq 3$.
 Similarly, for a substitution $\sigma$ we have that $s_\sigma(x \leq 1) = \sigma(x) \leq 1$. 
 
 %and we will exploit this fact.
@@ -1221,6 +1224,16 @@ Let $A \in \mathcal{E}$ and $x \not \in fv(A)$. Then $A[^y/_x] = A$.
 %\todo{Gi\`a dimostrato}
 \end{lemma}
 
+\begin{example}
+\label{running2}
+Consider the SLM $\mathbb{P}(F)$ illustrated in Example~\ref{running}.
+We can specify agents such as $\hbox{\ask}(y \leq 5) \mapsto \hbox{\ostop}$, i.e., an agent asking the store about the possible values of $y$, then terminating.
+Or $\exists_x (\hbox{\tell}(x \leq 1) \parallel \hbox{\tell}(y \leq 3))$ with $x \neq y$, meaning that the constraint $x \leq 1$ is local: indeed, thanks to $\alpha$-conversion
+it coincides with $\exists_z (\hbox{\tell}(z \leq 1) \parallel \hbox{\tell}(y \leq 3))$ for any $z \neq y$.
+%
+ As we are going to see, the execution of  $\hbox{\tell}(z \leq 1)$ will take the latter agent to $\exists_z^{[z \leq 1]} \hbox{\tell}(y \leq 3)$,
+which in turn coincides with $\exists_x^{[x \leq 1]} \hbox{\tell}(y \leq 3)$.
+\end{example}
 
 \subsection{Reduction semantics}
 We now move to the reduction semantics of our calculus. 
@@ -1411,6 +1424,22 @@ However, it is the minimal information collapsing the local store, and since the
 necessarily invertible, it is often the best result we can get.
 \end{remark}
 }
+
+\begin{example}
+\label{running3}
+Consider the agents $A_1 = \hbox{\ask}(y \leq 5) \mapsto \hbox{\ostop}$ and $A_2 = \exists_x (\hbox{\tell}(x \leq 1) \parallel \hbox{\tell}(y \leq 3))$ 
+with $x \neq y$ discussed in Example~\ref{running2}, and the configuration $\langle A_1 \parallel A_2, \top \rangle$.
+Starting from the configuration $\langle A_1, \top \rangle$ we have the reductions
+$$\langle A_2, \top \rangle \to \langle \exists_x^{[y \leq 3]} \hbox{\tell}(x \leq 1), y \leq 3 \rangle
+    \to \langle \exists_x^{[y \leq 3, y > 3 \vee x \leq 1]} \hbox{\ostop}, \top \rangle$$
+In both cases first we apply {\bf A1}, then {\bf R1} and finally {\bf R2}. Looking at the application of {\bf R2} to the first 
+reduction, we have that $\pi_\otimes = \top = (\exists_x \pi)_\otimes$, thus $\pi_0 = \top$, $\rho = (y \leq 3) \odiv \top =  y \leq 3 = \exists_x (y \leq 3)$.
+Now, consider the second reduction. In that case we have $\pi_0 = (y \leq 3) \odiv (y \leq 3) =  \top$ and 
+$\rho = ((y \leq 3)\wedge (x \leq 1)) \odiv (y \leq 3) =  y > 3 \vee x  \leq 1$
+and $\exists_x \rho = \top$.
+%
+Note that in both the second and third state the agent $A_1$ could be executed.
+\end{example}
 
 \begin{remark}
 \label{crisp}
@@ -1697,8 +1726,26 @@ Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \pi_0  \otimes \sig
 removing $\alpha$ from the update to be memorised in the local store. However, 
 since $\alpha$ is added to the global store, it will not be necessary to receive it again in the future. 
 
-
 \def\ooodiv{\; {\ominus\hspace{-5.7pt} \div} \;}
+
+\begin{example}
+\label{running4}
+Consider the agent $A = \exists_x (\hbox{\tell}(x \leq 1) \parallel \hbox{\ask}(y \leq 5) \mapsto \hbox{\ostop})$, 
+with the same SLM as in Example~\ref{running3}. We now have the labelled reductions
+$$\langle A, \top \rangle \xrightarrow{\monid} \langle \exists_x^{[x \leq 1]} \hbox{\ask}(y \leq 5) \mapsto \hbox{\ostop}, \top \rangle
+    \xrightarrow{\alpha} \langle \exists_x^{[x \leq 1, x > 1 \vee \alpha]} \hbox{\ostop}, \top \rangle$$
+for every $\alpha \leq (y \leq 5) \odiv (x \leq 1) = (x > 1) \vee (y \leq 5)$ such that $x \not \in sv(\alpha)$.
+Indeed, for the first reduction we first apply {\bf LA1}, then {\bf LR1}, and finally {\bf LR2}, while for the second reduction
+we first apply {\bf LA2} and then {\bf LR2}.
+%
+Looking at the application of {\bf LR2} to the first 
+reduction, we have that $\pi_\otimes = \top = (\exists_x \pi)_\otimes$, thus $\pi_0 = \top$, $\rho = (x \leq 1) \odiv \top =  x \leq 1$ 
+and $\exists_x \rho = \top$.
+%
+Now, consider the second reduction. In that case we have $\pi_0 = (x \leq 1) \odiv \top =  x \leq 1$, 
+$\rho = (\alpha \wedge (x \leq 1)) \odiv (x \leq 1) =  x > 1 \vee \alpha$
+and $\exists_x \rho = \top$.
+\end{example}
 
 \begin{remark}
 Concerning the rule ${\bf LA2}$, 
@@ -1709,21 +1756,20 @@ Concerning the rule ${\bf LA2}$,
 an alternative solution %for the rule 
 would have been to restrict the possible reductions to the one with maximal label, 
 that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \ooodiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
-However, this might have been restrictive in combination with rule ${\bf LR2}$.
-Consider  our running example and the configuration 
-$\langle \exists^{[x > 1]}_x \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, \monid \rangle$. The initial configuration in the premise is
-$\langle \hbox{\ask}(y > 2) \mapsto \hbox{\ostop}, x > 1 \rangle$ and $(y > 3) \odiv (x > 1) = (x \leq 1) \vee (y > 2)$.
-Selecting $\alpha = (x \leq 1) \vee (y > 2)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y > 2)$,
-or any other value such as $y > 3$, $y > 4$, $\ldots$, fits well with the intuition of information  from the environment 
+However, as hinted at in Example~\ref{running4}, this might have been restrictive in combination with rule ${\bf LR2}$.
+Selecting $\alpha = (x > 1) \vee (y \leq 5)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y \leq 5)$,
+or any other value such as $y \leq 4$, $y \leq 3$, $\ldots$, fits the intuition of information  from the environment 
 triggering the reduction.
 
 Note instead that the choice of removing the requirement $x \not \in sv(\alpha)$ and put $\exists_x \alpha$ as label in the 
-conclusion of rule ${\bf LR2}$ would  be too liberal. It would work in our previous example, since 
-$\exists_x((x \leq 1) \vee (y > 3)) = y > 3$. However, consider e.g. 
-the configuration $\gamma = \langle \exists^{[x > 1]}_x \hbox{\ask}(x > 2) \mapsto \hbox{\ostop}, \monid \rangle$. 
-We would have that 
-$\langle \hbox{\ask}(x > 2) \mapsto \hbox{\ostop}, x > 1 \rangle \xrightarrow{x \neq 2} \langle \hbox{\ostop}, x > 2 \rangle$,
-and then allowing the reduction $\gamma \xrightarrow{\monid} \langle \exists^{[x > 1, x \neq 2]}_x \hbox{\ostop}, \monid \rangle$,
+conclusion of rule ${\bf LR2}$ would  be too liberal. Once again, it would be counterintuitive for the previous example,
+since $\exists_x ((x > 1) \vee (y \leq 5)) = \top$. 
+%
+Or consider the configuration $\gamma = \langle \exists^{[x \leq 1]}_x \hbox{\ask}(x = 0) \mapsto \hbox{\ostop}, \top \rangle$. 
+Such a configuration should intuitively be deadlocked. However, we have that 
+%
+$\langle \hbox{\ask}(x = 0) \mapsto \hbox{\ostop}, x \leq 1 \rangle \xrightarrow{\alpha} \langle \hbox{\ostop}, \alpha \wedge x \leq 1 \rangle$
+for $\alpha \leq (x = 0) \odiv (x \leq 1) = (x > 1) \vee (x = 0) = x \neq 1$, thus allowing the reduction $\gamma \xrightarrow{\top} \langle \exists^{[x \leq 1, \alpha \vee x \leq 1]}_x \hbox{\ostop}, \top\rangle$,
 which clashes with the intuition that receiving information should not enable reductions involving (necessarily) 
 the restricted variable.
 \end{remark}
@@ -1793,13 +1839,13 @@ This section shows the connection between labelled and unlabelled reduction sema
 %
 %In the following, we assume that $\C$ in invertible.
 
-\begin{theorem}[Soundness]
+\begin{proposition}[Soundness]
 \label{sound}
 %Let $\langle A, \sigma \rangle$ be an l-reachable configuration and
 If $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$
 then %$\langle A, \alpha \otimes \sigma \rangle$ is a reachable configuration and
 $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
-\end{theorem}
+\end{proposition}
 %\begin{proof}
 %	We proceed by induction and we will prove a slightly stronger proposition, namely, that the two reductions
 %	have equivalent proofs, namely, they use axioms and rules in the same order,
@@ -1833,13 +1879,13 @@ $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
 then it is also l-reachable via a sequence of reductions labelled by $\monid$.
 
-\begin{proposition}
+\begin{lemma}
 \label{idred}
 If %$\langle A, \sigma \rangle$ be a reachable configuration and
 $\langle A, \sigma \rangle \to \langle B, \sigma' \rangle$
 then %$\langle A, \sigma \rangle$ is an l-reachable configuration and
 $\langle A, \sigma \rangle \xrightarrow{\monid}  \langle B, \sigma' \rangle$.
-\end{proposition}
+\end{lemma}
 
 
 	
@@ -1869,18 +1915,18 @@ Also, note that if
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \sigma' \rangle$ is a reduction 
 via the axiom {\bf LA1}, then $\alpha = \1$.
 
-\begin{lemma}[Completeness, I]
+\begin{proposition}[Completeness, I]
 \label{LA1}
 Let $\langle A, \tau \rangle \xrightarrow{\monid} \langle B, \tau' \rangle$ be a reduction 
-via the axiom {\bf LA1}. 
+via the axiom {\bf LA1} for $\tau \not \in \{\bot, \top\}$. 
 If $\C$ is cancellative then 
 %there exists $\xi$
 %such that $\tau' = \xi \otimes \tau$
 %and 
-for every $\sigma$
+for every $\sigma \not \in \{\bot, \top\}$
 $\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \sigma' \rangle$
 and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
-\end{lemma}
+\end{proposition}
 
 
 \comment{
@@ -1898,24 +1944,17 @@ The proof exploits the premise of rule {\bf LA2} together with Lemma~\ref{l-mono
 and the condition $\beta \neq \monid$ is required in the inductive step for rule  {\bf LR2}.
 }
 
-\begin{lemma}[Completeness, II]
+\begin{proposition}[Completeness, II]
 \label{LA2}
 Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction 
-via the axiom {\bf LA2}. If $\C$ is localised then $\tau' = \beta \otimes \tau$
-and for every $\sigma$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
+via the axiom {\bf LA2} $\tau \not \in \{\bot, \top\}$. If $\C$ is localised then $\tau' = \beta \otimes \tau$
+and for every $\sigma \not \in \{\bot, \top\}$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
-\end{lemma}
-
+\end{proposition}
 
 Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible witness. Note however that 
-it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$,
-e.g. if $\sigma = \bot$, in which case $\alpha = \top$.
-
-
-%
-
-
-
+it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$
+if $\sigma = \bot$, in which case $\alpha = \top$.
 
 \subsection{Labelled bisimulation}\label{sec:bisimilarity}
 We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
@@ -1932,7 +1971,8 @@ $( \langle A, \sigma \rangle,\langle B, \rho \rangle) \in R$
 \item if $\langle A, \sigma \rangle \downarrow_c$ then $\langle B, \rho \rangle \downarrow_c$;
 \item if $\langle A, \sigma \rangle \xrightarrow{\alpha} \gamma_1$ then there is $\gamma_2$ such that $\langle B, \alpha \otimes \rho \rangle \to \gamma_2$ 
 and $(\gamma_1, \gamma_2) \in R$;
-\item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d$ such that $\sigma \otimes d \not \leq \sigma$. 
+\item $(\langle A,\sigma \otimes d\rangle, \langle B,\rho \otimes d \rangle) \in R$ for  all $d$ such that $d \not \leq \monid$.
+%$\sigma \otimes d \not \leq \sigma$. 
 \end{enumerate}
 We say that $\gamma_1$ and $\gamma_2$ are  strongly bisimilar ($\gamma_1  \sim \gamma_2$) if there exists a strong  bisimulation 
 $R$ such that $(\gamma_1 , \gamma_2 ) \in R$. We write $A \sim B$ if $\langle A, \monid \rangle \sim \langle B, \monid \rangle$.
