@@ -2109,7 +2109,9 @@ $\sim_{\mathit{s}} \subseteq \sim$. Moreover, if $\mathcal{C}$ is cancellative, 
 \section{Related works}\label{sec:related}
 As it is possible to appreciate from the survey in \cite{emerging}, the literature on CCP languages is quite ample. In the following of this section  we briefly summarise proposals that consider both local and global stores, and information mobility.
 
-One of the most related works is represented by \cite{pippo}. Anyhow, the differences are significant: in that work the underlying constraint system is crisp, as it can only deal with hard constraints (which indeed we can do as well). For this reason, there is no need for defining a \emph{residuated} preference system, which allows us to use bipolar preferences. Furthermore, the authors of \cite{pippo} adopt a cylindric algebra instead of a polyadic one, as introduced in Section~\ref{sec:intro}. Finally, as already noted in Remark~\ref{crisp} in this paper, the use of the local store is different with respect to our approach.
+The work that is most related to ours is represented by \cite{pippo}. Anyhow, the differences are significant: in that work the underlying constraint system is crisp, as it can only deal with hard constraints (which indeed we can do as well). 
+%For this reason, there is no need for defining a \emph{residuated} preference system, which allows us to use bipolar preferences. 
+Furthermore, the authors of \cite{pippo} adopt a cylindric algebra instead of a polyadic one, as introduced in Section~\ref{sec:intro}. Finally, as already noted in Remark~\ref{crisp} in this paper, the use of the local store is different with respect to our approach.
 Since the monoidal operator is idempotent, in \cite{pippo} the semantics 
 of the hiding operator is simply presented as $\langle 
 \exists^{e}_x A, \sigma \rangle \to \langle  \exists^{e'}_x B, \sigma \otimes \exists_x e' \rangle$ if $\langle 
@@ -2131,20 +2133,19 @@ In \cite{catuscia} the authors propose an extension of the CCP language with the
 All the systems described in this section are based on hard constraints, and  they do not consider preferences associated with constraints (except \cite{buscemi}, whose algebraic structure is however less general). In addition, a very few proposals formalise process equivalences by providing a deeper investigation of the semantics.
 
 \section{Conclusions and further works}\label{sec:conclusion}
-With the language we presented in this paper, our goal was to further extend and generalise  the family of CCP-based languages . In fact, \emph{i)}  with respect to crisp languages we can  represent preferences, and thus both hard and soft constraints. Then, \emph{ii)} polyadic operators make it possible  to have a compact – \emph{polynomial} – representation of soft constraints (about this, we point the interested reader to \cite{festcatuscia}), which in turn can be used in several applications, as in hybrid systems, loop invariant generation, and parameter design of control~\cite{smtpolynomial}.  Furthermore, \emph{iii)} the polyadic algebra we adopted takes advantage of a residuated POM which allows preference values to be partially ordered and bipolar, while $\odiv$ permits to easily compute barbs and remove one constraint (store) from another. The use of a non-idempotent constraint combination-operator (i.e., $\otimes$) leaded us to redesign the local stores proposed in \cite{pippo}, in order to add to the global store the information added at each computation step only.
+With the language we presented in this paper, our goal was to further extend and generalise  the family of CCP-based languages . In fact, \emph{i)}  with respect to crisp languages we can  represent preferences, and thus both hard and soft constraints. Then, \emph{ii)} polyadic operators make it possible  to have a compact representation of soft constraints (about this, we point the interested reader to \cite{festcatuscia}), which in turn can be used in several applications, as in hybrid systems, loop invariant generation, and parameter design of control~\cite{smtpolynomial}.  Furthermore, \emph{iii)} the polyadic algebra we adopted takes advantage of a residuated POM which allows any partially ordered set of preference values, while $\odiv$ permits to easily compute barbs and remove one constraint (store) from another. The use of a non idempotent operator $\otimes$ for combining constraints led us to redesign the local stores proposed in \cite{pippo}, to add to the global store the information added at each computation step only.
+
+An important issue we are currently working on is to remove the requirement of cancellativeness on the first completeness result between the reduction semantics, hence in the 
+correspondence between the barbed and strong bisimilarities, 
+as well as to remove the closure of the store with $d \not \leq \monid$ in the definition of strong bisimilarity. Instead, our proposal could be easily extended in order to describe the weak variant of our bisimulation equivalences, which is the main reason why we introduced barbs directly in this paper. 
+Indeed, in such semantics equivalent configurations may have different stores, and barbs were introduced to address this kind of issues~\cite{barbed}.
 
 In the case of ``soft languages'', the removal of constraints can also be partial, while in case of ``crisp  languages'', constraint tokens can only be entirely removed or left in the store. A \emph{retract} operation could also be directly included in the language syntax, in the style of \cite{fun11,buscemi}, even if it is not in the scope of this paper.
 
 For the future, we conceive more applicative extensions of the language we designed: while in this paper we focused on its formal definition, semantics, and process equivalence, we can think of application fields concerning epistemic concepts or process migration from node to node, as some of the proposals in Section~\ref{sec:related} offer.
 
-Moreover, our proposal could be easily extended in order to describe weak bisimulations, which is the main reason why we introduced barbs directly in this paper. 
-Indeed, in such semantics equivalent configurations may have different stores, and barbs were introduced to address this kind of issues~\cite{barbed}.
-
 Separately from the process algebra focus we developed in this paper, we can also think of defining the class of Polynomial \emph{Soft} Constraint Satisfaction Problems (PSCSPs), 
 as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Hence, we can implement polynomial constraint satisfaction as a SMT module where agents can tell constraints and ask for their satisfaction.
-
-
-
 
 
 \bibliographystyle{splncs03}%splncs
