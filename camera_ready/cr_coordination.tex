@@ -1431,7 +1431,7 @@ Consider the agents $A_1 = \hbox{\ask}(y \leq 5) \mapsto \hbox{\ostop}$ and $A_2
 with $x \neq y$ discussed in Example~\ref{running2}, and the configuration $\langle A_1 \parallel A_2, \top \rangle$.
 Starting from the configuration $\langle A_1, \top \rangle$ we have the reductions
 $$\langle A_2, \top \rangle \to \langle \exists_x^{[y \leq 3]} \hbox{\tell}(x \leq 1), y \leq 3 \rangle
-    \to \langle \exists_x^{[y \leq 3, y > 3 \vee x \leq 1]} \hbox{\ostop}, \top \rangle$$
+    \to \langle \exists_x^{[y \leq 3, y > 3 \vee x \leq 1]} \hbox{\ostop}, y \leq 3 \rangle$$
 In both cases first we apply {\bf A1}, then {\bf R1} and finally {\bf R2}. Looking at the application of {\bf R2} to the first 
 reduction, we have that $\pi_\otimes = \top = (\exists_x \pi)_\otimes$, thus $\pi_0 = \top$, $\rho = (y \leq 3) \odiv \top =  y \leq 3 = \exists_x (y \leq 3)$.
 Now, consider the second reduction. In that case we have $\pi_0 = (y \leq 3) \odiv (y \leq 3) =  \top$ and 
