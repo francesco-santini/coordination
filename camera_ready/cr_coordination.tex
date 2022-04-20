@@ -230,7 +230,7 @@ As usual, we use the infix notation: $a \monop b$ stands for $\monop(a,b)$.
 \end{example}
 
 In general, the partial order $\leq$ and the multiplication operator $\otimes$ can be unrelated.
-This is not the case for distributive SLMs (such as $\mathbb{P}(V)$ above).
+This is not the case for distributive SLMs (such as $\mathbb{P}(S)$ above).
 
 \begin{definition}[Distributivity]
 \label{dist}
@@ -535,7 +535,7 @@ is actually equivalent to state that
 $\exists_x(a \monop \exists_x b) \geq \exists_x a \monop \exists_x b$.
 \end{remark}
 
-We can show that $\odiv$ does not substantially alter the free variables of its arguments.
+We can show that $\odiv$ does not substantially  the free variables of its arguments.
 
 \begin{lemma}
 Let $a, b \in A$. Then it holds $sv(a \odiv b) \subseteq sv(a) \cup sv(b)$. 
@@ -681,7 +681,7 @@ This section introduces our language.
 We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
 a residuated POM $\mathbb S = \langle {\mathcal C}, \leq, \otimes, \odiv, \1\rangle$, 
 which is cylindric and polyadic over $V$ and whose elements
-are ranged over by $c$, $d$, $\ldots$
+are ranged over by $c$, $d$, $\ldots$.
 
 \begin{definition}[Agents]%
 The set $\mathcal{A}$ of agents, %which is
@@ -737,7 +737,7 @@ It induces an operator $[^y/_x]: \mathcal{E} \rarrow \mathcal{E}$ on extended ag
              (\exists^{(s_{[^z/_w]} \pi)}_z A[^z/_w])[^y/_x] & \text{for } z \not \in fv(\exists^{\pi}_w A) \text{ otherwise}
         \end{cases}$$
 %\end{itemize}
-where $s_{[^y/_x]}: {\mathcal C} \rightarrow {\mathcal C}$ is the function associated to $[^y/_x]$ and 
+where $s_{[^y/_x]}: {\mathcal C} \rightarrow {\mathcal C}$ is the function associated with $[^y/_x]$ and 
   $s_{[^y/_x]} [ \pi_1, \ldots, \pi_n ]$ is a shorthand for $[s_{[^y/_x]} \pi_1, \ldots, s_{[^y/_x]} \pi_n]$.
 \end{definition}
 
@@ -900,13 +900,13 @@ with $x \neq y$ discussed in Example~\ref{running2}, and the configuration $\lan
 Starting from the configuration $\langle A_1, \top \rangle$ we have the reductions
 $$\langle A_2, \top \rangle \to \langle \exists_x^{[y \leq 3]} \hbox{\tell}(x \leq 1), y \leq 3 \rangle
     \to \langle \exists_x^{[y \leq 3, y > 3 \vee x \leq 1]} \hbox{\ostop}, y \leq 3 \rangle$$
-In both cases first we apply {\bf A1}, then {\bf R1} and finally {\bf R2}. Looking at the application of {\bf R2} to the first 
+In both cases, first we apply {\bf A1}, then {\bf R1} and finally {\bf R2}. Looking at the application of {\bf R2} to the first 
 reduction, we have that $\pi_\otimes = \top = (\exists_x \pi)_\otimes$, thus $\pi_0 = \top$, $\rho = (y \leq 3) \odiv \top =  y \leq 3 = \exists_x (y \leq 3)$.
 Now, consider the second reduction. In that case we have $\pi_0 = (y \leq 3) \odiv (y \leq 3) =  \top$ and 
 $\rho = ((y \leq 3)\wedge (x \leq 1)) \odiv (y \leq 3) =  y > 3 \vee x  \leq 1$
 and $\exists_x \rho = \top$.
 %
-Note that in both the second and third state the agent $A_1$ could be executed.
+Note that in both the second and third state,  agent $A_1$ could be executed.
 \end{example}
 
 \begin{remark}
@@ -1024,10 +1024,10 @@ because of the store closure, i.e., the quantification in condition \emph{3} of
 Definition~\ref{def:strongsb}.
 % and Definition~\ref{def:weaksb}.
 This section presents a labelled version of the reduction semantics that 
-allows to partially 
+allows for partially 
 %will be used to 
 %define a suitable bisimulation that 
-avoid such drawback.
+avoiding such drawback.
 
 \begin{definition}[Labelled reductions]
 	Let $\Gamma = {\mathcal A} \times \C$ be the set of \emph{configurations}.
@@ -1121,8 +1121,8 @@ Once again, the more complex axiom is {\bf LR2}. With respect to {\bf R2}, the a
 $\alpha$ should not contain the restricted variable $x$: additional information can be obtained from the environment,
 as long as it does not interact with data that are private to the local agent.
 %
-Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \pi_0  \otimes \sigma)$ we are 
-removing $\alpha$ from the update to be memorised in the local store. However, 
+Note that by choosing $\rho = \sigma_1 \odiv (\alpha \otimes \pi_0  \otimes \sigma)$, we are 
+removing $\alpha$ from the update  to be memorised in the local store. However, 
 since $\alpha$ is added to the global store, it will not be necessary to receive it again in the future. 
 
 \def\ooodiv{\; {\ominus\hspace{-5.7pt} \div} \;}
@@ -1153,7 +1153,7 @@ Concerning the rule ${\bf LA2}$,
 %
 %More importantly, 
 an alternative solution %for the rule 
-would have been to restrict the possible reductions to the one with maximal label, 
+would have been to restrict the possible reductions to the one with the maximal label, 
 that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \ooodiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
 However, as hinted at in Example~\ref{running4}, this might have been restrictive in combination with rule ${\bf LR2}$.
 Selecting $\alpha = (x > 1) \vee (y \leq 5)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y \leq 5)$,
@@ -1164,8 +1164,8 @@ Note instead that the choice of removing the requirement $x \not \in sv(\alpha)$
 conclusion of rule ${\bf LR2}$ would  be too liberal. Once again, it would be counterintuitive for the previous example,
 since $\exists_x ((x > 1) \vee (y \leq 5)) = \top$. 
 %
-Or consider the configuration $\gamma = \langle \exists^{[x \leq 1]}_x \hbox{\ask}(x = 0) \mapsto \hbox{\ostop}, \top \rangle$. 
-Such a configuration should intuitively be deadlocked. However, we have that 
+Or consider the configuration $\gamma = \langle \exists^{[x \leq 1]}_x \hbox{\ask}(x = 0) \mapsto \hbox{\ostop}, \top \rangle$: 
+such a configuration should intuitively be deadlocked. However, we have that 
 %
 $\langle \hbox{\ask}(x = 0) \mapsto \hbox{\ostop}, x \leq 1 \rangle \xrightarrow{\alpha} \langle \hbox{\ostop}, \alpha \wedge x \leq 1 \rangle$
 for $\alpha \leq (x = 0) \odiv (x \leq 1) = (x > 1) \vee (x = 0) = x \neq 1$, thus allowing the reduction $\gamma \xrightarrow{\top} \langle \exists^{[x \leq 1, \alpha \vee x \leq 1]}_x \hbox{\ostop}, \top\rangle$,
@@ -1241,7 +1241,7 @@ $\langle A, \alpha \otimes \sigma \rangle \to \langle B, \sigma' \rangle$.
 
 
 The theorem above can be easily reversed, saying that if a configuration $\langle A, \sigma \rangle$ is reachable,
-then it is also l-reachable via a sequence of reductions labelled by $\monid$.
+then it is also l-reachable via a sequence of reductions labelled with $\monid$.
 
 \begin{lemma}
 \label{idred}
@@ -1296,7 +1296,7 @@ it might be that $\beta \otimes \tau \not \leq \alpha \otimes \sigma$
 if $\sigma = \bot$, in which case $\alpha = \top$.
 
 \subsection{Labelled bisimulation}\label{sec:bisimilarity}
-We now exploit the labelled reductions in order to define suitable notion of bisimilarity without the upward closure condition.
+We now exploit the labelled reductions in order to define a suitable notion of bisimilarity without the upward closure condition.
 As it occurs with the crisp language~\cite{pippo} and the soft variant with global variables~\cite{festcatuscia}, 
 %and differently from most process calculi~\ref{xxx}, 
 barbs cannot be removed from the 
@@ -1327,7 +1327,7 @@ only whenever the store does not decrease. Note that in some cases, e.g.
 when $\mathcal{C}$ is absorptive (as in  \cite{pippo}), the clause is vacuous. 
 %
 However, thanks to the correspondence results in Section~\ref{sec:corres}, 
-it can be proved upward closed for all $d$, and thus it is also a congruence.
+it can be proved upward-closed for all $d$, and thus it is also a congruence.
 %
 %Recall that a context $C[\cdot]$ is an agent with an placeholder $\cdot$.
 
@@ -1391,7 +1391,7 @@ In the case of ``soft languages'', the removal of constraints can also be partia
 For the future, we conceive more applicative extensions of the language we designed: while in this paper we focused on its formal definition, semantics, and process equivalence, we can think of application fields concerning epistemic concepts or process migration from node to node, as some of the proposals in Section~\ref{sec:related} offer.
 
 Separately from the process algebra focus we developed in this paper, we can also think of defining the class of Polynomial \emph{Soft} Constraint Satisfaction Problems (PSCSPs), 
-as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Hence, we can implement polynomial constraint satisfaction as a SMT module where agents can tell constraints and ask for their satisfaction.
+as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Hence, we can implement polynomial constraint satisfaction as a SMT module, where agents can tell constraints and ask for their satisfaction.
 
 
 \bibliographystyle{splncs03}
