@@ -128,7 +128,7 @@ The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  t
 
 While polyadic algebras are the algebraic version of the pure first-order calculus, cylindric algebras yield an algebraisation of the first-order calculus with \emph{equality}. However, equality can be also achieved in polyadic algebras via additional axioms that specify which terms are to be considered equal under the abstract interpretation.
 
- While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (to perform parameters passing~\cite{popl91} and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
+ While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (used to perform parameters passing~\cite{popl91}, and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
 
 The soft CCP language we present in this paper is a further generalisation of what can be found in the literature, in particular~\cite{pippo} (see also Section~\ref{sec:related}). In particular, it allows for a more general algebraic structure than the absorptive and idempotent monoid used there, and it covers 
 also bipolar (i.e., positive/negative) preferences, thus generalising~\cite{posneg}; secondly, polyadic algebras can %be exploited to 
@@ -219,7 +219,7 @@ As usual, we use the infix notation: $a \monop b$ stands for $\monop(a,b)$.
 	is represented by the POM $\mathbb{P}(S) = \langle 2^S, \subseteq, \cap, S \rangle$
 	of subsets of $S$, with the partial order given by subset inclusion
 	and the (idempotent) monoidal operator by intersection. 
-	In fact, $\mathbb{P}(S)$ is a continuous lattice, since all LUBSs exist,
+	In fact, $\mathbb{P}(S)$ is a continuous lattice, since all LUBs exist,
 	and $S$ is both the top and the identity element.
 %	Since the operator is idempotent (i.e., $\forall a\in A.\, a \monop a = a$), 
 %	the natural order ($\forall a, b \in A.\, a \leq b$ iff $a \monop b = b$) 
@@ -381,7 +381,7 @@ for modelling variables hiding and substitution, which represent
 key features in languages for manipulating constraints.
 %
 One is a well-known abstraction for existential quantifiers,
-the other an axiomatisation of the notion of
+the other one an axiomatisation of the notion of
 substitution, and it is proposed as a weaker  alternative 
 to diagonals~\cite{popl91}, the standard tool for modelling 
 equivalence in constraint programming.\footnote{``Weaker 
