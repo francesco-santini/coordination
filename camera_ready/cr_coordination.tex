@@ -113,8 +113,9 @@ Francesco Santini\inst{2}
 \begin{abstract}
 We extend Soft Concurrent Constraint languages with the possibility to manage variables that are local (i.e., private) to some of the agents. Being  constraints soft,  it is possible to represent preferences as a partially ordered set.
 %and bipolar preferences, that is, preference values that are either positive or negative. 
-With respect to the related literature using an idempotent constraint-composition operator, a soft language requires a revision of the hiding operator, which is used to locally keep the computation effect on a variable, and conceal it from the  global store.
-We provide the language with labelled and unlabelled reduction semantics, as well as the associated bisimulation equivalences and  their correspondence.
+With respect to the related literature using an idempotent operator for constraint composition, a soft language requires a revision of the hiding operator, which is used to locally keep the computation effect on a variable, and conceal it from the  global store.
+We provide the language with labelled and unlabelled reduction semantics as well as bisimulation equivalences,
+further proving their correspondence.
 \end{abstract}
 
 
@@ -1286,7 +1287,7 @@ and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
 \begin{proposition}[Completeness, II]
 \label{LA2}
 Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction 
-via the axiom {\bf LA2} $\tau \not \in \{\bot, \top\}$. If $\C$ is localised then $\tau' = \beta \otimes \tau$
+via the axiom {\bf LA2} for $\tau \not \in \{\bot, \top\}$. If $\C$ is localised then $\tau' = \beta \otimes \tau$
 and for every $\sigma \not \in \{\bot, \top\}$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
 $\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
 \end{proposition}
