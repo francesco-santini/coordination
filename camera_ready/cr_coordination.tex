@@ -98,7 +98,7 @@ and by GNCS-INdAM (``Gruppo Nazionale per il Calcolo Scientifico'').}
 \author{Laura Bussi\inst{1}, Fabio Gadducci\inst{1}, 
 Francesco Santini\inst{2}
 } 
-	\institute{Dipartimento di Informatica, Universit{\`a} degli Studi di Pisa, Pisa, Italy \\
+	\institute{Dipartimento di Informatica, Universit{\`a} di Pisa, Pisa, Italy \\
 		\email{laura.bussi@phd.unipi.it} \qquad
 		\email{fabio.gadducci@unipi.it}
 		\and Dipartimento di Matematica e Informatica, Universit{\`a} degli Studi di Perugia, Perugia, Italy\\
@@ -125,11 +125,11 @@ further proving their correspondence.
 \emph{Concurrent Constraint Programming} (CCP) is a declarative model for concurrency where agents interact on a common store of information by telling and asking constraints~\cite{emerging}.  In general terms, a constraint is a relationship on a set of variables: an assignment of (some of) the variables in the store needs to be found so to satisfy a given goal.  A constraint system provides a signature from which the constraints are built;  it is formalised as an algebra with operators to express conjunction of constraints, absent and inconsistent information, hiding of information and parameter passing.
 
 
-The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  the first-order calculus~\cite{cylalgebraic}, which have been widely  adopted in the literature to provide the semantics of constraint formulas~\cite{fgcs92,popl91}. A cylindric algebra is formed by enhancing a Boolean algebra by means of a family of unary operations called \emph{cylindrifications}. Technically, the cylindrification operation $\exists_S(c)$ is used to project out the information about a set of variables $S$ from a constraint $c$: it is important to focus only on  the variables that appear in the goal of a constraint logic program, for example.
+The \emph{polyadic}  and  \emph{cylindric algebras} are two algebraisation of  the first-order calculus~\cite{cylalgebraic}, which have been widely  adopted in the literature to provide the semantics of constraint formulas~\cite{fgcs92,popl91}. A cylindric algebra is formed by enhancing a Boolean algebra by means of a family of unary operations called \emph{cylindrifications}. Technically, the cylindrification operation $\exists_x(c)$ is used to project out the information about a variable $x$ from a constraint $c$: for example, because it is important to focus only on  the variables that appear in the goal of a constraint logic program.
 
 While polyadic algebras are the algebraic version of the pure first-order calculus, cylindric algebras yield an algebraisation of the first-order calculus with \emph{equality}. However, equality can be also achieved in polyadic algebras via additional axioms that specify which terms are to be considered equal under the abstract interpretation.
 
- While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (used to perform parameters passing~\cite{popl91}, and still borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
+ While most of the solutions in the literature adopt a cylindric algebra to represent constraints~\cite{popl91}, other proposals take advantage of polyadic algebras: in \cite{fgcs92} the motivation is to allow projections on infinite sets, while in  \cite{festcatuscia} replacing diagonals (used to perform parameters passing~\cite{popl91}, borrowed from cylindric algebras) with polyadic operators allows for a compact – \emph{polynomial} – representation of soft constraints.  Moreover, in case it is necessary to use preferences beside hard constraints, i.e. \emph{Soft Concurrent Constraint Programming} (SCCP)~\cite{jacm97,jlamp17}, algebra operators interact with a residuated monoid structure of values~\cite{ipl17}: while the semi-lattice of such preferences must be complete for cylindric algebras,  it is not necessary so for polyadic ones~\cite{festcatuscia}.
 
 The soft CCP language we present in this paper is a further generalisation of what can be found in the literature, in particular~\cite{pippo} (see also Section~\ref{sec:related}). In particular, it allows for a more general algebraic structure than the absorptive and idempotent monoid used there, and it covers 
 also bipolar (i.e., positive/negative) preferences, thus generalising~\cite{posneg}; secondly, polyadic algebras can %be exploited to 
@@ -145,7 +145,7 @@ This paper is a continuation of \cite{festcatuscia}, exploiting the polyadic for
 %The work is organised as follows:
 Section~\ref{sec:bg}  
 and Section~\ref{sec:newconstraint} present the necessary background on the algebraic structure needed to model polyadic constraints. 
-The following sections are focused on the semantics we can give to a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on  equivalence relations among processes.
+The following sections are focused on the semantics of a concurrent constraint-based language using local variables and polyadic constraints, on the correspondence between different semantics, and on the equivalence relations among processes.
 Section~\ref{sec:detpolyadicCCP} presents the syntax and a  reduction semantics for the language, while Section~\ref{sec:labelled} presents a labelled reduction for the same language.
 Section~\ref{sec:correspondancebis} shows further formal results on the correspondence between the two semantics, and a bisimilarity relation to compare processes with the labelled semantics. 
 %Section~\ref{sec:example} shows a an example of an agent computation related to.\todo{Da finire}
@@ -260,7 +260,7 @@ Note that distributivity implies that $\otimes$ is monotone with respect to $\le
 	If $\monid$ is the top of the SL we end up 
 	in \emph{absorptive} semirings~\cite{golanShort}, 
 	which are known as $c$-semirings 
-	in the soft constraint jargon~\cite{jacm97} (see e.g.~\cite{ecai06} for a brief survey on residuation 
+	in the soft constraint jargon~\cite{jacm97} (see~\cite{ecai06} for a brief survey on residuation 
 	for such semirings).
 	Note that requiring the monotonicity of $\otimes$ and imposing $\monid$ to be the top of the partial order
 	means that preferences are negative, i.e., 
@@ -378,7 +378,7 @@ further elaborating on the laws for the polyadic operators in residuated monoids
 We  introduce two families of operators 
 %(cylindric and polyadic ones) 
 that will be used
-for modelling variables hiding and substitution, which represent
+for modelling variables hiding and substitution, which are
 key features in languages for manipulating constraints.
 %
 One is a well-known abstraction for existential quantifiers,
@@ -531,7 +531,7 @@ Then it holds
 
 \begin{remark}
 \label{remdiv}
-It is clear that $\exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b$
+It is easy to check that $\exists_x(a \odiv \exists_x b) \leq \exists_x a \odiv \exists_x b$
 is actually equivalent to state that
 $\exists_x(a \monop \exists_x b) \geq \exists_x a \monop \exists_x b$.
 \end{remark}
@@ -662,8 +662,8 @@ our running example will be
 the SLM of soft constraints where 
 %the SLM $\mathbb{S}$ is the semiring of integers and 
 $D$ is a finite initial segment of the naturals and
-$\mathbb{S}$ is the residuated SLM $\langle \{\bot, \top\}, \implies, \wedge, \top \rangle$
-of booleans,.
+$\mathbb{S}$ is the residuated SLM $\langle \{\bot, \top\},  \{\bot \leq \top\}, \wedge, \top \rangle$
+of booleans.
 That SLM coincide with the SLM $\mathbb{P}(F)$, for $F$ the family of functions 
 $V \rightarrow D$: it is localised and invertible, and the top and the identity element coincides with $F$, i.e., 
 the constraint $c$ such that $c\eta = \top$ for all $\eta$.
@@ -682,7 +682,7 @@ This section introduces our language.
 We fix a set of variables $V$, ranged over by $x$, $y$, $\ldots$, and 
 a residuated POM $\mathbb S = \langle {\mathcal C}, \leq, \otimes, \odiv, \1\rangle$, 
 which is cylindric and polyadic over $V$ and whose elements
-are ranged over by $c$, $d$, $\ldots$.
+are ranged over by $c$, $d$, $\ldots$
 
 \begin{definition}[Agents]%
 The set $\mathcal{A}$ of agents, %which is
@@ -693,7 +693,7 @@ p(x) \mid \exists_x A\]
 %for $\pi \in {\mathcal C}^\ast$ a (possibly empty) sequence of elements.
 \end{definition}
 
-Hence, the syntax includes a termination agent $\mathit{\ostop}$, and the two typical operations in CCP languages~\cite{popl91}: \textit{\tell}(c) adds the
+Hence, the syntax includes a termination agent $\mathit{\ostop}$, and the two typical operations of CCP languages~\cite{popl91}: \textit{\tell}(c) adds the
 constraint $c$ to a common store through which all agents interact, and $\textit{\ask}(c) \mapsto A$ continues as agent $A$ only when $c$ is entailed by 
 such a store (otherwise its execution is suspended). The other operators respectively express the parallel composition between two agents 
 (i.e., $A \parallel A$), the hiding of a variable $x$ in the computation of $A$ ($\exists_x A$), and, finally, the calling of a procedure $p \in \mathcal{P}$ 
@@ -898,7 +898,7 @@ Then $\rho = (\rho \odiv \sigma) \otimes \sigma$ and $fv(\langle B, \rho \rangle
 \label{running3}
 Consider the agents $A_1 = \hbox{\ask}(y \leq 5) \mapsto \hbox{\ostop}$ and $A_2 = \exists_x (\hbox{\tell}(x \leq 1) \parallel \hbox{\tell}(y \leq 3))$ 
 with $x \neq y$ discussed in Example~\ref{running2}, and the configuration $\langle A_1 \parallel A_2, \top \rangle$.
-Starting from the configuration $\langle A_1, \top \rangle$ we have the reductions
+Starting from the configuration $\langle A_2, \top \rangle$ we have the reductions
 $$\langle A_2, \top \rangle \to \langle \exists_x^{[y \leq 3]} \hbox{\tell}(x \leq 1), y \leq 3 \rangle
     \to \langle \exists_x^{[y \leq 3, y > 3 \vee x \leq 1]} \hbox{\ostop}, y \leq 3 \rangle$$
 In both cases, first we apply {\bf A1}, then {\bf R1} and finally {\bf R2}. Looking at the application of {\bf R2} to the first 
@@ -922,7 +922,7 @@ be presented as shown below
     {\displaystyle\langle \exists^{\pi}_x A,\sigma\rangle \to \langle 
     \exists^{\pi \xi}_x B, \sigma \otimes \exists_x \xi
     \rangle} \text{ for } x \not \in sv(\sigma)$$
-The proposals coincide for e.g. cancellative monoids, since inverses are unique.
+The proposals coincide for cancellative monoids, since inverses are unique.
 However, this is not so if the monoidal operator is idempotent, thus 
 the crisp rule represents in fact a schema, giving rise to a possibly infinite
 family of reductions departing from an agent. Our choice of the witness 
@@ -1113,7 +1113,7 @@ from $\langle A, \sigma\rangle$  to $\langle A', \sigma' \rangle$.
 % i.e., $\langle A, \sigma \otimes \alpha\rangle \longrightarrow \langle A' , \sigma' \rangle$.
 
 For the rules in Table~\ref{fig:ALTS}, as well as for rule {\bf  LR1}, we can restate the intuition given for their unlabelled counterparts. 
-The difference concerns the axioms for the $\hbox{\ask}(c)$: if $c$ is not entailed from $\sigma$, then
+The difference concerns the axioms for $\hbox{\ask}(c)$: if $c$ is not entailed from $\sigma$, then
 some additional information  is imported from the environment, ensuring that the state
 $\alpha \otimes \sigma \leq c$ allows the execution of $\hbox{\ask}(c)$.
 
@@ -1134,7 +1134,7 @@ Consider the agent $A = \exists_x (\hbox{\tell}(x \leq 1) \parallel \hbox{\ask}(
 with the same SLM as in Example~\ref{running3}. We now have the labelled reductions
 $$\langle A, \top \rangle \xrightarrow{\monid} \langle \exists_x^{[x \leq 1]} \hbox{\ask}(y \leq 5) \mapsto \hbox{\ostop}, \top \rangle
     \xrightarrow{\alpha} \langle \exists_x^{[x \leq 1, x > 1 \vee \alpha]} \hbox{\ostop}, \top \rangle$$
-for every $\alpha \leq (y \leq 5) \odiv (x \leq 1) = (x > 1) \vee (y \leq 5)$ such that $x \not \in sv(\alpha)$.
+for every $\alpha \leq (y \leq 5) \odiv (x \leq 1) = (x > 1) \vee (y \leq 5)$ such that $x \not \in sv(\alpha)$, e.g., $y \leq 5$.
 Indeed, for the first reduction we first apply {\bf LA1}, then {\bf LR1}, and finally {\bf LR2}, while for the second reduction
 we first apply {\bf LA2} and then {\bf LR2}.
 %
@@ -1157,7 +1157,7 @@ an alternative solution %for the rule
 would have been to restrict the possible reductions to the one with the maximal label, 
 that is, $\langle \hbox{\ask}(c) \mapsto A, \sigma \rangle \xrightarrow{c \ooodiv \sigma} \langle A, (c \odiv \sigma) \otimes \sigma \rangle$. 
 However, as hinted at in Example~\ref{running4}, this might have been restrictive in combination with rule ${\bf LR2}$.
-Selecting $\alpha = (x > 1) \vee (y \leq 5)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = (y \leq 5)$,
+Selecting $\alpha = (x > 1) \vee (y \leq 5)$ is problematic, since $x$ occurs free. Instead, the choice of $\alpha = y \leq 5$,
 or any other value such as $y \leq 4$, $y \leq 3$, $\ldots$, fits the intuition of information  from the environment 
 triggering the reduction.
 
@@ -1225,7 +1225,7 @@ $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes
 
 
 \section{Semantics correspondence and labelled bisimilarity}\label{sec:correspondancebis}
-We collect further formal results in two different subsections: Section~\ref{sec:corres} proves the correspondence between the two unlabelled and labelled semantics, while Section~\ref{sec:bisimilarity} proposes a bisimilarity reduction for the labelled  semantics.
+We collect further formal results in two different subsections: Section~\ref{sec:corres} proves the correspondence between the unlabelled and the labelled semantics, while Section~\ref{sec:bisimilarity} proposes a bisimilarity reduction for the labelled  semantics.
 
 \subsection{On the correspondence between reduction semantics}
 \label{sec:corres}
@@ -1276,9 +1276,9 @@ If $\C$ is cancellative then
 %there exists $\xi$
 %such that $\tau' = \xi \otimes \tau$
 %and 
-for every $\sigma \not \in \{\bot, \top\}$
 $\langle A, \sigma \rangle \xrightarrow{\monid} \langle B, \sigma' \rangle$
-and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
+and $\tau' \odiv \tau = \sigma' \odiv \sigma$
+for every $\sigma \not \in \{\bot, \top\}$.
 \end{proposition}
 
 
@@ -1288,8 +1288,9 @@ and $\tau' \odiv \tau = \sigma' \odiv \sigma$.
 \label{LA2}
 Let $\langle A, \tau \rangle \xrightarrow{\beta} \langle B, \tau' \rangle$ be a reduction 
 via the axiom {\bf LA2} for $\tau \not \in \{\bot, \top\}$. If $\C$ is localised then $\tau' = \beta \otimes \tau$
-and for every $\sigma \not \in \{\bot, \top\}$ if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
-$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$.
+and if $\alpha \leq (\beta \otimes \tau) \odiv \sigma$ then
+$\langle A, \sigma \rangle \xrightarrow{\alpha} \langle B, \alpha \otimes \sigma \rangle$
+for every $\sigma \not \in \{\bot, \top\}$.
 \end{proposition}
 
 Clearly $\alpha = (\beta \otimes \tau) \odiv \sigma$ is a possible witness. Note however that 
@@ -1298,7 +1299,7 @@ if $\sigma = \bot$, in which case $\alpha = \top$.
 
 \subsection{Labelled bisimulation}\label{sec:bisimilarity}
 We now exploit the labelled reductions in order to define a suitable notion of bisimilarity without the upward closure condition.
-As it occurs with the crisp language~\cite{pippo} and the soft variant with global variables~\cite{festcatuscia}, 
+As it occurs with the crisp language~\cite{pippo} and the soft variant with global variables~\cite{jlamp17}, 
 %and differently from most process calculi~\ref{xxx}, 
 barbs cannot be removed from the 
 definition of bisimilarity because they cannot be inferred by the reductions.
@@ -1395,7 +1396,7 @@ Separately from the process algebra focus we developed in this paper, we can als
 as accomplished in \cite{pcsp09} with crisp constraints, in order to achieve a similar generalisation with respect to CSPs. Hence, we can implement polynomial constraint satisfaction as a SMT module, where agents can tell constraints and ask for their satisfaction.
 
 
-\bibliographystyle{splncs03}
+\bibliographystyle{splncs04}
 \bibliography{main,softccp}
 
 
