@@ -535,7 +535,7 @@ is actually equivalent to state that
 $\exists_x(a \monop \exists_x b) \geq \exists_x a \monop \exists_x b$.
 \end{remark}
 
-We can show that $\odiv$ does not substantially  the free variables of its arguments.
+We can show that $\odiv$ does not substantially alter the free variables of its arguments.
 
 \begin{lemma}
 Let $a, b \in A$. Then it holds $sv(a \odiv b) \subseteq sv(a) \cup sv(b)$. 
@@ -865,7 +865,7 @@ Axiom {\bf A3} replaces a procedure identifier with the associated body, renamin
 
 Let us instead discuss in some details the rule {\bf R2}.
 The intuition is that if we reach an agent $\langle \exists^{\pi}_x A,\sigma\rangle$, then during the computation
-a sequence $\pi$ of updates has been performed by the local agent and $(\exists_x \pi)_\otimes$ 
+a sequence $\pi$ of updates has been performed by the local agent, and $(\exists_x \pi)_\otimes$ 
 has been added to the global store. 
 %In order to evaluate $A$, 
 The chosen store for the configuration in the premise is 
@@ -1224,7 +1224,7 @@ $\sigma = (\sigma \odiv (\exists_x \pi)_\otimes) \otimes (\exists_x \pi)_\otimes
 
 
 \section{Semantics correspondence and labelled bisimilarity}\label{sec:correspondancebis}
-We collect further formal results in two different subsections: Section~\ref{sec:corres} proves the correspondence between the two unlabelled and labelled semantics, while Section~\ref{sec:bisimilarity} propose a bisimilarity reduction for the labelled  semantics.
+We collect further formal results in two different subsections: Section~\ref{sec:corres} proves the correspondence between the two unlabelled and labelled semantics, while Section~\ref{sec:bisimilarity} proposes a bisimilarity reduction for the labelled  semantics.
 
 \subsection{On the correspondence between reduction semantics}
 \label{sec:corres}
